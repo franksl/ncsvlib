@@ -1,0 +1,1 @@
+Server=localhost;Database=csvtest;Uid=csvuser;Pwd=csv;
