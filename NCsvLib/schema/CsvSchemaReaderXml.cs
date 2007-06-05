@@ -30,9 +30,9 @@ namespace NCsvLib
       Rdr.ReadStartElement("ncsvlib");
       while (Rdr.Read())
       {
-        if (Rdr.IsStartElement("record"))
+        if (Rdr.IsStartElement("field"))
         {
-          sch.Add(ReadRecord());
+          sch.Add(ReadField());
         }
       }
       Rdr.Close();
@@ -40,7 +40,7 @@ namespace NCsvLib
     }
 
 
-    private CsvSchemaField ReadRecord()
+    private CsvSchemaField ReadField()
     {
       CsvSchemaField rec;
       string s;

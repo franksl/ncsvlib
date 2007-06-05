@@ -13,7 +13,7 @@ namespace NCsvLibTestSuite
     [Test]
     public void GetSchema()
     {
-      CsvSchemaReaderXml rdr = new CsvSchemaReaderXml("../../schematest.xml");
+      CsvSchemaReaderXml rdr = new CsvSchemaReaderXml("schematest.xml");
       CsvSchema sch = rdr.GetSchema();
       Assert.That(sch.Count, Is.EqualTo(5));
       //intfld

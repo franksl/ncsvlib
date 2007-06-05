@@ -20,7 +20,7 @@ namespace NCsvLibTestSuite
     public void SetUp()
     {
       string s = string.Empty;
-      using (StreamReader sr = new StreamReader("../../dbconnstrtest.txt"))
+      using (StreamReader sr = new StreamReader("dbconnstrtest.txt"))
       {
         s = sr.ReadLine();
         sr.Close();

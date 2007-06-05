@@ -58,8 +58,8 @@ namespace NCsvLib
       else if (sch.FldType == CsvFieldType.String)
         s = fld.Value.ToString();
       else 
-        throw new NCsvLibOutputException("Tipo dati schema non supportato");
-      //Crea a stringbuilder with correct size
+        throw new NCsvLibOutputException("Schema data type not supported");
+      //Creates a stringbuilder with correct size
       if (sch.AddQuotes)
         sz = 2;
       if (sch.FixedLen)
