@@ -6,25 +6,25 @@ using System.IO;
 
 namespace NCsvLib
 {
-  public class CsvSchemaReaderXml : ICsvSchemaReader
+  public class SchemaReaderXml : ISchemaReader
   {
     public string FileName;
     private XmlReader Rdr;
 
-    private CsvSchemaReaderXml()
+    private SchemaReaderXml()
     {
     }
 
-    public CsvSchemaReaderXml(string file_name)
+    public SchemaReaderXml(string file_name)
     {
       if (!File.Exists(file_name))
         throw new NCsvLibSchemaException("Xml schema file not found");
       FileName = file_name;
     }
 
-    public CsvSchema GetSchema()
+    public Schema GetSchema()
     {
-      CsvSchema sch = new CsvSchema();
+      Schema sch = new Schema();
       
       Rdr = XmlReader.Create(FileName);
       Rdr.ReadStartElement("ncsvlib");
@@ -40,12 +40,12 @@ namespace NCsvLib
     }
 
 
-    private CsvSchemaField ReadField()
+    private SchemaField ReadField()
     {
-      CsvSchemaField rec;
+      SchemaField rec;
       string s;
 
-      rec = new CsvSchemaField();
+      rec = new SchemaField();
       rec.Name = Rdr.GetAttribute("name");
       s = Rdr.GetAttribute("type");
       if (s != null)

@@ -8,8 +8,8 @@ namespace NCsvLib
   {
     IDataSourceReader InputRdr;
     ICsvWriter OutWriter;
-    ICsvSchemaReader SchemaRdr;
-    CsvSchema Schema;
+    ISchemaReader SchemaRdr;
+    Schema Schema;
 
     public CsvWriterController()
     {
@@ -32,7 +32,7 @@ namespace NCsvLib
       InputRdr.Open();
       while (InputRdr.Read())
       {
-        foreach (CsvSchemaField sc in Schema)
+        foreach (SchemaField sc in Schema)
         {
           if (sc.HasFixedValue)
             infld = null;

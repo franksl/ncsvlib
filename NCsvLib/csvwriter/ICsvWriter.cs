@@ -11,7 +11,7 @@ namespace NCsvLib
     /// </summary>
     /// <param name="fld">Field containing the value to be written</param>
     /// <param name="sch"></param>
-    void WriteField(InputField fld, CsvSchemaField sch);
+    void WriteField(InputField fld, SchemaField sch);
     /// <summary>
     /// Writes the field separator
     /// </summary>

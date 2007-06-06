@@ -38,13 +38,14 @@
     <Compile Include="csvwriter\DbDataSourceReader.cs" />
     <Compile Include="commons\Exceptions.cs" />
     <Compile Include="csvwriter\DataSourceField.cs" />
-    <Compile Include="schema\CsvSchema.cs" />
-    <Compile Include="schema\CsvSchemaReaderXml.cs" />
-    <Compile Include="schema\CsvSchemaField.cs" />
     <Compile Include="csvwriter\IDataSourceReader.cs" />
-    <Compile Include="schema\ICsvSchemaReader.cs" />
     <Compile Include="csvwriter\ICsvWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="schema\ISchemaReader.cs" />
+    <Compile Include="schema\Schema.cs" />
+    <Compile Include="schema\SchemaField.cs" />
+    <Compile Include="schema\SchemaReaderXml.cs" />
+    <Compile Include="schema\SchemaRecord.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="csvreader\" />

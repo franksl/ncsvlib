@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NCsvLib
 {
-  public class CsvSchemaField
+  public class SchemaField
   {
     private string _Name;
     /// <summary>

@@ -4,8 +4,7 @@ using System.Text;
 
 namespace NCsvLib
 {
-  interface ICsvSchemaReader
+  public class SchemaRecord
   {
-    CsvSchema GetSchema();
   }
 }

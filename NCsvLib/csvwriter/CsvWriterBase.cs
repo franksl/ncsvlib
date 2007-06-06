@@ -40,7 +40,7 @@ namespace NCsvLib
     /// <param name="fld"></param>
     /// <param name="sch"></param>
     /// <returns></returns>
-    protected virtual string PrepareField(InputField fld, CsvSchemaField sch)
+    protected virtual string PrepareField(InputField fld, SchemaField sch)
     {
       //If field has fixed value returns the fixed value immediately
       if (sch.HasFixedValue)
@@ -72,7 +72,7 @@ namespace NCsvLib
       return sb.ToString();
     }
 
-    public abstract void WriteField(InputField fld, CsvSchemaField sch);
+    public abstract void WriteField(InputField fld, SchemaField sch);
     public abstract void WriteSeparator();
     public abstract void WriteEol();
   }
