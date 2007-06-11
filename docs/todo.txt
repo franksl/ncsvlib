@@ -1,0 +1,14 @@
+Schema:
+- prevedere campi con valore fisso
+- formattazione numeri senza virgole? (es. homebanking, importi vanno espressi in centesimi)
+- importi riempiti di zeri (prevedere carattere di riempimento spazi? sì)
+- Gestione record di testa, record movimenti, record di coda
+- Aggiungere allo schema le proprietà separator, eol e quotes (forse meglio di no, vengono considerate proprietà del writer)
+- Gestire encoding
+- xml: racchiudere i tag field in un tag "record" (inizio di gestione di più tipologie di record). Il tag record deve avere un id (string)
+- Valutare l'utilizzo di XPath nel reader xml
+
+- Interfaccia InputReader: nell'apertura connessione passare l'id del record, in modo da riconoscere quale tipo di 'dataset' da aprire
+- Aggiungere a <record> un attributo "repeat" per indicare che il record viene ripetuto o no. Gestire la sequenza nello schema dei vari records
+- DbDataSourceReader: in conseguenza dell'aggiunta dell'id record a Open() si potrebbe passare al costruttore una hashtable con elementi id_record -> stringa_sql al costruttore, ed eseguire la query richiesta in base all'id fornito
+- Supporto stringhe con linee multiple (vedi articoli sul csv per info sul formato)
