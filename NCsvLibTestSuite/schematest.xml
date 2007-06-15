@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ncsvlib>
+  <options>
+    <fieldseparator usedefault="false"><![CDATA[|]]></fieldseparator>
+    <eol usedefault="true"></eol>
+    <quotes usedefault="false"><![CDATA["]]></quotes>
+  </options>
   <field name="intfld" type="int" format="0" alignment="right" fixedlen="true" size="5" addquotes="false" />
   <field name="strfld" type="string" format="" alignment="left" fixedlen="true" size="20" addquotes="true" />
   <field name="doublefld" type="double" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="false" />

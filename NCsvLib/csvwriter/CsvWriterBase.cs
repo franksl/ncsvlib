@@ -6,32 +6,9 @@ namespace NCsvLib
 {
   public abstract class CsvWriterBase : ICsvWriter
   {
-    private string _Separator;
-    public string Separator
-    {
-      get { return _Separator; }
-      set { _Separator = value; }
-    }
-
-    private string _Eol;
-    public string Eol
-    {
-      get { return _Eol; }
-      set { _Eol = value; }
-    }
-
-    private char _Quotes;
-    public char Quotes
-    {
-      get { return _Quotes; }
-      set { _Quotes = value; }
-    }
-
     public CsvWriterBase()
     {
-      _Separator = "|";
-      _Eol = Environment.NewLine;
-      _Quotes = '"';
+      
     }
 
     /// <summary>
@@ -73,7 +50,7 @@ namespace NCsvLib
     }
 
     public abstract void WriteField(InputField fld, SchemaField sch);
-    public abstract void WriteSeparator();
-    public abstract void WriteEol();
+    public abstract void WriteSeparator(string sep);
+    public abstract void WriteEol(string sEol);
   }
 }

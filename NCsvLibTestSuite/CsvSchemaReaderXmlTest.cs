@@ -15,6 +15,11 @@ namespace NCsvLibTestSuite
     {
       SchemaReaderXml rdr = new SchemaReaderXml("schematest.xml");
       Schema sch = rdr.GetSchema();
+      //options
+      Assert.That(sch.Options.FieldSeparator, Is.EqualTo("|"));
+      Assert.That(sch.Options.Eol, Is.EqualTo(Environment.NewLine));
+      Assert.That(sch.Options.Quotes, Is.EqualTo("\""));
+      //fields
       Assert.That(sch.Count, Is.EqualTo(5));
       //intfld
       Assert.That(sch[0].Name, Is.EqualTo("intfld"));

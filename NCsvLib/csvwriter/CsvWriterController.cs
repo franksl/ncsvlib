@@ -9,7 +9,7 @@ namespace NCsvLib
     IDataSourceReader InputRdr;
     ICsvWriter OutWriter;
     ISchemaReader SchemaRdr;
-    Schema Schema;
+    Schema Sch;
 
     public CsvWriterController()
     {
@@ -28,20 +28,20 @@ namespace NCsvLib
         throw new NCsvLibControllerException("Schema reader not specified");
 
       InputField infld;
-      Schema = SchemaRdr.GetSchema();
+      Sch = SchemaRdr.GetSchema();
       InputRdr.Open();
       while (InputRdr.Read())
       {
-        foreach (SchemaField sc in Schema)
+        foreach (SchemaField sc in Sch)
         {
           if (sc.HasFixedValue)
             infld = null;
           else
             infld = InputRdr.GetField(sc.Name);
           OutWriter.WriteField(infld, sc);
-          OutWriter.WriteSeparator();
+          OutWriter.WriteSeparator(Sch.Options.FieldSeparator);
         }
-        OutWriter.WriteEol();
+        OutWriter.WriteEol(Sch.Options.Eol);
       }
     }
   }

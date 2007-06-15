@@ -15,10 +15,10 @@ namespace NCsvLib
     /// <summary>
     /// Writes the field separator
     /// </summary>
-    void WriteSeparator();
+    void WriteSeparator(string sep);
     /// <summary>
     /// Writes the end of line character(s)
     /// </summary>
-    void WriteEol();
+    void WriteEol(string sEol);
   }
 }

@@ -30,7 +30,31 @@ namespace NCsvLib
       Rdr.ReadStartElement("ncsvlib");
       while (Rdr.Read())
       {
-        if (Rdr.IsStartElement("field"))
+        if (Rdr.IsStartElement("fieldseparator"))
+        {
+          if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          {
+            sch.Options.FieldSeparator = Rdr.ReadContentAsString();
+          }
+          Rdr.ReadEndElement();
+        }
+        else if (Rdr.IsStartElement("eol"))
+        {
+          if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          {
+            sch.Options.Eol = Rdr.ReadContentAsString();
+          }
+          Rdr.ReadEndElement();
+        }
+        else if (Rdr.IsStartElement("quotes"))
+        {
+          if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          {
+            sch.Options.Quotes = Rdr.ReadContentAsString();
+          }
+          Rdr.ReadEndElement();
+        }
+        else if (Rdr.IsStartElement("field"))
         {
           sch.Add(ReadField());
         }
@@ -127,6 +151,11 @@ namespace NCsvLib
       }
       rec.FixedValue = Rdr.GetAttribute("fixedvalue");
       return rec;
+    }
+
+    private void ReadOptions(Schema sch)
+    {
+
     }
   }
 }
