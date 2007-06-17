@@ -34,25 +34,22 @@ namespace NCsvLib
         {
           if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
           {
-            sch.Options.FieldSeparator = Rdr.ReadContentAsString();
+            sch.Options.FieldSeparator = Rdr.ReadElementContentAsString();
           }
-          Rdr.ReadEndElement();
         }
         else if (Rdr.IsStartElement("eol"))
         {
           if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
           {
-            sch.Options.Eol = Rdr.ReadContentAsString();
+            sch.Options.Eol = Rdr.ReadElementContentAsString();
           }
-          Rdr.ReadEndElement();
         }
         else if (Rdr.IsStartElement("quotes"))
         {
           if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
           {
-            sch.Options.Quotes = Rdr.ReadContentAsString();
+            sch.Options.Quotes = Rdr.ReadElementContentAsString();
           }
-          Rdr.ReadEndElement();
         }
         else if (Rdr.IsStartElement("field"))
         {
@@ -77,16 +74,16 @@ namespace NCsvLib
       switch (s)
       {
         case "int":
-          rec.FldType = CsvFieldType.Int;
+          rec.FldType = SchemaFieldType.Int;
           break;
         case "string":
-          rec.FldType = CsvFieldType.String;
+          rec.FldType = SchemaFieldType.String;
           break;
         case "double":
-          rec.FldType = CsvFieldType.Double;
+          rec.FldType = SchemaFieldType.Double;
           break;
         case "decimal":
-          rec.FldType = CsvFieldType.Decimal;
+          rec.FldType = SchemaFieldType.Decimal;
           break;
       }
       rec.Format = Rdr.GetAttribute("format");
@@ -97,10 +94,10 @@ namespace NCsvLib
       {
         case "left":
         case null:
-          rec.Alignment = CsvValueAlignment.Left;
+          rec.Alignment = SchemaValueAlignment.Left;
           break;
         case "right":
-          rec.Alignment = CsvValueAlignment.Right;
+          rec.Alignment = SchemaValueAlignment.Right;
           break;
       }
       s = Rdr.GetAttribute("fixedlen");

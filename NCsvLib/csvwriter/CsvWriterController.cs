@@ -6,42 +6,79 @@ namespace NCsvLib
 {
   public class CsvWriterController
   {
-    IDataSourceReader InputRdr;
-    ICsvOutputWriter OutWriter;
-    ISchemaReader SchemaRdr;
-    Schema Sch;
+    private IDataSourceReader _InputRdr;
+    public IDataSourceReader InputRdr
+    {
+      get { return _InputRdr; }
+      set { _InputRdr = value; }
+    }
+    private ICsvOutputWriter _OutWriter;
+    public ICsvOutputWriter OutWriter
+    {
+      get { return _OutWriter; }
+      set { _OutWriter = value; }
+    }
+    private ISchemaReader _SchemaRdr;
+    public ISchemaReader SchemaRdr
+    {
+      get { return _SchemaRdr; }
+      set { _SchemaRdr = value; }
+    }
+    private Schema _Sch;
 
     public CsvWriterController()
     {
-      InputRdr = null;
-      OutWriter = null;
-      SchemaRdr = null;
+      _InputRdr = null;
+      _OutWriter = null;
+      _SchemaRdr = null;
     }
 
     public void Execute()
     {
-      if (InputRdr == null)
+      if (_InputRdr == null)
         throw new NCsvLibControllerException("Input reader not specified");
-      if (OutWriter == null)
-        throw new NCsvLibControllerException("Output writer not specified");
-      if (SchemaRdr == null)
+      if (_OutWriter == null)
+        throw new NCsvLibControllerException("Output writer not specified");      
+      if (_SchemaRdr == null)
         throw new NCsvLibControllerException("Schema reader not specified");
-
+      
       InputField infld;
-      Sch = SchemaRdr.GetSchema();
-      InputRdr.Open();
-      while (InputRdr.Read())
-      {
-        foreach (SchemaField sc in Sch)
+      try
+      {        
+        _Sch = _SchemaRdr.GetSchema();
+        //If the output writer derives from CsvOutputWriterBase sets the options
+        if (_OutWriter is CsvOutputWriterBase)
         {
-          if (sc.HasFixedValue)
-            infld = null;
-          else
-            infld = InputRdr.GetField(sc.Name);
-          OutWriter.WriteField(infld, sc);
-          OutWriter.WriteSeparator(Sch.Options.FieldSeparator);
+          ((CsvOutputWriterBase)_OutWriter).Enc = _Sch.Options.Enc;
+          ((CsvOutputWriterBase)_OutWriter).Quotes = _Sch.Options.Quotes;
         }
-        OutWriter.WriteEol(Sch.Options.Eol);
+        _InputRdr.Open();
+        _OutWriter.Open();
+
+        while (_InputRdr.Read())
+        {
+          foreach (SchemaField sc in _Sch)
+          {
+            if (sc.HasFixedValue)
+              infld = null;
+            else
+              infld = _InputRdr.GetField(sc.Name);
+            _OutWriter.WriteField(infld, sc);
+            _OutWriter.WriteSeparator(_Sch.Options.FieldSeparator);
+          }
+          _OutWriter.WriteEol(_Sch.Options.Eol);
+        }
+      }
+      catch (Exception Ex)
+      {
+        throw new NCsvLibControllerException(Ex.Message);
+      }
+      finally
+      {
+        if (_InputRdr != null)
+          _InputRdr.Close();
+        if (_OutWriter != null)
+          _OutWriter.Close();
       }
     }
   }

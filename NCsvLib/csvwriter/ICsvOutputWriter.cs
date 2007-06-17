@@ -4,8 +4,16 @@ using System.Text;
 
 namespace NCsvLib
 {
-  interface ICsvOutputWriter
+  public interface ICsvOutputWriter
   {
+    /// <summary>
+    /// Opens the output writer
+    /// </summary>
+    void Open();
+    /// <summary>
+    /// Closes the output writer
+    /// </summary>
+    void Close();
     /// <summary>
     /// Writes fld to the output stream
     /// </summary>

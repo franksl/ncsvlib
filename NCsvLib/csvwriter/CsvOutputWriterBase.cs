@@ -6,6 +6,20 @@ namespace NCsvLib
 {
   public abstract class CsvOutputWriterBase : ICsvOutputWriter
   {
+    protected Encoding _Enc;
+    public Encoding Enc
+    {
+      get { return _Enc; }
+      set { _Enc = value; }
+    }
+
+    protected string _Quotes;
+    public string Quotes
+    {
+      get { return _Quotes; }
+      set { _Quotes = value; }
+    }
+
     public CsvOutputWriterBase()
     {
       
@@ -26,17 +40,18 @@ namespace NCsvLib
       string s = string.Empty;
       int sz = 0;
       //Converts value to string
-      if (sch.FldType == CsvFieldType.Decimal)
+      if (sch.FldType == SchemaFieldType.Decimal)
         s = ((decimal)fld.Value).ToString(sch.Format);
-      else if (sch.FldType == CsvFieldType.Double)
+      else if (sch.FldType == SchemaFieldType.Double)
         s = ((double)fld.Value).ToString(sch.Format);
-      else if (sch.FldType == CsvFieldType.Int)
+      else if (sch.FldType == SchemaFieldType.Int)
         s = ((int)fld.Value).ToString(sch.Format);
-      else if (sch.FldType == CsvFieldType.String)
+      else if (sch.FldType == SchemaFieldType.String)
         s = fld.Value.ToString();
       else 
         throw new NCsvLibOutputException("Schema data type not supported");
       //Creates a stringbuilder with correct size
+      //TODO To be improved
       if (sch.AddQuotes)
         sz = 2;
       if (sch.FixedLen)
@@ -44,11 +59,56 @@ namespace NCsvLib
       else
         sz += s.Length;
       StringBuilder sb = new StringBuilder(sz);
+      //Veririfies if quotes are specified, otherwise use a space
+      char qt;
+      if (_Quotes.Length > 0)
+        qt = _Quotes[0];
+      else
+        qt = ' ';
       //Writes the value based on alignment
-      
+      if (sch.Alignment == SchemaValueAlignment.Left)
+      {
+        int i = 0, j=0;
+        //TODO Quotes is now single char, add possibility for it to be more than one char
+        if (sch.AddQuotes)
+        {
+          sb.Append(qt);
+          i++;
+        }
+        for (; i < sz; i++)
+        {
+          if (j < s.Length)
+            sb.Append(s[j++]);
+          else if (i == (sz - 1) && sch.AddQuotes)
+            sb.Append(qt);
+          else
+            sb.Append(' ');
+        }
+      }
+      else if (sch.Alignment == SchemaValueAlignment.Right)
+      {
+        int i = 0, j = 0;
+        int txtlen = sch.AddQuotes ? s.Length + 1 : s.Length;
+        if (sch.AddQuotes)
+        {
+          sb.Append(qt);
+          i++;
+        }
+        for (; i < sz; i++)
+        {
+          if (i < (sz - txtlen))
+            sb.Append(' ');
+          else if (j < s.Length)
+            sb.Append(s[j++]);
+          else
+            sb.Append(qt);
+        }
+      }
       return sb.ToString();
     }
 
+    public abstract void Open();
+    public abstract void Close();
     public abstract void WriteField(InputField fld, SchemaField sch);
     public abstract void WriteSeparator(string sep);
     public abstract void WriteEol(string sEol);

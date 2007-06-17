@@ -6,7 +6,6 @@ using NCsvLib;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using System.IO;
-using MySql.Data.MySqlClient;
 
 namespace NCsvLibTestSuite
 {
@@ -14,20 +13,13 @@ namespace NCsvLibTestSuite
   public class DbInputReaderTest
   {
     DbConnection Conn;
-    private readonly string qry = "SELECT * FROM csvtest1";
+    private static readonly string _Qry = "SELECT * FROM csvtest1";
+    
 
     [SetUp]
     public void SetUp()
     {
-      string s = string.Empty;
-      using (StreamReader sr = new StreamReader("dbconnstrtest.txt"))
-      {
-        s = sr.ReadLine();
-        sr.Close();
-      }
-      if (s == string.Empty)
-        throw new Exception("Error while reading connection string");
-      Conn = new MySqlConnection(s);
+      Conn = Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName);
     }
 
     [TearDown]
@@ -40,7 +32,7 @@ namespace NCsvLibTestSuite
     [Test]
     public void OpenClose()
     {
-      DataSourceReaderDb rdr = new DataSourceReaderDb(Conn, qry);
+      DataSourceReaderDb rdr = new DataSourceReaderDb(Conn, _Qry);
       rdr.Open();
       rdr.Close();
     }
@@ -49,7 +41,7 @@ namespace NCsvLibTestSuite
     public void Read()
     {
       bool b;
-      DataSourceReaderDb rdr = new DataSourceReaderDb(Conn, qry);
+      DataSourceReaderDb rdr = new DataSourceReaderDb(Conn, _Qry);
       rdr.Open();
       b = rdr.Read();
       Assert.That(b, Is.True);
@@ -67,7 +59,7 @@ namespace NCsvLibTestSuite
     [Test]
     public void GetField()
     {
-      DataSourceReaderDb rdr = new DataSourceReaderDb(Conn, qry);
+      DataSourceReaderDb rdr = new DataSourceReaderDb(Conn, _Qry);
       InputField fld;
       rdr.Open();
       rdr.Read();

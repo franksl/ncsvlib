@@ -16,11 +16,11 @@ namespace NCsvLib
       set { _Name = value; }
     }
 
-    private CsvFieldType _FldType;
+    private SchemaFieldType _FldType;
     /// <summary>
     /// Data type of field value
     /// </summary>
-    public CsvFieldType FldType
+    public SchemaFieldType FldType
     {
       get { return _FldType; }
       set { _FldType = value; }
@@ -36,11 +36,11 @@ namespace NCsvLib
       set { _Format = value; }
     }
 
-    private CsvValueAlignment _Alignment;
+    private SchemaValueAlignment _Alignment;
     /// <summary>
     /// Text alignment applied to the output value
     /// </summary>
-    public CsvValueAlignment Alignment
+    public SchemaValueAlignment Alignment
     {
       get { return _Alignment; }
       set { _Alignment = value; }
@@ -58,7 +58,7 @@ namespace NCsvLib
 
     private int _Size;
     /// <summary>
-    /// Field size (only for fixed size fields)
+    /// Field size, excluding quotes (only for fixed size fields)
     /// </summary>
     public int Size
     {
@@ -98,13 +98,13 @@ namespace NCsvLib
     }
   }
 
-  public enum CsvValueAlignment
+  public enum SchemaValueAlignment
   {
     Left = 1,
     Right = 2
   }
 
-  public enum CsvFieldType
+  public enum SchemaFieldType
   {
     Int,
     String,

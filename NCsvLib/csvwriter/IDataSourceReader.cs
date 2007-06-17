@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NCsvLib
 {
-  interface IDataSourceReader
+  public interface IDataSourceReader
   {
     /// <summary>
     /// Opens a 'connection' with the data source and positions itself before the
