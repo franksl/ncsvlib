@@ -48,6 +48,9 @@
     <Compile Include="schema\SchemaRecord.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="docs\todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="csvreader\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
