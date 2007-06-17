@@ -4,9 +4,9 @@ using System.Text;
 
 namespace NCsvLib
 {
-  public abstract class CsvWriterBase : ICsvWriter
+  public abstract class CsvOutputWriterBase : ICsvOutputWriter
   {
-    public CsvWriterBase()
+    public CsvOutputWriterBase()
     {
       
     }

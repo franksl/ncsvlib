@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NCsvLib
 {
-  interface ICsvWriter
+  interface ICsvOutputWriter
   {
     /// <summary>
     /// Writes fld to the output stream

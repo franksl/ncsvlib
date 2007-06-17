@@ -7,7 +7,7 @@ namespace NCsvLib
   public class CsvWriterController
   {
     IDataSourceReader InputRdr;
-    ICsvWriter OutWriter;
+    ICsvOutputWriter OutWriter;
     ISchemaReader SchemaRdr;
     Schema Sch;
 

@@ -6,7 +6,7 @@ Schema:
 - importi riempiti di zeri (prevedere carattere di riempimento spazi? sì)
 - Gestione record di testa, record movimenti, record di coda
 - Aggiungere allo schema le proprietà separator, eol e quotes (forse meglio di no, vengono considerate proprietà del writer)
-- Gestire encoding
+- Handle encoding of input and output (add an <encoding> schema option)
 - xml: racchiudere i tag field in un tag "record" (inizio di gestione di più tipologie di record). Il tag record deve avere un id (string)
 - Valutare l'utilizzo di XPath nel reader xml
 

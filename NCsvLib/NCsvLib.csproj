@@ -33,13 +33,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="csvwriter\CsvOutputWriterBase.cs" />
     <Compile Include="csvwriter\CsvWriterController.cs" />
-    <Compile Include="csvwriter\CsvWriterBase.cs" />
     <Compile Include="csvwriter\DbDataSourceReader.cs" />
     <Compile Include="commons\Exceptions.cs" />
     <Compile Include="csvwriter\DataSourceField.cs" />
+    <Compile Include="csvwriter\ICsvOutputWriter.cs" />
     <Compile Include="csvwriter\IDataSourceReader.cs" />
-    <Compile Include="csvwriter\ICsvWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="schema\ISchemaReader.cs" />
     <Compile Include="schema\Schema.cs" />
