@@ -5,13 +5,13 @@ using System.Data.Common;
 
 namespace NCsvLib
 {
-  public class DbDataSourceReader : IDataSourceReader
+  public class DataSourceReaderDb : IDataSourceReader
   {
     private DbConnection Conn;
     private DbCommand Cmd;
     private DbDataReader Rdr;
 
-    public DbDataSourceReader(DbConnection ref_conn, string command_text)
+    public DataSourceReaderDb(DbConnection ref_conn, string command_text)
     {
       Conn = ref_conn;
       Cmd = Conn.CreateCommand();

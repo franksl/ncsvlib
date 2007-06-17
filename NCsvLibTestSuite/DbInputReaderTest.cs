@@ -40,7 +40,7 @@ namespace NCsvLibTestSuite
     [Test]
     public void OpenClose()
     {
-      DbDataSourceReader rdr = new DbDataSourceReader(Conn, qry);
+      DataSourceReaderDb rdr = new DataSourceReaderDb(Conn, qry);
       rdr.Open();
       rdr.Close();
     }
@@ -49,7 +49,7 @@ namespace NCsvLibTestSuite
     public void Read()
     {
       bool b;
-      DbDataSourceReader rdr = new DbDataSourceReader(Conn, qry);
+      DataSourceReaderDb rdr = new DataSourceReaderDb(Conn, qry);
       rdr.Open();
       b = rdr.Read();
       Assert.That(b, Is.True);
@@ -67,7 +67,7 @@ namespace NCsvLibTestSuite
     [Test]
     public void GetField()
     {
-      DbDataSourceReader rdr = new DbDataSourceReader(Conn, qry);
+      DataSourceReaderDb rdr = new DataSourceReaderDb(Conn, qry);
       InputField fld;
       rdr.Open();
       rdr.Read();
