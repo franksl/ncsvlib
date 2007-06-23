@@ -28,39 +28,119 @@ namespace NCsvLib
       
       Rdr = XmlReader.Create(FileName);
       Rdr.ReadStartElement("ncsvlib");
-      while (Rdr.Read())
+      try
       {
-        if (Rdr.IsStartElement("fieldseparator"))
+        while (Rdr.Read())
         {
-          if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          //TODO: move options in ReadOptions
+          //Options
+          if (Rdr.IsStartElement("fieldseparator"))
           {
-            sch.Options.FieldSeparator = Rdr.ReadElementContentAsString();
+            if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+            {
+              sch.Options.FieldSeparator = Rdr.ReadElementContentAsString();
+            }
           }
-        }
-        else if (Rdr.IsStartElement("eol"))
-        {
-          if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          else if (Rdr.IsStartElement("eol"))
           {
-            sch.Options.Eol = Rdr.ReadElementContentAsString();
+            if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+            {
+              sch.Options.Eol = Rdr.ReadElementContentAsString();
+            }
           }
-        }
-        else if (Rdr.IsStartElement("quotes"))
-        {
-          if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          else if (Rdr.IsStartElement("quotes"))
           {
-            sch.Options.Quotes = Rdr.ReadElementContentAsString();
+            if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+            {
+              sch.Options.Quotes = Rdr.ReadElementContentAsString();
+            }
           }
-        }
-        else if (Rdr.IsStartElement("field"))
-        {
-          sch.Add(ReadField());
+          else if (Rdr.IsStartElement("schema"))
+          {
+            ReadRecords(sch);
+          }
         }
       }
-      Rdr.Close();
+      finally
+      {
+        Rdr.Close();
+      }
       return sch;
     }
 
+    private SchemaRecordBase ReadRecords(Schema sch)
+    {
+      SchemaRecordBase rec = null;
+      Stack<SchemaRecordComposite> stk = new Stack<SchemaRecordComposite>();
 
+      while (Rdr.Read() && Rdr.MoveToContent() != XmlNodeType.EndElement &&
+            Rdr.Name != "schema")
+      {
+        if (Rdr.IsStartElement("recordgroup"))
+        {
+          rec = new SchemaRecordComposite();
+          //rec.Id = Rdr.GetAttribute("id");
+          stk.Push((SchemaRecordComposite)rec);
+          ReadRecordGroup(stk);
+          sch.Add(rec);
+        }
+        else if (Rdr.IsStartElement("record"))
+        {
+          SchemaRecord r = new SchemaRecord();
+          ReadRecord(r);
+          sch.Add(r);
+        }
+      }
+      if (Rdr.MoveToContent() == XmlNodeType.EndElement && Rdr.Name == "schema")
+        Rdr.ReadEndElement();
+      return rec;
+    }
+
+    private void ReadRecordGroup(Stack<SchemaRecordComposite> stk)
+    {
+      SchemaRecordComposite comp = stk.Peek();
+      comp.Id = Rdr.GetAttribute("id");
+      if (comp.Id == null || comp.Id.Trim() == string.Empty)
+        throw new NCsvLibSchemaException("id not specified in recordgroup");
+      while (Rdr.Read() && Rdr.MoveToContent() != XmlNodeType.EndElement &&
+            Rdr.Name != "recordgroup")
+      {
+        if (Rdr.IsStartElement("record"))
+        {
+          SchemaRecord r = new SchemaRecord();          
+          ReadRecord(r);
+          stk.Peek().Add(r);
+        }
+        else if (Rdr.IsStartElement("recordgroup"))
+        {
+          comp = new SchemaRecordComposite();
+          stk.Peek().Add(comp);
+          stk.Push(comp);
+          ReadRecordGroup(stk);
+        }
+      }
+      if (Rdr.MoveToContent() == XmlNodeType.EndElement && Rdr.Name == "recordgroup")
+        Rdr.ReadEndElement();
+      stk.Pop();
+    }
+
+    private void ReadRecord(SchemaRecord rec)
+    {
+      rec.Id = Rdr.GetAttribute("id");
+      if (rec.Id == null || rec.Id.Trim() == string.Empty)
+        throw new NCsvLibSchemaException("id not specified in record");
+      while (Rdr.Read() && Rdr.MoveToContent() != XmlNodeType.EndElement &&
+            Rdr.Name != "record")
+      {      
+        if (Rdr.IsStartElement("field"))
+        {
+          rec.AddField(ReadField());
+        }
+      }
+      if (Rdr.NodeType == XmlNodeType.EndElement && Rdr.Name == "record")
+        Rdr.ReadEndElement();
+    }
+    
     private SchemaField ReadField()
     {
       SchemaField rec;

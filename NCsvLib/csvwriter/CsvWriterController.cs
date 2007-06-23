@@ -42,7 +42,6 @@ namespace NCsvLib
       if (_SchemaRdr == null)
         throw new NCsvLibControllerException("Schema reader not specified");
       
-      InputField infld;
       try
       {        
         _Sch = _SchemaRdr.GetSchema();
@@ -52,22 +51,11 @@ namespace NCsvLib
           ((CsvOutputWriterBase)_OutWriter).Enc = _Sch.Options.Enc;
           ((CsvOutputWriterBase)_OutWriter).Quotes = _Sch.Options.Quotes;
         }
-        _InputRdr.Open();
+                
         _OutWriter.Open();
-
-        while (_InputRdr.Read())
-        {
-          foreach (SchemaField sc in _Sch)
-          {
-            if (sc.HasFixedValue)
-              infld = null;
-            else
-              infld = _InputRdr.GetField(sc.Name);
-            _OutWriter.WriteField(infld, sc);
-            _OutWriter.WriteSeparator(_Sch.Options.FieldSeparator);
-          }
-          _OutWriter.WriteEol(_Sch.Options.Eol);
-        }
+        SchemaRecordBase.ExecuteMethodDelegate em = null;
+        em += new SchemaRecordBase.ExecuteMethodDelegate(this.ExecuteRecordMethod);
+        _Sch.Execute(em);       
       }
       catch (Exception Ex)
       {
@@ -75,10 +63,40 @@ namespace NCsvLib
       }
       finally
       {
-        if (_InputRdr != null)
-          _InputRdr.Close();
+        //if (_InputRdr != null)
+        //  _InputRdr.Close();
         if (_OutWriter != null)
           _OutWriter.Close();
+      }
+    }
+
+    public void ExecuteRecordMethod(SchemaRecordBase rec)
+    {
+      if (!(rec is SchemaRecord))
+        return;
+      SchemaRecord r = (SchemaRecord)rec;
+      DataSourceField infld;
+
+      _InputRdr.Open(r.Id);
+      try
+      {
+        while (_InputRdr.Read(r.Id)) //TODO Implement repeat here!!
+        {
+          for (int i = 0; i < r.Count; i++)
+          {
+            if (r[i].HasFixedValue)
+              infld = null;
+            else
+              infld = _InputRdr.GetField(r.Id, r[i].Name);
+            _OutWriter.WriteField(infld, r[i]);
+            _OutWriter.WriteSeparator(_Sch.Options.FieldSeparator);
+          }
+          _OutWriter.WriteEol(_Sch.Options.Eol);
+        }
+      }
+      finally
+      {
+        _InputRdr.Close(r.Id);
       }
     }
   }

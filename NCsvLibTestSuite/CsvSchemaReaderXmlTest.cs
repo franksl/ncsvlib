@@ -13,31 +13,53 @@ namespace NCsvLibTestSuite
     [Test]
     public void GetSchema()
     {
+      SchemaRecord rec;
+      SchemaRecordComposite comp;
       SchemaReaderXml rdr = new SchemaReaderXml(Helpers.SchFileName);
       Schema sch = rdr.GetSchema();
+      Assert.That(sch.Count, Is.EqualTo(2));
+
       //options
       Assert.That(sch.Options.FieldSeparator, Is.EqualTo("|"));
       Assert.That(sch.Options.Eol, Is.EqualTo(Environment.NewLine));
       Assert.That(sch.Options.Quotes, Is.EqualTo("\""));
-      //fields
-      Assert.That(sch.Count, Is.EqualTo(5));
+      
+      //*** First record
+      Assert.That(sch[0], Is.TypeOf(typeof(SchemaRecord)));
+      rec = (SchemaRecord)sch[0];
+      Assert.That(rec.Count, Is.EqualTo(5));
+      Assert.That(rec.Id, Is.EqualTo("R1"));
       //intfld
-      Assert.That(sch[0].Name, Is.EqualTo("intfld"));
-      Assert.That(sch[0].AddQuotes, Is.False);
-      Assert.That(sch[0].FldType, Is.EqualTo(SchemaFieldType.Int));
+      Assert.That(rec[0].Name, Is.EqualTo("intfld"));
+      Assert.That(rec[0].AddQuotes, Is.False);
+      Assert.That(rec[0].FldType, Is.EqualTo(SchemaFieldType.Int));
       //strfld
-      Assert.That(sch[1].Name, Is.EqualTo("strfld"));
-      Assert.That(sch[1].AddQuotes, Is.True);
-      Assert.That(sch[1].FldType, Is.EqualTo(SchemaFieldType.String));
+      Assert.That(rec[1].Name, Is.EqualTo("strfld"));
+      Assert.That(rec[1].AddQuotes, Is.True);
+      Assert.That(rec[1].FldType, Is.EqualTo(SchemaFieldType.String));
       //doublefld
-      Assert.That(sch[2].Name, Is.EqualTo("doublefld"));
-      Assert.That(sch[2].FldType, Is.EqualTo(SchemaFieldType.Double));
+      Assert.That(rec[2].Name, Is.EqualTo("doublefld"));
+      Assert.That(rec[2].FldType, Is.EqualTo(SchemaFieldType.Double));
       //decimalfld
-      Assert.That(sch[3].Name, Is.EqualTo("decimalfld"));
-      Assert.That(sch[3].FldType, Is.EqualTo(SchemaFieldType.Decimal));
+      Assert.That(rec[3].Name, Is.EqualTo("decimalfld"));
+      Assert.That(rec[3].FldType, Is.EqualTo(SchemaFieldType.Decimal));
       //fixedfld
-      Assert.That(sch[4].HasFixedValue, Is.True);
-      Assert.That(sch[4].FixedValue, Is.EqualTo("AAA"));
+      Assert.That(rec[4].Name, Is.EqualTo("fixedfld"));
+      Assert.That(rec[4].HasFixedValue, Is.True);
+      Assert.That(rec[4].FixedValue, Is.EqualTo("AAA"));
+
+      //*** Second record (group RG1)
+      Assert.That(sch[1], Is.TypeOf(typeof(SchemaRecordComposite)));
+      comp = (SchemaRecordComposite)sch[1];
+      Assert.That(comp.Count, Is.EqualTo(1));
+      Assert.That(comp[0], Is.TypeOf(typeof(SchemaRecord)));
+      //record R2
+      rec = (SchemaRecord)comp[0];
+      Assert.That(rec.Count, Is.EqualTo(1));
+      //fixedr2
+      Assert.That(rec[0].Name, Is.EqualTo("fixedr2"));
+      Assert.That(rec[0].HasFixedValue, Is.True);
+      Assert.That(rec[0].FixedValue, Is.EqualTo("FLDR2"));
     }
   }
 }

@@ -5,9 +5,18 @@
     <eol usedefault="true"></eol>
     <quotes usedefault="false"><![CDATA["]]></quotes>
   </options>
-  <field name="intfld" type="int" format="0" alignment="right" fixedlen="true" size="5" addquotes="false" />
-  <field name="strfld" type="string" format="" alignment="left" fixedlen="true" size="20" addquotes="true" />
-  <field name="doublefld" type="double" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="false" />
-  <field name="decimalfld" type="decimal" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="true" />
-  <field name="fixedfld" hasfixedvalue="true" fixedvalue="AAA" />
+  <schema>
+    <record id="R1">
+      <field name="intfld" type="int" format="0" alignment="right" fixedlen="true" size="5" addquotes="false" />
+      <field name="strfld" type="string" format="" alignment="left" fixedlen="true" size="20" addquotes="true" />
+      <field name="doublefld" type="double" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="false" />
+      <field name="decimalfld" type="decimal" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="true" />
+      <field name="fixedfld" hasfixedvalue="true" fixedvalue="AAA" />
+    </record>
+    <recordgroup id="RG1">
+      <record id="R2">
+        <field name="fixedr2" hasfixedvalue="true" fixedvalue="FLDR2" />
+      </record>
+    </recordgroup>
+  </schema>
 </ncsvlib>

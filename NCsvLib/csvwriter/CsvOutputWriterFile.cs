@@ -26,7 +26,7 @@ namespace NCsvLib
       _Sw.Close();
     }
 
-    public override void WriteField(InputField fld, SchemaField sch)
+    public override void WriteField(DataSourceField fld, SchemaField sch)
     {
       string s = PrepareField(fld, sch);
       if (s != string.Empty)

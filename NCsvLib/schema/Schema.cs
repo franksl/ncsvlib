@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NCsvLib
 {
-  public class Schema : List<SchemaField>
+  public class Schema : SchemaRecordComposite
   {
     public SchemaOptions Options;
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NCsvLib
 {
-  public class InputField
+  public class DataSourceField
   {
     private string _Name;
     public string Name

@@ -47,6 +47,8 @@
     <Compile Include="schema\SchemaField.cs" />
     <Compile Include="schema\SchemaReaderXml.cs" />
     <Compile Include="schema\SchemaRecord.cs" />
+    <Compile Include="schema\SchemaRecordBase.cs" />
+    <Compile Include="schema\SchemaRecordComposite.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="docs\todo.txt" />
