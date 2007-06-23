@@ -55,11 +55,19 @@ namespace NCsvLibTestSuite
       Assert.That(comp[0], Is.TypeOf(typeof(SchemaRecord)));
       //record R2
       rec = (SchemaRecord)comp[0];
-      Assert.That(rec.Count, Is.EqualTo(1));
+      Assert.That(rec.Count, Is.EqualTo(3));
       //fixedr2
       Assert.That(rec[0].Name, Is.EqualTo("fixedr2"));
       Assert.That(rec[0].HasFixedValue, Is.True);
       Assert.That(rec[0].FixedValue, Is.EqualTo("FLDR2"));
+      //intr2
+      Assert.That(rec[1].Name, Is.EqualTo("intr2"));
+      Assert.That(rec[1].AddQuotes, Is.False);
+      Assert.That(rec[1].FldType, Is.EqualTo(SchemaFieldType.Int));
+      //strr2
+      Assert.That(rec[2].Name, Is.EqualTo("strr2"));
+      Assert.That(rec[2].AddQuotes, Is.True);
+      Assert.That(rec[2].FldType, Is.EqualTo(SchemaFieldType.String));
     }
   }
 }

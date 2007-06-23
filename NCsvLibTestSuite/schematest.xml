@@ -16,6 +16,8 @@
     <recordgroup id="RG1">
       <record id="R2">
         <field name="fixedr2" hasfixedvalue="true" fixedvalue="FLDR2" />
+        <field name="intr2" type="int" format="0" alignment="right" fixedlen="false" />
+        <field name="strr2" type="string" format="" alignment="right" fixedlen="true" size="20" addquotes="true" />
       </record>
     </recordgroup>
   </schema>

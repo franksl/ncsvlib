@@ -3,7 +3,6 @@ Schema:
   - aggiungere opzione per carattere da usare come decimal separator (e thousand separator)?
   - aggiungere operazioni elementari? (es. moltiplica per 100) (complesso)
 - importi riempiti di zeri (prevedere carattere di riempimento spazi? sì)
-- Gestione record di testa, record movimenti, record di coda
 - Handle encoding of input and output (add an <encoding> schema option)
 
 - Interfaccia InputReader: nell'apertura connessione passare l'id del record, in modo da riconoscere quale tipo di 'dataset' da aprire
