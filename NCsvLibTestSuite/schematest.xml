@@ -19,6 +19,17 @@
         <field name="intr2" type="int" format="0" alignment="right" fixedlen="false" />
         <field name="strr2" type="string" format="" alignment="right" fixedlen="true" size="20" addquotes="true" />
       </record>
+      <record id="R3">
+        <field name="fixedr3" hasfixedvalue="true" fixedvalue="FLDR3" />
+        <field name="intr3" type="int" format="0" alignment="right" fixedlen="false" />
+        <field name="strr3" type="string" format="" alignment="right" fixedlen="true" size="20" addquotes="true" />
+      </record>
     </recordgroup>
+    <record id="R4">
+      <field name="fixedr4" hasfixedvalue="true" fixedvalue="FLDR4" />
+      <field name="intr4" type="int" format="0" alignment="right" fixedlen="true" size="5" />
+      <field name="doubler4" type="double" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="false" />
+      <field name="decimalr4" type="decimal" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="false" />      
+    </record>
   </schema>
 </ncsvlib>

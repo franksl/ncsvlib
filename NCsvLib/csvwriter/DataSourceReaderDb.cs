@@ -20,11 +20,10 @@ namespace NCsvLib
     /// <param name="ref_conn"></param>
     /// <param name="command_text"></param>
     public DataSourceReaderDb(string id, DbConnection refConn, string commandText)
-      : base()
+      : this()
     {
-      DataSourceReaderDbCommand cmd = new DataSourceReaderDbCommand(refConn);
-      cmd.Cmd.CommandText = commandText;
-      _Cmds.Add(id, cmd);
+      DataSourceReaderDbCommand cmd = new DataSourceReaderDbCommand(refConn, commandText);
+      AddCommand(id, cmd);
     }
 
     public void Open(string id)
@@ -92,6 +91,11 @@ namespace NCsvLib
       fld.Value = cmd.Rdr.GetValue(idx);
       return fld;
     }
+
+    public void AddCommand(string id, DataSourceReaderDbCommand cmd)
+    {
+      _Cmds.Add(id, cmd);
+    }
   }
 
   public class DataSourceReaderDbCommand
@@ -104,10 +108,11 @@ namespace NCsvLib
     {
     }
 
-    public DataSourceReaderDbCommand(DbConnection conn)
+    public DataSourceReaderDbCommand(DbConnection conn, string commandText)
     {
       Conn = conn;
       Cmd = conn.CreateCommand();
+      Cmd.CommandText = commandText;
     }
   }
 }

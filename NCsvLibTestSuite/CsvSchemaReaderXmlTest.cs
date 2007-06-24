@@ -17,7 +17,7 @@ namespace NCsvLibTestSuite
       SchemaRecordComposite comp;
       SchemaReaderXml rdr = new SchemaReaderXml(Helpers.SchFileName);
       Schema sch = rdr.GetSchema();
-      Assert.That(sch.Count, Is.EqualTo(2));
+      Assert.That(sch.Count, Is.EqualTo(3));
 
       //options
       Assert.That(sch.Options.FieldSeparator, Is.EqualTo("|"));
@@ -51,7 +51,7 @@ namespace NCsvLibTestSuite
       //*** Second record (group RG1)
       Assert.That(sch[1], Is.TypeOf(typeof(SchemaRecordComposite)));
       comp = (SchemaRecordComposite)sch[1];
-      Assert.That(comp.Count, Is.EqualTo(1));
+      Assert.That(comp.Count, Is.EqualTo(2));
       Assert.That(comp[0], Is.TypeOf(typeof(SchemaRecord)));
       //record R2
       rec = (SchemaRecord)comp[0];
@@ -68,6 +68,40 @@ namespace NCsvLibTestSuite
       Assert.That(rec[2].Name, Is.EqualTo("strr2"));
       Assert.That(rec[2].AddQuotes, Is.True);
       Assert.That(rec[2].FldType, Is.EqualTo(SchemaFieldType.String));
+      //record R3
+      rec = (SchemaRecord)comp[1];
+      Assert.That(rec.Count, Is.EqualTo(3));
+      //fixedr3
+      Assert.That(rec[0].Name, Is.EqualTo("fixedr3"));
+      Assert.That(rec[0].HasFixedValue, Is.True);
+      Assert.That(rec[0].FixedValue, Is.EqualTo("FLDR3"));
+      //intr3
+      Assert.That(rec[1].Name, Is.EqualTo("intr3"));
+      Assert.That(rec[1].AddQuotes, Is.False);
+      Assert.That(rec[1].FldType, Is.EqualTo(SchemaFieldType.Int));
+      //strr3
+      Assert.That(rec[2].Name, Is.EqualTo("strr3"));
+      Assert.That(rec[2].AddQuotes, Is.True);
+      Assert.That(rec[2].FldType, Is.EqualTo(SchemaFieldType.String));
+
+      //*** Third record (R4)
+      Assert.That(sch[2], Is.TypeOf(typeof(SchemaRecord)));
+      rec = (SchemaRecord)sch[2];
+      //fixedr4
+      Assert.That(rec[0].Name, Is.EqualTo("fixedr4"));
+      Assert.That(rec[0].HasFixedValue, Is.True);
+      Assert.That(rec[0].FixedValue, Is.EqualTo("FLDR4"));
+      //intr4
+      Assert.That(rec[1].Name, Is.EqualTo("intr4"));
+      Assert.That(rec[1].AddQuotes, Is.False);
+      Assert.That(rec[1].FldType, Is.EqualTo(SchemaFieldType.Int));
+      Assert.That(rec[1].Size, Is.EqualTo(5));
+      //doublefld
+      Assert.That(rec[2].Name, Is.EqualTo("doubler4"));
+      Assert.That(rec[2].FldType, Is.EqualTo(SchemaFieldType.Double));
+      //decimalfld
+      Assert.That(rec[3].Name, Is.EqualTo("decimalr4"));
+      Assert.That(rec[3].FldType, Is.EqualTo(SchemaFieldType.Decimal));
     }
   }
 }

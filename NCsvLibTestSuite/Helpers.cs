@@ -12,7 +12,14 @@ namespace NCsvLibTestSuite
     public static readonly string ConnStrFileName = "../../src/NCsvLibTestSuite/dbconnstrtest.txt";
     public static readonly string SchFileName = "../../src/NCsvLibTestSuite/schematest.xml";
     public static readonly string OutFileName = "csvtest.txt";
-    public static readonly string QryCsvTest1 = "SELECT * FROM csvtest1";
+    public static readonly string Qry1 = "SELECT * FROM csvtest1 ORDER BY intfld";
+    public static readonly string Qry2 = "SELECT * FROM csvtest2 ORDER BY intr2";
+    public static readonly string Qry3 = "SELECT * FROM csvtest3 ORDER BY intr3";
+    public static readonly string Qry4 = "SELECT * FROM csvtest4 ORDER BY intr4";
+    public static readonly string R1 = "R1";
+    public static readonly string R2 = "R2";
+    public static readonly string R3 = "R3";
+    public static readonly string R4 = "R4";
     public static readonly Encoding Enc = Encoding.UTF8;
 
     public static DbConnection GetDbConnectionFromFile(string sFileName)
