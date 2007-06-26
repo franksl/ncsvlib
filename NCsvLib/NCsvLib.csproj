@@ -51,6 +51,7 @@
     <Compile Include="schema\SchemaRecordComposite.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="docs\license.txt" />
     <Content Include="docs\todo.txt" />
   </ItemGroup>
   <ItemGroup>
