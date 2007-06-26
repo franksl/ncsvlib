@@ -8,10 +8,15 @@ Schema:
 - Interfaccia InputReader: nell'apertura connessione passare l'id del record, in modo da riconoscere quale tipo di 'dataset' da aprire
 - Aggiungere a <record> un attributo "repeat" per indicare che il record viene ripetuto o no. Gestire la sequenza nello schema dei vari records
 - Aggiungere a schema la gestione di gruppi di records <recordgroup> (con attributo repeat) per gestire per es. le riba in cui ogni disposizione è composta da più record
-- DbDataSourceReader: in conseguenza dell'aggiunta dell'id record a Open() si potrebbe passare al costruttore una hashtable con elementi id_record -> stringa_sql al costruttore, ed eseguire la query richiesta in base all'id fornito
 
 - Supporto stringhe con linee multiple (vedi articoli sul csv per info sul formato)
 - Valutare l'utilizzo di XPath nel reader xml
 
 SchemaRecordBase:
 - add checking methods for unique id (to be executed in Id property setter)
+
+
+
+Reader:
+- Add options to handle csv read errors in various ways: throw exception, 
+  skip field, skip row, etc.
