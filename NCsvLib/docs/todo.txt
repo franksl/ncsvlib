@@ -2,10 +2,9 @@ Schema:
 - formattazione numeri senza virgole? (es. homebanking, importi vanno espressi in centesimi):
   - aggiungere opzione per carattere da usare come decimal separator (e thousand separator)?
   - aggiungere operazioni elementari? (es. moltiplica per 100) (complesso)
-- importi riempiti di zeri (prevedere carattere di riempimento spazi? sì)
 - Handle encoding of input and output (add an <encoding> schema option)
 
-- Interfaccia InputReader: nell'apertura connessione passare l'id del record, in modo da riconoscere quale tipo di 'dataset' da aprire
+- DataSourceReader may implement IEnumerable (override GetEnumerator passing record id?)
 - Aggiungere a <record> un attributo "repeat" per indicare che il record viene ripetuto o no. Gestire la sequenza nello schema dei vari records
 - Aggiungere a schema la gestione di gruppi di records <recordgroup> (con attributo repeat) per gestire per es. le riba in cui ogni disposizione è composta da più record
 

@@ -20,17 +20,18 @@ DROP TABLE IF EXISTS csvtest2;
 CREATE TABLE csvtest2
 (
   intr2 INT PRIMARY KEY,
+  intr2left INT,
   strr2 VARCHAR(20)
 );
 
-INSERT INTO csvtest2 (intr2, strr2)
-VALUES (1, "r2_1");
-INSERT INTO csvtest2 (intr2, strr2)
-VALUES (2, "r2_2");
-INSERT INTO csvtest2 (intr2, strr2)
-VALUES (3, "r2_3");
-INSERT INTO csvtest2 (intr2, strr2)
-VALUES (4, "r2_4");
+INSERT INTO csvtest2 (intr2, intr2left, strr2)
+VALUES (1, 11, "r2_1");
+INSERT INTO csvtest2 (intr2, intr2left, strr2)
+VALUES (2, 22, "r2_2");
+INSERT INTO csvtest2 (intr2, intr2left, strr2)
+VALUES (3, 33, "r2_3");
+INSERT INTO csvtest2 (intr2, intr2left, strr2)
+VALUES (4, 44, "r2_4");
 
 DROP TABLE IF EXISTS csvtest3;
 CREATE TABLE csvtest3

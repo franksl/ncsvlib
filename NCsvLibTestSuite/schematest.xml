@@ -7,7 +7,7 @@
   </options>
   <schema>
     <record id="R1">
-      <field name="intfld" type="int" format="0" alignment="right" fixedlen="true" size="5" addquotes="false" />
+      <field name="intfld" type="int" format="0" alignment="right" fixedlen="true" size="5" filled="true" fillchar="0" addquotes="false" />
       <field name="strfld" type="string" format="" alignment="left" fixedlen="true" size="20" addquotes="true" />
       <field name="doublefld" type="double" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="false" />
       <field name="decimalfld" type="decimal" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="true" />
@@ -16,7 +16,8 @@
     <recordgroup id="RG1">
       <record id="R2">
         <field name="fixedr2" hasfixedvalue="true" fixedvalue="FLDR2" />
-        <field name="intr2" type="int" format="0" alignment="right" fixedlen="false" />
+        <field name="intr2" type="int" format="0" alignment="right" fixedlen="true" size="3" filled="true" fillchar="0" />
+        <field name="intr2left" type="int" format="0" alignment="left" fixedlen="true" size="5"  filled="true" fillchar="0" />
         <field name="strr2" type="string" format="" alignment="right" fixedlen="true" size="20" addquotes="true" />
       </record>
       <record id="R3">

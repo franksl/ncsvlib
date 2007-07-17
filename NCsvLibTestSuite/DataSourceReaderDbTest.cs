@@ -154,6 +154,9 @@ namespace NCsvLibTestSuite
       fld = rdr.GetField(Helpers.R2, "intr2");
       Assert.That(fld.Name, Is.EqualTo("intr2"));
       Assert.That((int)fld.Value, Is.EqualTo(3));
+      fld = rdr.GetField(Helpers.R2, "intr2left");
+      Assert.That(fld.Name, Is.EqualTo("intr2left"));
+      Assert.That((int)fld.Value, Is.EqualTo(33));
       fld = rdr.GetField(Helpers.R2, "strr2");
       Assert.That((string)fld.Value, Is.EqualTo("r2_3"));
 

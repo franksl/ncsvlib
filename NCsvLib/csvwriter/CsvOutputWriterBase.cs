@@ -59,7 +59,7 @@ namespace NCsvLib
       else
         sz += s.Length;
       StringBuilder sb = new StringBuilder(sz);
-      //Veririfies if quotes are specified, otherwise use a space
+      //Verifies if quotes are specified, otherwise use a space
       char qt;
       if (_Quotes.Length > 0)
         qt = _Quotes[0];
@@ -81,6 +81,8 @@ namespace NCsvLib
             sb.Append(s[j++]);
           else if (i == (sz - 1) && sch.AddQuotes)
             sb.Append(qt);
+          else if (sch.Filled)
+            sb.Append(sch.FillChar);
           else
             sb.Append(' ');
         }
@@ -97,7 +99,12 @@ namespace NCsvLib
         for (; i < sz; i++)
         {
           if (i < (sz - txtlen))
-            sb.Append(' ');
+          {
+            if (sch.Filled)
+              sb.Append(sch.FillChar);
+            else
+              sb.Append(' ');
+          }
           else if (j < s.Length)
             sb.Append(s[j++]);
           else

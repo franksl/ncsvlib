@@ -147,7 +147,9 @@ namespace NCsvLib
       string s;
 
       rec = new SchemaField();
+      //Name
       rec.Name = Rdr.GetAttribute("name");
+      //FldType
       s = Rdr.GetAttribute("type");
       if (s != null)
         s = s.ToLower();
@@ -166,7 +168,9 @@ namespace NCsvLib
           rec.FldType = SchemaFieldType.Decimal;
           break;
       }
+      //Format
       rec.Format = Rdr.GetAttribute("format");
+      //Alignment
       s = Rdr.GetAttribute("alignment");
       if (s != null)
         s = s.ToLower();
@@ -180,6 +184,7 @@ namespace NCsvLib
           rec.Alignment = SchemaValueAlignment.Right;
           break;
       }
+      //FixedLen
       s = Rdr.GetAttribute("fixedlen");
       if (s != null)
         s = s.ToLower();
@@ -193,13 +198,33 @@ namespace NCsvLib
           rec.FixedLen = false;
           break;
       }
-
+      //Size
       s = Rdr.GetAttribute("size");
       if (s != null)
         rec.Size = XmlConvert.ToInt32(s);
       else
         rec.Size = 0;
-      
+      //Filled
+      s = Rdr.GetAttribute("filled");
+      if (s != null)
+        s = s.ToLower();
+      switch (s)
+      {
+        case "true":
+          rec.Filled = true;
+          break;
+        case "false":
+        case null:
+          rec.Filled = false;
+          break;
+      }
+      //FillChar
+      s = Rdr.GetAttribute("fillchar");
+      if (s == null || s.Length == 0)
+        rec.FillChar = ' ';
+      else
+        rec.FillChar = s[0];
+      //AddQuotes
       s = Rdr.GetAttribute("addquotes");
       if (s != null)
         s = s.ToLower();
@@ -213,6 +238,7 @@ namespace NCsvLib
           rec.AddQuotes = false;
           break;
       }
+      //HasFixedValue
       s = Rdr.GetAttribute("hasfixedvalue");
       if (s != null)
         s = s.ToLower();
@@ -226,6 +252,7 @@ namespace NCsvLib
           rec.HasFixedValue = false;
           break;
       }
+      //FixedValue
       rec.FixedValue = Rdr.GetAttribute("fixedvalue");
       return rec;
     }

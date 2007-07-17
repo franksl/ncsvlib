@@ -66,6 +66,28 @@ namespace NCsvLib
       set { _Size = value; }
     }
 
+    private bool _Filled;
+    /// <summary>
+    /// True if empty space for the field must be filled with FillChar.
+    /// Valid only if FixedLen is true.
+    /// </summary>
+    public bool Filled
+    {
+      get { return _Filled; }
+      set { _Filled = value; }
+    }
+
+    private char _FillChar;
+    /// <summary>
+    /// Character used to fill empty spaces for the field.
+    /// Valid only if FixedLen and Filled are true.
+    /// </summary>
+    public char FillChar
+    {
+      get { return _FillChar; }
+      set { _FillChar = value; }
+    }
+
     private bool _AddQuotes;
     /// <summary>
     /// True if field value must be enclosed in quotes (")
