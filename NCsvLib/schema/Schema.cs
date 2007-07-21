@@ -16,7 +16,7 @@ namespace NCsvLib
       Options.Eol = Environment.NewLine;
       Options.FieldSeparator = "|";
       Options.Quotes = "\"";
-      Options.Enc = Encoding.UTF8;
+      Options.Enc = Encoding.Default;
     }
   }
 

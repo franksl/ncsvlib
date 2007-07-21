@@ -2,8 +2,9 @@
 <ncsvlib>
   <options>
     <fieldseparator usedefault="false"><![CDATA[|]]></fieldseparator>
-    <eol usedefault="true"></eol>
+    <eol usedefault="true" />
     <quotes usedefault="false"><![CDATA["]]></quotes>
+    <encoding value="utf-8" />
   </options>
   <schema>
     <record id="R1">

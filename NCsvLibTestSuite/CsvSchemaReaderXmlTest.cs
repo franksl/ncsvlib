@@ -23,6 +23,7 @@ namespace NCsvLibTestSuite
       Assert.That(sch.Options.FieldSeparator, Is.EqualTo("|"));
       Assert.That(sch.Options.Eol, Is.EqualTo(Environment.NewLine));
       Assert.That(sch.Options.Quotes, Is.EqualTo("\""));
+      Assert.That(sch.Options.Enc.EncodingName, Text.Contains("UTF-8"));
       
       //*** First record
       Assert.That(sch[0], Is.TypeOf(typeof(SchemaRecord)));

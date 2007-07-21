@@ -32,28 +32,9 @@ namespace NCsvLib
       {
         while (Rdr.Read())
         {
-          //TODO: move options in ReadOptions
-          //Options
-          if (Rdr.IsStartElement("fieldseparator"))
+          if (Rdr.IsStartElement("options"))
           {
-            if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
-            {
-              sch.Options.FieldSeparator = Rdr.ReadElementContentAsString();
-            }
-          }
-          else if (Rdr.IsStartElement("eol"))
-          {
-            if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
-            {
-              sch.Options.Eol = Rdr.ReadElementContentAsString();
-            }
-          }
-          else if (Rdr.IsStartElement("quotes"))
-          {
-            if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
-            {
-              sch.Options.Quotes = Rdr.ReadElementContentAsString();
-            }
+            ReadOptions(sch);
           }
           else if (Rdr.IsStartElement("schema"))
           {
@@ -68,7 +49,41 @@ namespace NCsvLib
       return sch;
     }
 
-    private SchemaRecordBase ReadRecords(Schema sch)
+    private void ReadOptions(Schema sch)
+    {
+      while (Rdr.Read() && Rdr.MoveToContent() != XmlNodeType.EndElement &&
+            Rdr.Name != "options")
+      {
+        if (Rdr.IsStartElement("fieldseparator"))
+        {
+          if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          {
+            sch.Options.FieldSeparator = Rdr.ReadElementContentAsString();
+          }
+        }
+        else if (Rdr.IsStartElement("eol"))
+        {
+          if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          {
+            sch.Options.Eol = Rdr.ReadElementContentAsString();
+          }
+        }
+        else if (Rdr.IsStartElement("quotes"))
+        {
+          if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          {
+            sch.Options.Quotes = Rdr.ReadElementContentAsString();
+          }
+        }
+        else if (Rdr.IsStartElement("encoding"))
+        {
+          string s = Rdr.GetAttribute("value");
+          sch.Options.Enc = Encoding.GetEncoding(s);          
+        }
+      }
+    }
+
+    private void ReadRecords(Schema sch)
     {
       SchemaRecordBase rec = null;
       Stack<SchemaRecordComposite> stk = new Stack<SchemaRecordComposite>();
@@ -93,7 +108,6 @@ namespace NCsvLib
       }
       if (Rdr.MoveToContent() == XmlNodeType.EndElement && Rdr.Name == "schema")
         Rdr.ReadEndElement();
-      return rec;
     }
 
     private void ReadRecordGroup(Stack<SchemaRecordComposite> stk)
@@ -255,11 +269,6 @@ namespace NCsvLib
       //FixedValue
       rec.FixedValue = Rdr.GetAttribute("fixedvalue");
       return rec;
-    }
-
-    private void ReadOptions(Schema sch)
-    {
-
     }
   }
 }
