@@ -55,7 +55,7 @@ namespace NCsvLib
         _OutWriter.Open();
         SchemaRecordBase.ExecuteMethodDelegate em = null;
         em += new SchemaRecordBase.ExecuteMethodDelegate(this.ExecuteRecordMethod);
-        _Sch.Execute(em);       
+        _Sch.Execute(em);
       }
       catch (Exception Ex)
       {
@@ -76,18 +76,22 @@ namespace NCsvLib
         return;
       SchemaRecord r = (SchemaRecord)rec;
       DataSourceField infld;
-
-      _InputRdr.Open(r.Id);
+      
+      IDataSourceRecordReader rdr;
+      if (!_InputRdr.TryGetValue(r.Id, out rdr))
+        throw new NCsvLibControllerException("DataSource Reader not found for id = " + r.Id);
+      rdr.Open();
+      //_InputRdr.Open(r.Id);
       try
       {
-        while (_InputRdr.Read(r.Id)) //TODO Implement repeat here!!
+        while (rdr.Read()) //TODO Implement repeat here!!
         {
           for (int i = 0; i < r.Count; i++)
           {
             if (r[i].HasFixedValue)
               infld = null;
             else
-              infld = _InputRdr.GetField(r.Id, r[i].Name);
+              infld = rdr.GetField(r[i].Name);
             _OutWriter.WriteField(infld, r[i]);
             _OutWriter.WriteSeparator(_Sch.Options.FieldSeparator);
           }
@@ -96,7 +100,7 @@ namespace NCsvLib
       }
       finally
       {
-        _InputRdr.Close(r.Id);
+        rdr.Close();
       }
     }
   }

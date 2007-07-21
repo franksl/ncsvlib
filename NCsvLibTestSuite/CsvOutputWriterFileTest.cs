@@ -30,14 +30,16 @@ namespace NCsvLibTestSuite
     [Test]
     public void WriteFileMulti()
     {
-      CsvWriterController ctrl = new CsvWriterController();
+      CsvWriterController ctrl = new CsvWriterController();      
       ctrl.SchemaRdr = new SchemaReaderXml(Helpers.SchFileName);
-      DataSourceReaderDb rdr = new DataSourceReaderDb();
-      rdr.AddCommand(Helpers.R1, new DataSourceReaderDbCommand(Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry1));
-      rdr.AddCommand(Helpers.R2, new DataSourceReaderDbCommand(Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry2));
-      rdr.AddCommand(Helpers.R3, new DataSourceReaderDbCommand(Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry3));
-      rdr.AddCommand(Helpers.R4, new DataSourceReaderDbCommand(Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry4));
-      ctrl.InputRdr = rdr;
+      DataSourceReaderDb rdr = new DataSourceReaderDb();      
+      rdr.Add(Helpers.R1, rdr.CreateRecordReader(Helpers.R1, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry1));
+      rdr.Add(Helpers.R2, rdr.CreateRecordReader(Helpers.R2, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry2));
+      rdr.Add(Helpers.R3, rdr.CreateRecordReader(Helpers.R3, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry3));
+      rdr.Add(Helpers.R4, rdr.CreateRecordReader(Helpers.R4, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry4));
+
+      ctrl.InputRdr = rdr; 
+      Assert.That(rdr.Count, Is.EqualTo(4));
       ctrl.OutWriter = new CsvOutputWriterFile(Helpers.OutFileName);
       ctrl.Execute();
       

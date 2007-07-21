@@ -41,6 +41,7 @@
     <Compile Include="csvwriter\DataSourceField.cs" />
     <Compile Include="csvwriter\ICsvOutputWriter.cs" />
     <Compile Include="csvwriter\IDataSourceReader.cs" />
+    <Compile Include="csvwriter\IDataSourceRecordReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="schema\ISchemaReader.cs" />
     <Compile Include="schema\Schema.cs" />

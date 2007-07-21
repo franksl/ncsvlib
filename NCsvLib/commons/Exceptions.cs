@@ -20,9 +20,9 @@ namespace NCsvLib
     }
   }
 
-  public class NCsvLibInputException : NCsvLibException
+  public class NCsvLibDataSourceException : NCsvLibException
   {
-    public NCsvLibInputException(string message)
+    public NCsvLibDataSourceException(string message)
       : base(message)
     {
     }

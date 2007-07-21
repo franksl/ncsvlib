@@ -5,13 +5,19 @@ using System.Data.Common;
 
 namespace NCsvLib
 {
-  public class DataSourceReaderDb : IDataSourceReader
+  public class DataSourceReaderDb
+    : Dictionary<string, IDataSourceRecordReader>, IDataSourceReader
   {
-    private Dictionary<string, DataSourceReaderDbCommand> _Cmds;
+    public new DataSourceRecordReaderDb this[string key]
+    {
+      get
+      {
+        return (DataSourceRecordReaderDb)base[key];
+      }
+    }
 
     public DataSourceReaderDb()
     {
-      _Cmds = new Dictionary<string, DataSourceReaderDbCommand>();
     }
         
     /// <summary>
@@ -22,97 +28,98 @@ namespace NCsvLib
     public DataSourceReaderDb(string id, DbConnection refConn, string commandText)
       : this()
     {
-      DataSourceReaderDbCommand cmd = new DataSourceReaderDbCommand(refConn, commandText);
-      AddCommand(id, cmd);
+      this.Add(id, CreateRecordReader(id, refConn, commandText));
     }
 
-    public void Open(string id)
+    public DataSourceRecordReaderDb CreateRecordReader(string id, DbConnection refConn, string commandText)
     {
-      //Tries to get the requested command
-      DataSourceReaderDbCommand cmd;
-      if (!_Cmds.TryGetValue(id, out cmd))
-        throw new NCsvLibInputException("Invalid Id");
+      return new DataSourceRecordReaderDb(id, refConn, commandText);
+    }
+  }
+
+
+
+  public class DataSourceRecordReaderDb : IDataSourceRecordReader
+  {
+    public DbConnection _Conn;
+    public DbCommand _Cmd;
+    public DbDataReader _Rdr;
+
+    private string _Id;
+    public string Id
+    {
+      get
+      {
+        return _Id;
+      }
+    }
+
+    private DataSourceRecordReaderDb()
+    {
+    }
+
+    public DataSourceRecordReaderDb(string id, DbConnection refConn, string commandText)
+    {
+      _Id = id;
+      _Conn = refConn;
+      _Cmd = _Conn.CreateCommand();
+      _Cmd.CommandText = commandText;
+    }
+
+    public void Open()
+    {
       //Opens a db connection and creates a datareader
-      cmd.Conn.Open();
+      _Cmd.Connection.Open();
       try
       {
-        cmd.Rdr = cmd.Cmd.ExecuteReader();
+        _Rdr = _Cmd.ExecuteReader();
       }
       catch
       {
-        cmd.Conn.Close();
+        _Cmd.Connection.Close();
         throw;
       }
     }
 
-    public void Close(string id)
+    public void Close()
     {
-      //Tries to get the requested command
-      DataSourceReaderDbCommand cmd;
-      if (!_Cmds.TryGetValue(id, out cmd))
-        throw new NCsvLibInputException("Invalid Id");
-      if (!cmd.Rdr.IsClosed)
-        cmd.Rdr.Close();
-      if (cmd.Conn.State == System.Data.ConnectionState.Open)
-        cmd.Conn.Close();
+      if (_Rdr == null)
+        return;
+      if (!_Rdr.IsClosed)
+        _Rdr.Close();
+      if (_Cmd.Connection.State == System.Data.ConnectionState.Open)
+        _Cmd.Connection.Close();
     }
 
-    public bool Read(string id)
+    public bool Read()
     {
-      //Tries to get the requested command
-      DataSourceReaderDbCommand cmd;
-      if (!_Cmds.TryGetValue(id, out cmd))
-        throw new NCsvLibInputException("Invalid Id");
-      if (!cmd.Rdr.IsClosed)
-        return cmd.Rdr.Read();
+      if (_Rdr == null)
+        throw new NCsvLibDataSourceException("DbDataReader closed");
+      if (!_Rdr.IsClosed)
+        return _Rdr.Read();
       else
-        throw new NCsvLibInputException("InputReader closed");
+        throw new NCsvLibDataSourceException("DataSource Record Reader closed");
     }
 
-    public DataSourceField GetField(string id, string name)
+    public DataSourceField GetField(string name)
     {
-      //Tries to get the requested command
-      DataSourceReaderDbCommand cmd;
-      if (!_Cmds.TryGetValue(id, out cmd))
-        throw new NCsvLibInputException("Invalid Id");
-      if (cmd.Rdr.IsClosed)
-        throw new NCsvLibInputException("DataSourceReader closed");
+      if (_Rdr == null)
+        throw new NCsvLibDataSourceException("DbDataReader not defined");
+      if (_Rdr.IsClosed)
+        throw new NCsvLibDataSourceException("DataSource Record Reader closed");
       int idx;
       try
       {
-        idx = cmd.Rdr.GetOrdinal(name);
+        idx = _Rdr.GetOrdinal(name);
       }
       catch (IndexOutOfRangeException)
       {
-        throw new NCsvLibInputException("Field name not found in db");
+        throw new NCsvLibDataSourceException("Field name not found in db");
       }
       DataSourceField fld = new DataSourceField();
       fld.Name = name;
-      fld.Value = cmd.Rdr.GetValue(idx);
+      fld.Value = _Rdr.GetValue(idx);
       return fld;
-    }
-
-    public void AddCommand(string id, DataSourceReaderDbCommand cmd)
-    {
-      _Cmds.Add(id, cmd);
-    }
-  }
-
-  public class DataSourceReaderDbCommand
-  {
-    public DbConnection Conn;
-    public DbCommand Cmd;
-    public DbDataReader Rdr;
-
-    private DataSourceReaderDbCommand()
-    {
-    }
-
-    public DataSourceReaderDbCommand(DbConnection conn, string commandText)
-    {
-      Conn = conn;
-      Cmd = conn.CreateCommand();
-      Cmd.CommandText = commandText;
-    }
+    }    
   }
 }
