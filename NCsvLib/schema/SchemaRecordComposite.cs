@@ -43,8 +43,19 @@ namespace NCsvLib
 
     public override void Execute(ExecuteMethodDelegate em)
     {
-      foreach (SchemaRecordBase rec in _Records)
-        rec.Execute(em);
+      if (this.Repeat == 0)
+      {
+        foreach (SchemaRecordBase rec in _Records)
+          rec.Execute(em);
+      }
+      else
+      {
+        for (int i = 0; i < this.Repeat; i++)
+        {
+          foreach (SchemaRecordBase rec in _Records)
+            rec.Execute(em);
+        }
+      }
     }
   }
 }

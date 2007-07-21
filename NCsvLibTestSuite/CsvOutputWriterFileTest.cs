@@ -30,6 +30,7 @@ namespace NCsvLibTestSuite
     [Test]
     public void WriteFileMulti()
     {
+      int i;
       CsvWriterController ctrl = new CsvWriterController();      
       ctrl.SchemaRdr = new SchemaReaderXml(Helpers.SchFileName);
       DataSourceReaderDb rdr = new DataSourceReaderDb();      
@@ -48,23 +49,33 @@ namespace NCsvLibTestSuite
       
       //File tests
       List<string> ln = Helpers.GetFileLines(Helpers.OutFileName, Helpers.Enc);
-      Assert.That(ln.Count, Is.EqualTo(16));
-      Assert.That(ln[0],  Is.EqualTo("00001|\"aaa                 \"|        100,10|\"      1.000,11\"|AAA|"));
-      Assert.That(ln[1],  Is.EqualTo("00002|\"bbb                 \"|        200,20|\"      2.000,22\"|AAA|"));
-      Assert.That(ln[2],  Is.EqualTo("00003|\"ccc                 \"|        300,30|\"      3.000,33\"|AAA|"));
-      Assert.That(ln[3],  Is.EqualTo("00004|\"ddd                 \"|        400,40|\"      4.000,44\"|AAA|"));
-      Assert.That(ln[4],  Is.EqualTo("FLDR2|001|11000|\"                r2_1\"|"));
-      Assert.That(ln[5],  Is.EqualTo("FLDR2|002|22000|\"                r2_2\"|"));
-      Assert.That(ln[6],  Is.EqualTo("FLDR2|003|33000|\"                r2_3\"|"));
-      Assert.That(ln[7],  Is.EqualTo("FLDR2|004|44000|\"                r2_4\"|"));
-      Assert.That(ln[8],  Is.EqualTo("FLDR3|1|\"                r3_1\"|"));
-      Assert.That(ln[9],  Is.EqualTo("FLDR3|2|\"                r3_2\"|"));
-      Assert.That(ln[10], Is.EqualTo("FLDR3|3|\"                r3_3\"|"));
-      Assert.That(ln[11], Is.EqualTo("FLDR3|4|\"                r3_4\"|"));
-      Assert.That(ln[12], Is.EqualTo("FLDR4|    1|         11,10|        111,11|"));
-      Assert.That(ln[13], Is.EqualTo("FLDR4|    2|         22,20|        222,22|"));
-      Assert.That(ln[14], Is.EqualTo("FLDR4|    3|         33,30|        333,33|"));
-      Assert.That(ln[15], Is.EqualTo("FLDR4|    4|         44,40|        444,44|"));
+      i = 0;
+      Assert.That(ln.Count, Is.EqualTo(24));
+      Assert.That(ln[i++],  Is.EqualTo("00001|\"aaa                 \"|        100,10|\"      1.000,11\"|AAA|"));
+      Assert.That(ln[i++],  Is.EqualTo("00002|\"bbb                 \"|        200,20|\"      2.000,22\"|AAA|"));
+      Assert.That(ln[i++],  Is.EqualTo("00003|\"ccc                 \"|        300,30|\"      3.000,33\"|AAA|"));
+      Assert.That(ln[i++],  Is.EqualTo("00004|\"ddd                 \"|        400,40|\"      4.000,44\"|AAA|"));
+      //Record group that contains records 2 and 3 has repeat = 2
+      Assert.That(ln[i++],  Is.EqualTo("FLDR2|001|11000|\"                r2_1\"|"));
+      Assert.That(ln[i++],  Is.EqualTo("FLDR2|002|22000|\"                r2_2\"|"));
+      Assert.That(ln[i++],  Is.EqualTo("FLDR2|003|33000|\"                r2_3\"|"));
+      Assert.That(ln[i++],  Is.EqualTo("FLDR2|004|44000|\"                r2_4\"|"));
+      Assert.That(ln[i++],  Is.EqualTo("FLDR3|1|\"                r3_1\"|"));
+      Assert.That(ln[i++],  Is.EqualTo("FLDR3|2|\"                r3_2\"|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR3|3|\"                r3_3\"|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR3|4|\"                r3_4\"|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR2|005|55000|\"                r2_5\"|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR2|006|66000|\"                r2_6\"|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR2|007|77000|\"                r2_7\"|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR2|008|88000|\"                r2_8\"|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR3|5|\"                r3_5\"|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR3|6|\"                r3_6\"|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR3|7|\"                r3_7\"|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR3|8|\"                r3_8\"|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR4|    1|         11,10|        111,11|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR4|    2|         22,20|        222,22|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR4|    3|         33,30|        333,33|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR4|    4|         44,40|        444,44|"));
     }
   }
 }

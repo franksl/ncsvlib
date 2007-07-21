@@ -114,6 +114,7 @@ namespace NCsvLib
     {
       SchemaRecordComposite comp = stk.Peek();
       comp.Id = Rdr.GetAttribute("id");
+      comp.Repeat = int.Parse(Rdr.GetAttribute("repeat"));
       if (comp.Id == null || comp.Id.Trim() == string.Empty)
         throw new NCsvLibSchemaException("id not specified in recordgroup");
       while (Rdr.Read() && Rdr.MoveToContent() != XmlNodeType.EndElement &&
@@ -141,6 +142,7 @@ namespace NCsvLib
     private void ReadRecord(SchemaRecord rec)
     {
       rec.Id = Rdr.GetAttribute("id");
+      rec.Repeat = int.Parse(Rdr.GetAttribute("repeat"));
       if (rec.Id == null || rec.Id.Trim() == string.Empty)
         throw new NCsvLibSchemaException("id not specified in record");
       while (Rdr.Read() && Rdr.MoveToContent() != XmlNodeType.EndElement &&

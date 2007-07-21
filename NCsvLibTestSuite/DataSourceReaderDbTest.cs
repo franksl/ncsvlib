@@ -59,7 +59,14 @@ namespace NCsvLibTestSuite
       rdr[Helpers.R4].Open();
       rdr[Helpers.R4].Close();
     }
-      
+
+    [Test]
+    public void OpenCloseAll()
+    {
+      DataSourceReaderDb rdr = new DataSourceReaderDb();
+      rdr.OpenAll();
+      rdr.CloseAll();
+    }
 
     [Test]
     public void ReadSingle()
@@ -93,8 +100,9 @@ namespace NCsvLibTestSuite
         Assert.That(rdr[Helpers.R4].Read(), Is.True);
       }
       Assert.That(rdr[Helpers.R1].Read(), Is.False);
-      Assert.That(rdr[Helpers.R2].Read(), Is.False);
-      Assert.That(rdr[Helpers.R3].Read(), Is.False);
+      //Records 2 and 3 have 8 records in db
+      Assert.That(rdr[Helpers.R2].Read(), Is.True);
+      Assert.That(rdr[Helpers.R3].Read(), Is.True);
       Assert.That(rdr[Helpers.R4].Read(), Is.False);
       rdr[Helpers.R1].Close();
       rdr[Helpers.R2].Close();

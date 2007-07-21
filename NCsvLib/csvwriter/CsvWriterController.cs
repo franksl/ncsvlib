@@ -55,6 +55,7 @@ namespace NCsvLib
         _OutWriter.Open();
         SchemaRecordBase.ExecuteMethodDelegate em = null;
         em += new SchemaRecordBase.ExecuteMethodDelegate(this.ExecuteRecordMethod);
+        _InputRdr.OpenAll();
         _Sch.Execute(em);
       }
       catch (Exception Ex)
@@ -63,10 +64,10 @@ namespace NCsvLib
       }
       finally
       {
-        //if (_InputRdr != null)
-        //  _InputRdr.Close();
         if (_OutWriter != null)
           _OutWriter.Close();
+        if (_InputRdr != null)
+          _InputRdr.CloseAll();
       }
     }
 
@@ -75,33 +76,47 @@ namespace NCsvLib
       if (!(rec is SchemaRecord))
         return;
       SchemaRecord r = (SchemaRecord)rec;
-      DataSourceField infld;
-      
       IDataSourceRecordReader rdr;
       if (!_InputRdr.TryGetValue(r.Id, out rdr))
         throw new NCsvLibControllerException("DataSource Reader not found for id = " + r.Id);
-      rdr.Open();
-      //_InputRdr.Open(r.Id);
+      //rdr.Open();
       try
       {
-        while (rdr.Read()) //TODO Implement repeat here!!
+        if (rec.Repeat == 0)
         {
-          for (int i = 0; i < r.Count; i++)
+          while (rdr.Read())
           {
-            if (r[i].HasFixedValue)
-              infld = null;
-            else
-              infld = rdr.GetField(r[i].Name);
-            _OutWriter.WriteField(infld, r[i]);
-            _OutWriter.WriteSeparator(_Sch.Options.FieldSeparator);
+            WriteRecord(r, rdr);
           }
-          _OutWriter.WriteEol(_Sch.Options.Eol);
+        }
+        else
+        {
+          for (int i = 0; i < rec.Repeat; i++)
+          {
+            rdr.Read();
+            WriteRecord(r, rdr);
+          }
         }
       }
       finally
       {
-        rdr.Close();
+        //rdr.Close();
       }
+    }
+
+    private void WriteRecord(SchemaRecord r, IDataSourceRecordReader rdr)
+    {
+      DataSourceField infld;
+      for (int i = 0; i < r.Count; i++)
+      {
+        if (r[i].HasFixedValue)
+          infld = null;
+        else
+          infld = rdr.GetField(r[i].Name);
+        _OutWriter.WriteField(infld, r[i]);
+        _OutWriter.WriteSeparator(_Sch.Options.FieldSeparator);
+      }
+      _OutWriter.WriteEol(_Sch.Options.Eol);
     }
   }
 }

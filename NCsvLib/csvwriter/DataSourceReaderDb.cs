@@ -35,6 +35,24 @@ namespace NCsvLib
     {
       return new DataSourceRecordReaderDb(id, refConn, commandText);
     }
+
+    public void OpenAll()
+    {
+      Enumerator en = this.GetEnumerator();
+      while (en.MoveNext())
+      {
+        en.Current.Value.Open();
+      }
+    }
+
+    public void CloseAll()
+    {
+      Enumerator en = this.GetEnumerator();
+      while (en.MoveNext())
+      {
+        en.Current.Value.Close();
+      }
+    }
   }
 
 

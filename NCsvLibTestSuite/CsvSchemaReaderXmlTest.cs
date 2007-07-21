@@ -30,6 +30,7 @@ namespace NCsvLibTestSuite
       rec = (SchemaRecord)sch[0];
       Assert.That(rec.Count, Is.EqualTo(5));
       Assert.That(rec.Id, Is.EqualTo("R1"));
+      Assert.That(rec.Repeat, Is.EqualTo(0));
       //intfld
       Assert.That(rec[0].Name, Is.EqualTo("intfld"));
       Assert.That(rec[0].AddQuotes, Is.False);
@@ -55,10 +56,12 @@ namespace NCsvLibTestSuite
       Assert.That(sch[1], Is.TypeOf(typeof(SchemaRecordComposite)));
       comp = (SchemaRecordComposite)sch[1];
       Assert.That(comp.Count, Is.EqualTo(2));
-      Assert.That(comp[0], Is.TypeOf(typeof(SchemaRecord)));
+      Assert.That(comp.Repeat, Is.EqualTo(2));
+      Assert.That(comp[0], Is.TypeOf(typeof(SchemaRecord)));      
       //record R2
       rec = (SchemaRecord)comp[0];
       Assert.That(rec.Count, Is.EqualTo(4));
+      Assert.That(rec.Repeat, Is.EqualTo(4));
       //fixedr2
       Assert.That(rec[0].Name, Is.EqualTo("fixedr2"));
       Assert.That(rec[0].HasFixedValue, Is.True);
@@ -80,9 +83,11 @@ namespace NCsvLibTestSuite
       Assert.That(rec[3].Name, Is.EqualTo("strr2"));
       Assert.That(rec[3].AddQuotes, Is.True);
       Assert.That(rec[3].FldType, Is.EqualTo(SchemaFieldType.String));
+      
       //record R3
       rec = (SchemaRecord)comp[1];
       Assert.That(rec.Count, Is.EqualTo(3));
+      Assert.That(rec.Repeat, Is.EqualTo(4));
       //fixedr3
       Assert.That(rec[0].Name, Is.EqualTo("fixedr3"));
       Assert.That(rec[0].HasFixedValue, Is.True);
@@ -99,6 +104,7 @@ namespace NCsvLibTestSuite
       //*** Third record (R4)
       Assert.That(sch[2], Is.TypeOf(typeof(SchemaRecord)));
       rec = (SchemaRecord)sch[2];
+      Assert.That(rec.Repeat, Is.EqualTo(4));
       //fixedr4
       Assert.That(rec[0].Name, Is.EqualTo("fixedr4"));
       Assert.That(rec[0].HasFixedValue, Is.True);

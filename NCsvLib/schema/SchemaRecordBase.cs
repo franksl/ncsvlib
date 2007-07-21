@@ -10,10 +10,24 @@ namespace NCsvLib
   public class SchemaRecordBase
   {
     protected string _Id;
+    /// <summary>
+    /// Unique record identifier
+    /// </summary>
     public string Id
     {
       get { return _Id; }
       set { _Id = value; }
+    }
+
+    protected int _Repeat;
+    /// <summary>
+    /// Number of times this record is repeated.
+    /// If zero the record is repeated for an undefined number of times.
+    /// </summary>
+    public int Repeat
+    {
+      get { return _Repeat; }
+      set { _Repeat = value; }
     }
 
     protected SchemaRecordBase()

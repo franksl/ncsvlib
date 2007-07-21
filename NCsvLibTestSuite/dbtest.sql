@@ -32,6 +32,14 @@ INSERT INTO csvtest2 (intr2, intr2left, strr2)
 VALUES (3, 33, "r2_3");
 INSERT INTO csvtest2 (intr2, intr2left, strr2)
 VALUES (4, 44, "r2_4");
+INSERT INTO csvtest2 (intr2, intr2left, strr2)
+VALUES (5, 55, "r2_5");
+INSERT INTO csvtest2 (intr2, intr2left, strr2)
+VALUES (6, 66, "r2_6");
+INSERT INTO csvtest2 (intr2, intr2left, strr2)
+VALUES (7, 77, "r2_7");
+INSERT INTO csvtest2 (intr2, intr2left, strr2)
+VALUES (8, 88, "r2_8");
 
 DROP TABLE IF EXISTS csvtest3;
 CREATE TABLE csvtest3
@@ -48,6 +56,14 @@ INSERT INTO csvtest3 (intr3, strr3)
 VALUES (3, "r3_3");
 INSERT INTO csvtest3 (intr3, strr3)
 VALUES (4, "r3_4");
+INSERT INTO csvtest3 (intr3, strr3)
+VALUES (5, "r3_5");
+INSERT INTO csvtest3 (intr3, strr3)
+VALUES (6, "r3_6");
+INSERT INTO csvtest3 (intr3, strr3)
+VALUES (7, "r3_7");
+INSERT INTO csvtest3 (intr3, strr3)
+VALUES (8, "r3_8");
 
 DROP TABLE IF EXISTS csvtest4;
 CREATE TABLE csvtest4
