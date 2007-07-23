@@ -17,6 +17,8 @@ DataSourceReader:
   should stop (Read() returns false) (ie. because it's contained in a recordgroup)
   - pass parameters to open()? (ex. to put them in a WHERE clause)
   - expose events (passing current and previous lines)?
+- DataSourceReader could accept different kinds of record readers. DataSourceReaderDb
+  could be generalized
 
 
 
