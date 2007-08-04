@@ -33,11 +33,11 @@ namespace NCsvLibTestSuite
       int i;
       CsvWriterController ctrl = new CsvWriterController();      
       ctrl.SchemaRdr = new SchemaReaderXml(Helpers.SchFileName);
-      DataSourceReaderDb rdr = new DataSourceReaderDb();      
-      rdr.Add(Helpers.R1, rdr.CreateRecordReader(Helpers.R1, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry1));
-      rdr.Add(Helpers.R2, rdr.CreateRecordReader(Helpers.R2, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry2));
-      rdr.Add(Helpers.R3, rdr.CreateRecordReader(Helpers.R3, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry3));
-      rdr.Add(Helpers.R4, rdr.CreateRecordReader(Helpers.R4, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry4));
+      DataSourceReaderBase rdr = new DataSourceReaderBase();
+      rdr.Add(Helpers.R1, new DataSourceRecordReaderDb(Helpers.R1, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry1));
+      rdr.Add(Helpers.R2, new DataSourceRecordReaderDb(Helpers.R2, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry2));
+      rdr.Add(Helpers.R3, new DataSourceRecordReaderDb(Helpers.R3, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry3));
+      rdr.Add(Helpers.R4, new DataSourceRecordReaderDb(Helpers.R4, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry4));
 
       ctrl.InputRdr = rdr; 
       Assert.That(rdr.Count, Is.EqualTo(4));

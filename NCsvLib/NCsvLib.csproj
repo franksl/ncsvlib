@@ -36,7 +36,8 @@
     <Compile Include="csvwriter\CsvOutputWriterBase.cs" />
     <Compile Include="csvwriter\CsvOutputWriterFile.cs" />
     <Compile Include="csvwriter\CsvWriterController.cs" />
-    <Compile Include="csvwriter\DataSourceReaderDb.cs" />
+    <Compile Include="csvwriter\DataSourceReaderBase.cs" />
+    <Compile Include="csvwriter\DataSourceRecordReaderDb.cs" />
     <Compile Include="commons\Exceptions.cs" />
     <Compile Include="csvwriter\DataSourceField.cs" />
     <Compile Include="csvwriter\ICsvOutputWriter.cs" />

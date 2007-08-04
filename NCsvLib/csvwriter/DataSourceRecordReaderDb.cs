@@ -5,58 +5,6 @@ using System.Data.Common;
 
 namespace NCsvLib
 {
-  public class DataSourceReaderDb
-    : Dictionary<string, IDataSourceRecordReader>, IDataSourceReader
-  {
-    public new DataSourceRecordReaderDb this[string key]
-    {
-      get
-      {
-        return (DataSourceRecordReaderDb)base[key];
-      }
-    }
-
-    public DataSourceReaderDb()
-    {
-    }
-        
-    /// <summary>
-    /// Simple constructor if there is only one record
-    /// </summary>
-    /// <param name="ref_conn"></param>
-    /// <param name="command_text"></param>
-    public DataSourceReaderDb(string id, DbConnection refConn, string commandText)
-      : this()
-    {
-      this.Add(id, CreateRecordReader(id, refConn, commandText));
-    }
-
-    public DataSourceRecordReaderDb CreateRecordReader(string id, DbConnection refConn, string commandText)
-    {
-      return new DataSourceRecordReaderDb(id, refConn, commandText);
-    }
-
-    public void OpenAll()
-    {
-      Enumerator en = this.GetEnumerator();
-      while (en.MoveNext())
-      {
-        en.Current.Value.Open();
-      }
-    }
-
-    public void CloseAll()
-    {
-      Enumerator en = this.GetEnumerator();
-      while (en.MoveNext())
-      {
-        en.Current.Value.Close();
-      }
-    }
-  }
-
-
-
   public class DataSourceRecordReaderDb : IDataSourceRecordReader
   {
     public DbConnection _Conn;

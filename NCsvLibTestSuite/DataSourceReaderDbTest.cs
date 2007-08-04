@@ -36,8 +36,9 @@ namespace NCsvLibTestSuite
     [Test]
     public void OpenCloseSingle()
     {
-      DataSourceReaderDb rdr = new DataSourceReaderDb(Helpers.R1, Conn[0], Helpers.Qry1);
-      DataSourceRecordReaderDb rec = rdr[Helpers.R1];
+      DataSourceReaderBase rdr = new DataSourceReaderBase();
+      DataSourceRecordReaderDb rec = new DataSourceRecordReaderDb(Helpers.R1, Conn[0], Helpers.Qry1);
+      rdr.Add(Helpers.R1, rec);
       rec.Open();
       rec.Close();
     }
@@ -45,11 +46,11 @@ namespace NCsvLibTestSuite
     [Test]
     public void OpenCloseMulti()
     {
-      DataSourceReaderDb rdr = new DataSourceReaderDb();
-      rdr.Add(Helpers.R1, rdr.CreateRecordReader(Helpers.R1, Conn[0], Helpers.Qry1));
-      rdr.Add(Helpers.R2, rdr.CreateRecordReader(Helpers.R2, Conn[1], Helpers.Qry2));
-      rdr.Add(Helpers.R3, rdr.CreateRecordReader(Helpers.R3, Conn[2], Helpers.Qry3));
-      rdr.Add(Helpers.R4, rdr.CreateRecordReader(Helpers.R4, Conn[3], Helpers.Qry4));
+      DataSourceReaderBase rdr = new DataSourceReaderBase();
+      rdr.Add(Helpers.R1, new DataSourceRecordReaderDb(Helpers.R1, Conn[0], Helpers.Qry1));
+      rdr.Add(Helpers.R2, new DataSourceRecordReaderDb(Helpers.R2, Conn[1], Helpers.Qry2));
+      rdr.Add(Helpers.R3, new DataSourceRecordReaderDb(Helpers.R3, Conn[2], Helpers.Qry3));
+      rdr.Add(Helpers.R4, new DataSourceRecordReaderDb(Helpers.R4, Conn[3], Helpers.Qry4));
       rdr[Helpers.R1].Open();
       rdr[Helpers.R1].Close();
       rdr[Helpers.R2].Open();
@@ -63,7 +64,7 @@ namespace NCsvLibTestSuite
     [Test]
     public void OpenCloseAll()
     {
-      DataSourceReaderDb rdr = new DataSourceReaderDb();
+      DataSourceReaderBase rdr = new DataSourceReaderBase();
       rdr.OpenAll();
       rdr.CloseAll();
     }
@@ -71,8 +72,9 @@ namespace NCsvLibTestSuite
     [Test]
     public void ReadSingle()
     {
-      DataSourceReaderDb rdr = new DataSourceReaderDb(Helpers.R1, Conn[0], Helpers.Qry1);
-      DataSourceRecordReaderDb rec = rdr[Helpers.R1];
+      DataSourceReaderBase rdr = new DataSourceReaderBase();
+      DataSourceRecordReaderDb rec = new DataSourceRecordReaderDb(Helpers.R1, Conn[0], Helpers.Qry1);
+      rdr.Add(Helpers.R1, rec);
       rec.Open();
       for (int i = 0; i < 4; i++)
         Assert.That(rec.Read(), Is.True);
@@ -83,11 +85,11 @@ namespace NCsvLibTestSuite
     [Test]
     public void ReadMulti()
     {
-      DataSourceReaderDb rdr = new DataSourceReaderDb();
-      rdr.Add(Helpers.R1, rdr.CreateRecordReader(Helpers.R1, Conn[0], Helpers.Qry1));
-      rdr.Add(Helpers.R2, rdr.CreateRecordReader(Helpers.R2, Conn[1], Helpers.Qry2));
-      rdr.Add(Helpers.R3, rdr.CreateRecordReader(Helpers.R3, Conn[2], Helpers.Qry3));
-      rdr.Add(Helpers.R4, rdr.CreateRecordReader(Helpers.R4, Conn[3], Helpers.Qry4));
+      DataSourceReaderBase rdr = new DataSourceReaderBase();
+      rdr.Add(Helpers.R1, new DataSourceRecordReaderDb(Helpers.R1, Conn[0], Helpers.Qry1));
+      rdr.Add(Helpers.R2, new DataSourceRecordReaderDb(Helpers.R2, Conn[1], Helpers.Qry2));
+      rdr.Add(Helpers.R3, new DataSourceRecordReaderDb(Helpers.R3, Conn[2], Helpers.Qry3));
+      rdr.Add(Helpers.R4, new DataSourceRecordReaderDb(Helpers.R4, Conn[3], Helpers.Qry4));
       rdr[Helpers.R1].Open();
       rdr[Helpers.R2].Open();
       rdr[Helpers.R3].Open();
@@ -113,8 +115,9 @@ namespace NCsvLibTestSuite
     [Test]
     public void GetFieldSingle()
     {
-      DataSourceReaderDb rdr = new DataSourceReaderDb(Helpers.R1, Conn[0], Helpers.Qry1);
       DataSourceField fld;
+      DataSourceReaderBase rdr = new DataSourceReaderBase();
+      rdr.Add(Helpers.R1, new DataSourceRecordReaderDb(Helpers.R1, Conn[0], Helpers.Qry1));      
       rdr[Helpers.R1].Open();
       rdr[Helpers.R1].Read();
       fld = rdr[Helpers.R1].GetField("intfld");
@@ -143,11 +146,11 @@ namespace NCsvLibTestSuite
     public void GetFieldMulti()
     {
       DataSourceField fld;
-      DataSourceReaderDb rdr = new DataSourceReaderDb();
-      rdr.Add(Helpers.R1, rdr.CreateRecordReader(Helpers.R1, Conn[0], Helpers.Qry1));
-      rdr.Add(Helpers.R2, rdr.CreateRecordReader(Helpers.R2, Conn[1], Helpers.Qry2));
-      rdr.Add(Helpers.R3, rdr.CreateRecordReader(Helpers.R3, Conn[2], Helpers.Qry3));
-      rdr.Add(Helpers.R4, rdr.CreateRecordReader(Helpers.R4, Conn[3], Helpers.Qry4));
+      DataSourceReaderBase rdr = new DataSourceReaderBase();
+      rdr.Add(Helpers.R1, new DataSourceRecordReaderDb(Helpers.R1, Conn[0], Helpers.Qry1));
+      rdr.Add(Helpers.R2, new DataSourceRecordReaderDb(Helpers.R2, Conn[1], Helpers.Qry2));
+      rdr.Add(Helpers.R3, new DataSourceRecordReaderDb(Helpers.R3, Conn[2], Helpers.Qry3));
+      rdr.Add(Helpers.R4, new DataSourceRecordReaderDb(Helpers.R4, Conn[3], Helpers.Qry4));
       rdr[Helpers.R1].Open();
       rdr[Helpers.R2].Open();
       rdr[Helpers.R3].Open();
