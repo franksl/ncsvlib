@@ -26,3 +26,6 @@ CsvReader:
 - If a record has repeat=true and repeat count is undefined there must be
   some method to identify the end of record, maybe by recognizing a sort
   of 'signature' for a line
+- Schema: add options:
+  - trimws: trim white space (for example for fixed length string fields)
+  - match: reg.expr. pattern to be matched (also in writer)
