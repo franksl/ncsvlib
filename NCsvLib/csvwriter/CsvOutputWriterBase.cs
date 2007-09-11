@@ -48,7 +48,7 @@ namespace NCsvLib
         s = ((int)fld.Value).ToString(sch.Format);
       else if (sch.FldType == SchemaFieldType.String)
         s = fld.Value.ToString();
-      else 
+      else
         throw new NCsvLibOutputException("Schema data type not supported");
       //Creates a stringbuilder with correct size
       //TODO To be improved
