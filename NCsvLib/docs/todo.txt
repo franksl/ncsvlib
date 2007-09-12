@@ -1,6 +1,5 @@
 Schema:
-- formattazione numeri senza virgole? (es. homebanking, importi vanno espressi in centesimi):
-  - ** aggiungere opzione per carattere da usare come decimal separator (e thousand separator)?
+- formattazione numeri senza virgole? (es. homebanking, importi vanno espressi in centesimi):  
   - aggiungere operazioni elementari? (es. moltiplica per 100) (complesso)
 - field: add possibility to override thousand sep., dec. sep., quotes char, etc. that
          are now defined in the <options> section
@@ -22,6 +21,11 @@ DataSourceReader:
 
 - Add generic OutputWriter that writes to a Stream (evaluate if CsvOutputWriterFile
   can be adapted or be a subclass of a new CsvOutputWriterStream class)
+  
+- ** aggiungere opzione per carattere da usare come decimal separator (e thousand separator)?
+- ** Add possibility to define custom formatters (see IFormattable, IFormatProvider, 
+  ICustomFormatter) to be passed to OutputWriter.WriteField/PrepareField.
+  The formatter can be specified in a new schema attribute for <field>
 
 
 CsvReader:
