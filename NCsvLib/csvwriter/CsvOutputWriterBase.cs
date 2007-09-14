@@ -37,19 +37,41 @@ namespace NCsvLib
       if (sch.HasFixedValue)
         return sch.FixedValue;
 
-      string s = string.Empty;
+      StringBuilder sb = new StringBuilder();
+      string s;
       int sz = 0;
       //Converts value to string
       if (sch.FldType == SchemaFieldType.Decimal)
-        s = ((decimal)fld.Value).ToString(sch.Format);
+      {
+        if (sch.CustFmt != null)
+          sb.AppendFormat(sch.CustFmt, "{0}", ((decimal)fld.Value));
+        else
+          sb.Append(((decimal)fld.Value).ToString(sch.Format));
+      }
       else if (sch.FldType == SchemaFieldType.Double)
-        s = ((double)fld.Value).ToString(sch.Format);
+      {
+        if (sch.CustFmt != null)
+          sb.AppendFormat(sch.CustFmt, "{0}", ((double)fld.Value));
+        else
+          sb.Append(((double)fld.Value).ToString(sch.Format));
+      }
       else if (sch.FldType == SchemaFieldType.Int)
-        s = ((int)fld.Value).ToString(sch.Format);
+      {
+        if (sch.CustFmt != null)
+          sb.AppendFormat(sch.CustFmt, "{0}", ((int)fld.Value));
+        else
+          sb.Append(((int)fld.Value).ToString(sch.Format));
+      }
       else if (sch.FldType == SchemaFieldType.String)
-        s = fld.Value.ToString();
+      {
+        if (sch.CustFmt != null)
+          sb.AppendFormat(sch.CustFmt, "{0}", ((string)fld.Value));
+        else
+          sb.Append(fld.Value.ToString());
+      }
       else
         throw new NCsvLibOutputException("Schema data type not supported");
+      s = sb.ToString();
       //Creates a stringbuilder with correct size
       //TODO To be improved
       if (sch.AddQuotes)
@@ -58,7 +80,7 @@ namespace NCsvLib
         sz += sch.Size;
       else
         sz += s.Length;
-      StringBuilder sb = new StringBuilder(sz);
+      sb = new StringBuilder(sz);
       //Verifies if quotes are specified, otherwise use a space
       char qt;
       if (_Quotes.Length > 0)

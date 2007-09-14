@@ -36,6 +36,17 @@ namespace NCsvLib
       set { _Format = value; }
     }
 
+    private IFormatProvider _CustFmt;
+    /// <summary>
+    /// Custom formatter to be eventually used while converting values to
+    /// strings. It has precedence over Format and FmtProvider
+    /// </summary>
+    public IFormatProvider CustFmt
+    {
+      get { return _CustFmt; }
+      set { _CustFmt = value; }
+    }
+
     private SchemaValueAlignment _Alignment;
     /// <summary>
     /// Text alignment applied to the output value

@@ -1,13 +1,12 @@
 Schema:
-- formattazione numeri senza virgole? (es. homebanking, importi vanno espressi in centesimi):  
-  - aggiungere operazioni elementari? (es. moltiplica per 100) (complesso)
-- field: add possibility to override thousand sep., dec. sep., quotes char, etc. that
+- field: add possibility to override quotes char, etc. that
          are now defined in the <options> section
 
-- Xml reader: add tests for missing arguments (es. repeat) and various checks
-  (ex. repeat must be >= 0)
+- Xml reader: add tests for missing arguments (es. repeat) and various checks:
+  - repeat must be >= 0
+  - fields inside a single record must have unique names
 
-- Supporto stringhe con linee multiple (vedi articoli sul csv per info sul formato)
+- Support multiline strings (see articles on the web for the correct format)
 
 SchemaRecordBase:
 - add checking methods for unique id (to be executed in Id property setter)
@@ -21,11 +20,6 @@ DataSourceReader:
 
 - Add generic OutputWriter that writes to a Stream (evaluate if CsvOutputWriterFile
   can be adapted or be a subclass of a new CsvOutputWriterStream class)
-  
-- ** aggiungere opzione per carattere da usare come decimal separator (e thousand separator)?
-- ** Add possibility to define custom formatters (see IFormattable, IFormatProvider, 
-  ICustomFormatter) to be passed to OutputWriter.WriteField/PrepareField.
-  The formatter can be specified in a new schema attribute for <field>
 
 
 CsvReader:

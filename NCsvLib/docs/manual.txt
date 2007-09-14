@@ -1,0 +1,26 @@
+1. Schema
+1.1. Introduction
+1.2. Record
+1.3. Record Group
+1.4. Field
+1.5. Custom formatters
+
+2. CsvWriter
+2.1. Data Source
+2.2. 
+3. CsvReader
+
+--------------------------------------------------------------------------------
+
+1.5. Custom formatters
+
+It is possible to define an attribute <custfmt> for a field. This must be set
+to the name of a class that implements the IFormatProvider and ICustomFormatter
+interfaces. To simplify this procedure the CustomFormatter class can be used
+as base class for other custom formatters. Derived classes must only implement
+ICustomFormatter.Format() method that returns the formatted string that will
+be sent to the output writer.
+There are some prebuilt custom formatters:
+- NumberDigitsFormatter: removes any separator from a number representation,
+leaving only digits. For example the number 15,742.83 will be converted to
+"1574283".

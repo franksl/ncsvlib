@@ -43,6 +43,8 @@
     <Compile Include="csvwriter\ICsvOutputWriter.cs" />
     <Compile Include="csvwriter\IDataSourceReader.cs" />
     <Compile Include="csvwriter\IDataSourceRecordReader.cs" />
+    <Compile Include="fmt\CustomFormatter.cs" />
+    <Compile Include="fmt\NumberDigitsFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="schema\ISchemaReader.cs" />
     <Compile Include="schema\Schema.cs" />
@@ -59,6 +61,7 @@
     <None Include="docs\README">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="docs\manual.txt" />
     <Content Include="docs\todo.txt" />
   </ItemGroup>
   <ItemGroup>

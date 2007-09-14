@@ -159,12 +159,12 @@ namespace NCsvLib
     
     private SchemaField ReadField()
     {
-      SchemaField rec;
+      SchemaField fld;
       string s;
 
-      rec = new SchemaField();
+      fld = new SchemaField();
       //Name
-      rec.Name = Rdr.GetAttribute("name");
+      fld.Name = Rdr.GetAttribute("name");
       //FldType
       s = Rdr.GetAttribute("type");
       if (s != null)
@@ -172,20 +172,33 @@ namespace NCsvLib
       switch (s)
       {
         case "int":
-          rec.FldType = SchemaFieldType.Int;
+          fld.FldType = SchemaFieldType.Int;
           break;
         case "string":
-          rec.FldType = SchemaFieldType.String;
+          fld.FldType = SchemaFieldType.String;
           break;
         case "double":
-          rec.FldType = SchemaFieldType.Double;
+          fld.FldType = SchemaFieldType.Double;
           break;
         case "decimal":
-          rec.FldType = SchemaFieldType.Decimal;
+          fld.FldType = SchemaFieldType.Decimal;
           break;
       }
       //Format
-      rec.Format = Rdr.GetAttribute("format");
+      fld.Format = Rdr.GetAttribute("format");
+      //CustFmt (uses Activator to create an ICustomFormatter instance)
+      s = Rdr.GetAttribute("custfmt");
+      if (s != null)
+      {
+        try
+        {
+          fld.CustFmt = (IFormatProvider)Activator.CreateInstance(Type.GetType("NCsvLib.Formatters." + s, true, true));
+        }
+        catch
+        {
+          throw new NCsvLibSchemaException("Invalid custom formatter: " + s);
+        }
+      }
       //Alignment
       s = Rdr.GetAttribute("alignment");
       if (s != null)
@@ -194,10 +207,10 @@ namespace NCsvLib
       {
         case "left":
         case null:
-          rec.Alignment = SchemaValueAlignment.Left;
+          fld.Alignment = SchemaValueAlignment.Left;
           break;
         case "right":
-          rec.Alignment = SchemaValueAlignment.Right;
+          fld.Alignment = SchemaValueAlignment.Right;
           break;
       }
       //FixedLen
@@ -207,19 +220,19 @@ namespace NCsvLib
       switch (s)
       {
         case "true":
-          rec.FixedLen = true;
+          fld.FixedLen = true;
           break;
         case "false":
         case null:
-          rec.FixedLen = false;
+          fld.FixedLen = false;
           break;
       }
       //Size
       s = Rdr.GetAttribute("size");
       if (s != null)
-        rec.Size = XmlConvert.ToInt32(s);
+        fld.Size = XmlConvert.ToInt32(s);
       else
-        rec.Size = 0;
+        fld.Size = 0;
       //Filled
       s = Rdr.GetAttribute("filled");
       if (s != null)
@@ -227,19 +240,19 @@ namespace NCsvLib
       switch (s)
       {
         case "true":
-          rec.Filled = true;
+          fld.Filled = true;
           break;
         case "false":
         case null:
-          rec.Filled = false;
+          fld.Filled = false;
           break;
       }
       //FillChar
       s = Rdr.GetAttribute("fillchar");
       if (s == null || s.Length == 0)
-        rec.FillChar = ' ';
+        fld.FillChar = ' ';
       else
-        rec.FillChar = s[0];
+        fld.FillChar = s[0];
       //AddQuotes
       s = Rdr.GetAttribute("addquotes");
       if (s != null)
@@ -247,11 +260,11 @@ namespace NCsvLib
       switch (s)
       {
         case "true":
-          rec.AddQuotes = true;
+          fld.AddQuotes = true;
           break;
         case "false":
         case null:
-          rec.AddQuotes = false;
+          fld.AddQuotes = false;
           break;
       }
       //HasFixedValue
@@ -261,16 +274,16 @@ namespace NCsvLib
       switch (s)
       {
         case "true":
-          rec.HasFixedValue = true;
+          fld.HasFixedValue = true;
           break;
         case "false":
         case null:
-          rec.HasFixedValue = false;
+          fld.HasFixedValue = false;
           break;
       }
       //FixedValue
-      rec.FixedValue = Rdr.GetAttribute("fixedvalue");
-      return rec;
+      fld.FixedValue = Rdr.GetAttribute("fixedvalue");
+      return fld;
     }
   }
 }
