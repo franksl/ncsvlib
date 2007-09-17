@@ -21,6 +21,22 @@ DataSourceReader:
 - Add generic OutputWriter that writes to a Stream (evaluate if CsvOutputWriterFile
   can be adapted or be a subclass of a new CsvOutputWriterStream class)
 
+- Improve custom formats:
+  - expose only a IFieldFilter (or formatter or similar) interface with 
+    at least one method:
+    string Filter(object val) (where val is field value). 
+    Basically it takes the output string formatted with
+    a default ToString() (based on eventual <format> schema attribute) and
+    outputs the string that will be effectively sent to the output string.
+    Internal implementation can be mantained with ICustomFormatter, moving
+    some methods to base classes.
+  - Filters may be chained, solution may be one of these:
+    - add a subtag of field in schema with filter names, ie:
+      <field name="aa">
+        <filter classname="Filter1" order="1" />  <-- first filter applied
+        <filter classname="Filter2" order="2" />  <-- second filter applied
+      </field>
+    - user can define a custom filter that contains more than one filter
 
 CsvReader:
 - Add options to handle csv read errors in various ways: throw exception, 
@@ -30,4 +46,7 @@ CsvReader:
   of 'signature' for a line
 - Schema: add options:
   - trimws: trim white space (for example for fixed length string fields)
-  - match: reg.expr. pattern to be matched (also in writer)
+            (default true)
+  - match: reg.expr. pattern to be matched (also in writer for control)
+- Add a Parse() method to filters/formatters with reverse behaviour of 
+  output filters
