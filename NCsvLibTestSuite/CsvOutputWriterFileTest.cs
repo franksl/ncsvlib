@@ -16,6 +16,7 @@ namespace NCsvLibTestSuite
     [SetUp]
     public void SetUp()
     {
+      Helpers.CreateEnvironment();
       if (File.Exists(Helpers.OutFileName))
         File.Delete(Helpers.OutFileName);
     }

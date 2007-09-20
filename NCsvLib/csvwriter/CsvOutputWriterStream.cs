@@ -5,20 +5,20 @@ using System.IO;
 
 namespace NCsvLib
 {
-  public class CsvOutputWriterFile : CsvOutputWriterBase
+  public class CsvOutputWriterStream : CsvOutputWriterBase
   {
     private StreamWriter _Sw;
-    private string _FileName;
-    
-    public CsvOutputWriterFile(string fileName)
+    protected Stream _Str;
+
+    public CsvOutputWriterStream(Stream stream)
       : base()
     {
-      _FileName = fileName;
+      _Str = stream;
     }
 
     public override void Open()
     {
-      _Sw = new StreamWriter(_FileName, false, _Enc);
+      _Sw = new StreamWriter(_Str, _Enc);
     }
 
     public override void Close()

@@ -44,5 +44,16 @@ namespace NCsvLibTestSuite
       }
       return ln;
     }
+
+    public static void CreateEnvironment()
+    {
+      using (DbConnection cn = GetDbConnectionFromFile(Helpers.ConnStrFileName))
+      {
+        DbCommand cmd = cn.CreateCommand();
+        cn.Open();
+        cmd.CommandText = "CALL CreateTestDb()";
+        cmd.ExecuteNonQuery();
+      }
+    }
   }
 }

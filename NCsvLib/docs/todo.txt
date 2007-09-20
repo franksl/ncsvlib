@@ -1,12 +1,18 @@
 Schema:
 - field: add possibility to override quotes char, etc. that
          are now defined in the <options> section
+         
+- <fixedlen> should be changed to <fixedsize>
 
 - Xml reader: add tests for missing arguments (es. repeat) and various checks:
   - repeat must be >= 0
   - fields inside a single record must have unique names
 
 - Support multiline strings (see articles on the web for the correct format)
+
+- PrepareField: 
+  - if a field has fixed size and fixed value the fixed value length should be
+    the same as fixed size or the output string should be filled
 
 SchemaRecordBase:
 - add checking methods for unique id (to be executed in Id property setter)
@@ -17,9 +23,6 @@ DataSourceReader:
   should stop (Read() returns false) (ie. because it's contained in a recordgroup)
   - pass parameters to open()? (ex. to put them in a WHERE clause)
   - expose events (passing current and previous lines)?
-
-- Add generic OutputWriter that writes to a Stream (evaluate if CsvOutputWriterFile
-  can be adapted or be a subclass of a new CsvOutputWriterStream class)
 
 - Improve custom formats:
   - expose only a IFieldFilter (or formatter or similar) interface with 

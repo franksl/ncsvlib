@@ -18,6 +18,7 @@ namespace NCsvLibTestSuite
     [SetUp]
     public void SetUp()
     {
+      Helpers.CreateEnvironment();
       Conn = new DbConnection[4];
       for (int i=0; i<Conn.Length; i++)
         Conn[i] = Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName);

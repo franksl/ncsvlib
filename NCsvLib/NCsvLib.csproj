@@ -30,11 +30,14 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="csvwriter\CsvOutputWriterHttp.cs" />
     <Compile Include="csvwriter\CsvOutputWriterBase.cs" />
     <Compile Include="csvwriter\CsvOutputWriterFile.cs" />
+    <Compile Include="csvwriter\CsvOutputWriterStream.cs" />
     <Compile Include="csvwriter\CsvWriterController.cs" />
     <Compile Include="csvwriter\DataSourceReaderBase.cs" />
     <Compile Include="csvwriter\DataSourceRecordReaderDb.cs" />

@@ -7,9 +7,20 @@ namespace NCsvLib
 {
   public class DataSourceRecordReaderDb : IDataSourceRecordReader
   {
-    public DbConnection _Conn;
-    public DbCommand _Cmd;
-    public DbDataReader _Rdr;
+    protected DbConnection _Conn;
+    public DbConnection Connection
+    {
+      get { return _Conn; }
+      set { _Conn = value; }
+    }
+
+    protected DbCommand _Cmd;
+    public DbCommand Command
+    {
+      get { return _Cmd; }
+    }
+
+    protected DbDataReader _Rdr;
 
     private string _Id;
     public string Id

@@ -47,6 +47,7 @@ namespace NCsvLibTestSuite
       //decimalfld
       Assert.That(rec[3].Name, Is.EqualTo("decimalfld"));
       Assert.That(rec[3].FldType, Is.EqualTo(SchemaFieldType.Decimal));
+      Assert.That(rec[3].CustFmt, Is.TypeOf(typeof(NCsvLib.Formatters.NumberDigitsFormatter)));
       //fixedfld
       Assert.That(rec[4].Name, Is.EqualTo("fixedfld"));
       Assert.That(rec[4].HasFixedValue, Is.True);
