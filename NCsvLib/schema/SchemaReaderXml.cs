@@ -18,7 +18,7 @@ namespace NCsvLib
     public SchemaReaderXml(string file_name)
     {
       if (!File.Exists(file_name))
-        throw new NCsvLibSchemaException("Xml schema file not found");
+        throw new NCsvLibSchemaException("Xml schema file not found: " + file_name);
       FileName = file_name;
     }
 

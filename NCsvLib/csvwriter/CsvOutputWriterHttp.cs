@@ -36,7 +36,7 @@ namespace NCsvLib
       if (_FileName == null || _FileName == string.Empty)
         _Resp.AddHeader("Content-Disposition", "attachment");
       else
-        _Resp.AddHeader("Content-Disposition", "attachment; filename=" + _FileName);
+        _Resp.AddHeader("Content-Disposition", "attachment; filename=\"" + _FileName + "\"");
     }
 
     public override void Close()
@@ -68,7 +68,7 @@ namespace NCsvLib
       //Checks if client is still connected
       if (_Resp.IsClientConnected)
       {
-        byte[] bts = Encoding.Unicode.GetBytes(s);
+        byte[] bts = _Enc.GetBytes(s);
         if (s != string.Empty)
           _Resp.OutputStream.Write(bts, 0, bts.Length);
       }
