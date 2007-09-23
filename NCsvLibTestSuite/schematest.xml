@@ -12,6 +12,7 @@
       <field name="strfld" type="string" format="" alignment="left" fixedlen="true" size="20" addquotes="true" />
       <field name="doublefld" type="double" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="false" />
       <field name="decimalfld" type="decimal" custfmt="numberdigitsformatter" alignment="right" fixedlen="true" size="14" addquotes="true" />
+      <field name="dtfld" type="datetime" format="dd\/MM\/yyyy HH\:mm\:ss" alignment="left" fixedlen="true" size="19" addquotes="false" />
       <field name="fixedfld" hasfixedvalue="true" fixedvalue="AAA" />
     </record>
     <recordgroup id="RG1" repeat="2">

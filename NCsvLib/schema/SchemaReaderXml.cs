@@ -183,6 +183,9 @@ namespace NCsvLib
         case "decimal":
           fld.FldType = SchemaFieldType.Decimal;
           break;
+        case "datetime":
+          fld.FldType = SchemaFieldType.DateTime;
+          break;
       }
       //Format
       fld.Format = Rdr.GetAttribute("format");

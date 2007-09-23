@@ -69,6 +69,13 @@ namespace NCsvLib
         else
           sb.Append(fld.Value.ToString());
       }
+      else if (sch.FldType == SchemaFieldType.DateTime)
+      {
+        if (sch.CustFmt != null)
+          sb.AppendFormat(sch.CustFmt, "{0}", ((DateTime)fld.Value));
+        else
+          sb.Append(((DateTime)fld.Value).ToString(sch.Format));
+      }
       else
         throw new NCsvLibOutputException("Schema data type not supported");
       s = sb.ToString();

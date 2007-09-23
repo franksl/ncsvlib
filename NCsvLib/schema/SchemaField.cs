@@ -142,6 +142,7 @@ namespace NCsvLib
     Int,
     String,
     Double,
-    Decimal
+    Decimal,
+    DateTime
   }
 }

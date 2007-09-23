@@ -130,6 +130,8 @@ namespace NCsvLibTestSuite
       Assert.That((double)fld.Value, Is.EqualTo(100.1));
       fld = rdr[Helpers.R1].GetField("decimalfld");
       Assert.That((decimal)fld.Value, Is.EqualTo((decimal)1000.11));
+      fld = rdr[Helpers.R1].GetField("dtfld");
+      Assert.That((DateTime)fld.Value, Is.EqualTo(new DateTime(2001, 1, 11, 10, 11, 12)));
       rdr[Helpers.R1].Read();
       rdr[Helpers.R1].Read();
       fld = rdr[Helpers.R1].GetField("intfld");
@@ -140,6 +142,8 @@ namespace NCsvLibTestSuite
       Assert.That((double)fld.Value, Is.EqualTo(300.3));
       fld = rdr[Helpers.R1].GetField("decimalfld");
       Assert.That((decimal)fld.Value, Is.EqualTo((decimal)3000.33));
+      fld = rdr[Helpers.R1].GetField("dtfld");
+      Assert.That((DateTime)fld.Value, Is.EqualTo(new DateTime(2003, 3, 13, 13, 14, 15)));
       rdr[Helpers.R1].Close();
     }
 

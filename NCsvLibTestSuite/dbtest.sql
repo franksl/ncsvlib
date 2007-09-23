@@ -9,17 +9,18 @@ BEGIN
     intfld INT PRIMARY KEY,
     strfld VARCHAR(20),
     doublefld DOUBLE,
-    decimalfld DECIMAL(11,2)
+    decimalfld DECIMAL(11,2),
+    dtfld DATETIME
   );
 
-  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld)
-  VALUES (1, 'aaa', 100.10, 1000.11);
-  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld)
-  VALUES (2, 'bbb', 200.20, 2000.22);
-  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld)
-  VALUES (3, 'ccc', 300.30, 3000.33);
-  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld)
-  VALUES (4, 'ddd', 400.40, 4000.44);
+  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld, dtfld)
+  VALUES (1, 'aaa', 100.10, 1000.11, '2001-1-11 10:11:12');
+  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld, dtfld)
+  VALUES (2, 'bbb', 200.20, 2000.22, '2002-2-12 12:13:14');
+  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld, dtfld)
+  VALUES (3, 'ccc', 300.30, 3000.33, '2003-3-13 13:14:15');
+  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld, dtfld)
+  VALUES (4, 'ddd', 400.40, 4000.44, '2004-4-14 14:15:16');
 
   DROP TABLE IF EXISTS csvtest2;
   CREATE TABLE csvtest2
