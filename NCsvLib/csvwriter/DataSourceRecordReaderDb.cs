@@ -91,7 +91,7 @@ namespace NCsvLib
       }
       catch (IndexOutOfRangeException)
       {
-        throw new NCsvLibDataSourceException("Field name not found in db");
+        throw new NCsvLibDataSourceException("Field name not found in db: " + name);
       }
       DataSourceField fld = new DataSourceField();
       fld.Name = name;

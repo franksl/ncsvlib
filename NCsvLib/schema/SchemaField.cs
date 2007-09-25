@@ -129,6 +129,33 @@ namespace NCsvLib
       get { return _FixedValue; }
       set { _FixedValue = value; }
     }
+
+    private string _Comment;
+    /// <summary>
+    ///Free comment for this field
+    /// </summary>
+    public string Comment
+    {
+      get { return _Comment; }
+      set { _Comment = value; }
+    }
+
+    public SchemaField()
+    {
+      Name = string.Empty;
+      FldType = SchemaFieldType.String;
+      Format = string.Empty;
+      CustFmt = null;
+      Alignment = SchemaValueAlignment.Left;
+      FixedLen = false;
+      Size = 0;
+      Filled = false;
+      FillChar = char.MinValue;
+      AddQuotes = false;
+      HasFixedValue = false;
+      FixedValue = string.Empty;
+      Comment = string.Empty;
+    }
   }
 
   public enum SchemaValueAlignment
@@ -139,10 +166,10 @@ namespace NCsvLib
 
   public enum SchemaFieldType
   {
-    Int,
-    String,
-    Double,
-    Decimal,
-    DateTime
+    Int = 1,
+    String = 2,
+    Double = 3,
+    Decimal = 4,
+    DateTime = 5
   }
 }

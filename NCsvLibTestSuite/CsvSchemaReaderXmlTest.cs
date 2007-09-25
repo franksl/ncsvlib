@@ -37,6 +37,7 @@ namespace NCsvLibTestSuite
       Assert.That(rec[0].FldType, Is.EqualTo(SchemaFieldType.Int));
       Assert.That(rec[0].Filled, Is.EqualTo(true));
       Assert.That(rec[0].FillChar, Is.EqualTo('0'));
+      Assert.That(rec[0].Comment, Is.EqualTo("Comment for intfld"));
       //strfld
       Assert.That(rec[1].Name, Is.EqualTo("strfld"));
       Assert.That(rec[1].AddQuotes, Is.True);

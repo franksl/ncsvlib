@@ -195,11 +195,11 @@ namespace NCsvLib
       {
         try
         {
-          fld.CustFmt = (IFormatProvider)Activator.CreateInstance(Type.GetType("NCsvLib.Formatters." + s, true, true));
+          fld.CustFmt = (IFormatProvider)Activator.CreateInstance(Type.GetType(s, true, true));
         }
-        catch
+        catch (Exception ex)
         {
-          throw new NCsvLibSchemaException("Invalid custom formatter: " + s);
+          throw new NCsvLibSchemaException("Invalid custom formatter: " + s + " " + ex.Message);
         }
       }
       //Alignment
@@ -286,6 +286,9 @@ namespace NCsvLib
       }
       //FixedValue
       fld.FixedValue = Rdr.GetAttribute("fixedvalue");
+      //Comment
+      fld.Comment = Rdr.GetAttribute("comment");
+
       return fld;
     }
   }
