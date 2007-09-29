@@ -39,7 +39,17 @@ namespace NCsvLib
     private IFormatProvider _CustFmt;
     /// <summary>
     /// Custom formatter to be eventually used while converting values to
-    /// strings. It has precedence over Format and FmtProvider
+    /// strings. It has precedence over Format.
+    /// This value can be specified in two ways:
+    /// - If it is one of the builtin custom formatters (like NumberDigitsFormatter)
+    ///   the attribute should be the full type name 
+    ///   (ie. "NCsvLib.Formatters.NumberDigitsFormatter")
+    /// - If it is a user custom formatter the attribute must contain the assembly
+    ///   name as long as the full type name, separated by a '|' (pipe char).
+    ///   For example if the user has defined a MyNamespace.Formatters.MyFormatter
+    ///   class (that is a subclass of NCsvLib.Formatters.CustomFormatter) in
+    ///   the assembly MyAssembly.dll, the custfmt attribute should be:
+    ///   custfmt="MyAssembly.dll|MyNamespace.Formatters.MyFormatter"
     /// </summary>
     public IFormatProvider CustFmt
     {

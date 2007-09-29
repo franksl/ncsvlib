@@ -56,4 +56,12 @@ namespace NCsvLibTestSuite
       }
     }
   }
+
+  class DummyFormatter : NCsvLib.Formatters.CustomFormatter
+  {
+    public override string Format(string format, object arg, IFormatProvider formatProvider)
+    {
+      return "DUMMY";
+    }
+  }
 }

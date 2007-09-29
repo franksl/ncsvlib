@@ -52,10 +52,11 @@ namespace NCsvLibTestSuite
       List<string> ln = Helpers.GetFileLines(Helpers.OutFileName, Helpers.Enc);
       i = 0;
       Assert.That(ln.Count, Is.EqualTo(24));
-      Assert.That(ln[i++],  Is.EqualTo("00001|\"aaa                 \"|        100,10|\"        100011\"|11/01/2001 10:11:12|AAA|"));
-      Assert.That(ln[i++],  Is.EqualTo("00002|\"bbb                 \"|        200,20|\"        200022\"|12/02/2002 12:13:14|AAA|"));
-      Assert.That(ln[i++],  Is.EqualTo("00003|\"ccc                 \"|        300,30|\"        300033\"|13/03/2003 13:14:15|AAA|"));
-      Assert.That(ln[i++],  Is.EqualTo("00004|\"ddd                 \"|        400,40|\"        400044\"|14/04/2004 14:15:16|AAA|"));
+      //R1
+      Assert.That(ln[i++], Is.EqualTo("00001|\"aaa                 \"|        100,10|\"        100011\"|11/01/2001 10:11:12|AAA|DUMMY|"));
+      Assert.That(ln[i++], Is.EqualTo("00002|\"bbb                 \"|        200,20|\"        200022\"|12/02/2002 12:13:14|AAA|DUMMY|"));
+      Assert.That(ln[i++], Is.EqualTo("00003|\"ccc                 \"|        300,30|\"        300033\"|13/03/2003 13:14:15|AAA|DUMMY|"));
+      Assert.That(ln[i++], Is.EqualTo("00004|\"ddd                 \"|        400,40|\"        400044\"|14/04/2004 14:15:16|AAA|DUMMY|"));
       //Record group that contains records 2 and 3 has repeat = 2
       Assert.That(ln[i++],  Is.EqualTo("FLDR2|001|11000|\"                r2_1\"|"));
       Assert.That(ln[i++],  Is.EqualTo("FLDR2|002|22000|\"                r2_2\"|"));

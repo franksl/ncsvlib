@@ -193,9 +193,25 @@ namespace NCsvLib
       s = Rdr.GetAttribute("custfmt");
       if (s != null)
       {
+        char sep = '|';
         try
         {
-          fld.CustFmt = (IFormatProvider)Activator.CreateInstance(Type.GetType(s, true, true));
+          if (s.IndexOf(sep) >= 0)
+          {
+            string[] sarr = s.Split(new char[] { sep }, 2);
+            fld.CustFmt = (IFormatProvider)Activator.CreateInstanceFrom(sarr[0], sarr[1]).Unwrap();            
+          }
+          else
+            fld.CustFmt = (IFormatProvider)Activator.CreateInstance(Type.GetType(s, true, true));
+
+          //fld.CustFmt = (IFormatProvider)Activator.CreateInstance(Type.GetType(s, true, true));
+          //fld.CustFmt = (IFormatProvider)AppDomain.CurrentDomain.CreateInstanceAndUnwrap(
+          //fld.CustFmt = (IFormatProvider)Activator.CreateInstance(Type.GetType(s, true, true));
+          
+          /*if (s.ToLower().StartsWith("ncsvlib."))
+            fld.CustFmt = (IFormatProvider)Activator.CreateInstance(Type.GetType(s, true, true));
+          else
+            fld.CustFmt = (IFormatProvider)System.Reflection.Assembly.GetEntryAssembly().CreateInstance(s, true);*/
         }
         catch (Exception ex)
         {

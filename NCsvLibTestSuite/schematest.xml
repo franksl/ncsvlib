@@ -14,6 +14,7 @@
       <field name="decimalfld" type="decimal" custfmt="NCsvLib.Formatters.NumberDigitsFormatter" alignment="right" fixedlen="true" size="14" addquotes="true" />
       <field name="dtfld" type="datetime" format="dd\/MM\/yyyy HH\:mm\:ss" alignment="left" fixedlen="true" size="19" addquotes="false" />
       <field name="fixedfld" hasfixedvalue="true" fixedvalue="AAA" />
+      <field name="strfld2" type="string" fixedlen="true" size="5" custfmt="NCsvLibTestSuite.dll|NCsvLibTestSuite.DummyFormatter" />
     </record>
     <recordgroup id="RG1" repeat="2">
       <record id="R2" repeat="4">

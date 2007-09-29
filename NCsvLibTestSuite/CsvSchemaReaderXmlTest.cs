@@ -28,7 +28,7 @@ namespace NCsvLibTestSuite
       //*** First record
       Assert.That(sch[0], Is.TypeOf(typeof(SchemaRecord)));
       rec = (SchemaRecord)sch[0];
-      Assert.That(rec.Count, Is.EqualTo(6));
+      Assert.That(rec.Count, Is.EqualTo(7));
       Assert.That(rec.Id, Is.EqualTo("R1"));
       Assert.That(rec.Repeat, Is.EqualTo(0));
       //intfld
@@ -56,7 +56,11 @@ namespace NCsvLibTestSuite
       Assert.That(rec[5].Name, Is.EqualTo("fixedfld"));
       Assert.That(rec[5].HasFixedValue, Is.True);
       Assert.That(rec[5].FixedValue, Is.EqualTo("AAA"));
-
+      //strfld2
+      Assert.That(rec[6].Name, Is.EqualTo("strfld2"));
+      Assert.That(rec[6].FldType, Is.EqualTo(SchemaFieldType.String));
+      Assert.That(rec[6].CustFmt.GetType().Name, Text.Matches("DummyFormatter"));
+      
       //*** Second record (group RG1)
       Assert.That(sch[1], Is.TypeOf(typeof(SchemaRecordComposite)));
       comp = (SchemaRecordComposite)sch[1];

@@ -10,17 +10,18 @@ BEGIN
     strfld VARCHAR(20),
     doublefld DOUBLE,
     decimalfld DECIMAL(11,2),
-    dtfld DATETIME
+    dtfld DATETIME,
+    strfld2 VARCHAR(5)
   );
 
-  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld, dtfld)
-  VALUES (1, 'aaa', 100.10, 1000.11, '2001-1-11 10:11:12');
-  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld, dtfld)
-  VALUES (2, 'bbb', 200.20, 2000.22, '2002-2-12 12:13:14');
-  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld, dtfld)
-  VALUES (3, 'ccc', 300.30, 3000.33, '2003-3-13 13:14:15');
-  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld, dtfld)
-  VALUES (4, 'ddd', 400.40, 4000.44, '2004-4-14 14:15:16');
+  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld, dtfld, strfld2)
+  VALUES (1, 'aaa', 100.10, 1000.11, '2001-1-11 10:11:12', 'TEST1');
+  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld, dtfld, strfld2)
+  VALUES (2, 'bbb', 200.20, 2000.22, '2002-2-12 12:13:14', 'TEST2');
+  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld, dtfld, strfld2)
+  VALUES (3, 'ccc', 300.30, 3000.33, '2003-3-13 13:14:15', 'TEST3');
+  INSERT INTO csvtest1(intfld, strfld, doublefld, decimalfld, dtfld, strfld2)
+  VALUES (4, 'ddd', 400.40, 4000.44, '2004-4-14 14:15:16', 'TEST4');
 
   DROP TABLE IF EXISTS csvtest2;
   CREATE TABLE csvtest2
