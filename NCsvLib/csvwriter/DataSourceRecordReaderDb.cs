@@ -95,7 +95,11 @@ namespace NCsvLib
       }
       DataSourceField fld = new DataSourceField();
       fld.Name = name;
-      fld.Value = _Rdr.GetValue(idx);
+      //If value in db is null it is set to null
+      if (_Rdr.IsDBNull(idx))
+        fld.Value = null;
+      else
+        fld.Value = _Rdr.GetValue(idx);
       return fld;
     }    
   }

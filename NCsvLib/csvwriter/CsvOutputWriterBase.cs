@@ -40,45 +40,50 @@ namespace NCsvLib
       StringBuilder sb = new StringBuilder();
       string s;
       int sz = 0;
-      //Converts value to string
-      if (sch.FldType == SchemaFieldType.Decimal)
+      //Converts value to string (empty string if value is null
+      if (fld.Value != null)
       {
-        if (sch.CustFmt != null)
-          sb.AppendFormat(sch.CustFmt, "{0}", ((decimal)fld.Value));
+        if (sch.FldType == SchemaFieldType.Decimal)
+        {
+          if (sch.CustFmt != null)
+            sb.AppendFormat(sch.CustFmt, "{0}", ((decimal)fld.Value));
+          else
+            sb.Append(((decimal)fld.Value).ToString(sch.Format));
+        }
+        else if (sch.FldType == SchemaFieldType.Double)
+        {
+          if (sch.CustFmt != null)
+            sb.AppendFormat(sch.CustFmt, "{0}", ((double)fld.Value));
+          else
+            sb.Append(((double)fld.Value).ToString(sch.Format));
+        }
+        else if (sch.FldType == SchemaFieldType.Int)
+        {
+          if (sch.CustFmt != null)
+            sb.AppendFormat(sch.CustFmt, "{0}", ((int)fld.Value));
+          else
+            sb.Append(((int)fld.Value).ToString(sch.Format));
+        }
+        else if (sch.FldType == SchemaFieldType.String)
+        {
+          if (sch.CustFmt != null)
+            sb.AppendFormat(sch.CustFmt, "{0}", ((string)fld.Value));
+          else
+            sb.Append(fld.Value.ToString());
+        }
+        else if (sch.FldType == SchemaFieldType.DateTime)
+        {
+          if (sch.CustFmt != null)
+            sb.AppendFormat(sch.CustFmt, "{0}", ((DateTime)fld.Value));
+          else
+            sb.Append(((DateTime)fld.Value).ToString(sch.Format));
+        }
         else
-          sb.Append(((decimal)fld.Value).ToString(sch.Format));
-      }
-      else if (sch.FldType == SchemaFieldType.Double)
-      {
-        if (sch.CustFmt != null)
-          sb.AppendFormat(sch.CustFmt, "{0}", ((double)fld.Value));
-        else
-          sb.Append(((double)fld.Value).ToString(sch.Format));
-      }
-      else if (sch.FldType == SchemaFieldType.Int)
-      {
-        if (sch.CustFmt != null)
-          sb.AppendFormat(sch.CustFmt, "{0}", ((int)fld.Value));
-        else
-          sb.Append(((int)fld.Value).ToString(sch.Format));
-      }
-      else if (sch.FldType == SchemaFieldType.String)
-      {
-        if (sch.CustFmt != null)
-          sb.AppendFormat(sch.CustFmt, "{0}", ((string)fld.Value));
-        else
-          sb.Append(fld.Value.ToString());
-      }
-      else if (sch.FldType == SchemaFieldType.DateTime)
-      {
-        if (sch.CustFmt != null)
-          sb.AppendFormat(sch.CustFmt, "{0}", ((DateTime)fld.Value));
-        else
-          sb.Append(((DateTime)fld.Value).ToString(sch.Format));
+          throw new NCsvLibOutputException("Schema data type not supported");
+        s = sb.ToString();
       }
       else
-        throw new NCsvLibOutputException("Schema data type not supported");
-      s = sb.ToString();
+        s = string.Empty;
       //Creates a stringbuilder with correct size
       //TODO To be improved
       if (sch.AddQuotes)
