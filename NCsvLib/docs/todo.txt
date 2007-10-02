@@ -17,6 +17,12 @@ Writer:
   - if a field has fixed size and fixed value the fixed value length should be
     the same as fixed size or the output string should be filled, or an exception
     should be thrown while reading the schema
+- Separate output string generation from writing to output, ie in a 'Formatter'
+  class.
+- Add event generation during conversion to string, ie. 'Converting' and 'Converted'
+  events. Pass as event args the string that should be output, the DataSourceField
+  and SchemaField to be used.
+- Evaluate an eventual Lua interface for custom formatters
     
 
 
