@@ -82,6 +82,10 @@ namespace NCsvLib
       //rdr.Open();
       try
       {
+        //Outputs column headers, if requested
+        if (r.ColHeaders)
+          _OutWriter.WriteColHeaders(r, _Sch.Options.FieldSeparator, _Sch.Options.Eol);
+
         if (rec.Repeat == 0)
         {
           while (rdr.Read())

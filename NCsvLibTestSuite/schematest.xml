@@ -7,14 +7,14 @@
     <encoding value="utf-8" />
   </options>
   <schema>
-    <record id="R1" repeat="0">
-      <field name="intfld" type="int" format="0" alignment="right" fixedlen="true" size="5" filled="true" fillchar="0" addquotes="false" comment="Comment for intfld" />
-      <field name="strfld" type="string" format="" alignment="left" fixedlen="true" size="20" addquotes="true" />
-      <field name="doublefld" type="double" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="false" />
-      <field name="decimalfld" type="decimal" custfmt="NCsvLib.Formatters.NumberDigitsFormatter" alignment="right" fixedlen="true" size="14" addquotes="true" />
-      <field name="dtfld" type="datetime" format="dd\/MM\/yyyy HH\:mm\:ss" alignment="left" fixedlen="true" size="19" addquotes="false" />
-      <field name="fixedfld" hasfixedvalue="true" fixedvalue="AAA" />
-      <field name="strfld2" type="string" fixedlen="true" size="5" custfmt="NCsvLibTestSuite.dll|NCsvLibTestSuite.DummyFormatter" />
+    <record id="R1" repeat="0" colheaders="true">
+      <field name="intfld" type="int" format="0" alignment="right" fixedlen="true" size="5" filled="true" fillchar="0" addquotes="false" comment="Comment for intfld" colhdr="int1" />
+      <field name="strfld" type="string" format="" alignment="left" fixedlen="true" size="20" addquotes="true" colhdr="str1" />
+      <field name="doublefld" type="double" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="false" colhdr="dbl1" />
+      <field name="decimalfld" type="decimal" custfmt="NCsvLib.Formatters.NumberDigitsFormatter" alignment="right" fixedlen="true" size="14" addquotes="true" colhdr="dec1" />
+      <field name="dtfld" type="datetime" format="dd\/MM\/yyyy HH\:mm\:ss" alignment="left" fixedlen="true" size="19" addquotes="false" colhdr="dt1" />
+      <field name="fixedfld" hasfixedvalue="true" fixedvalue="AAA" colhdr="fix1" />
+      <field name="strfld2" type="string" fixedlen="true" size="5" custfmt="NCsvLibTestSuite.dll|NCsvLibTestSuite.DummyFormatter" colhdr="str1_2" />
     </record>
     <recordgroup id="RG1" repeat="2">
       <record id="R2" repeat="4">

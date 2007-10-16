@@ -28,5 +28,11 @@ namespace NCsvLib
     /// Writes the end of line character(s)
     /// </summary>
     void WriteEol(string sEol);
+    /// <summary>
+    /// Writes column headers on a single line
+    /// </summary>
+    /// <param name="rec">Record that contains fields with colhdr attribute defined</param>
+    /// <param name="sep">Field separator</param>
+    void WriteColHeaders(SchemaRecord rec, string sep, string eol);
   }
 }

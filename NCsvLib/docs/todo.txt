@@ -23,7 +23,8 @@ Writer:
   events. Pass as event args the string that should be output, the DataSourceField
   and SchemaField to be used.
 - Evaluate an eventual Lua interface for custom formatters
-    
+
+- IMPORTANT!!!: merge last trunk modifications into branch mod_fmt (ColHeaders, etc.)    
 
 
 

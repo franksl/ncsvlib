@@ -44,5 +44,12 @@ namespace NCsvLib
       if (sEol != string.Empty)
         _Sw.Write(sEol);
     }
+
+    public override void WriteColHeaders(SchemaRecord rec, string sep, string eol)
+    {
+      string s = PrepareColHeaders(rec, sep, eol);
+      if (s != string.Empty)
+        _Sw.Write(s);
+    }
   }
 }

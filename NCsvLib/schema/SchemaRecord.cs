@@ -9,7 +9,20 @@ namespace NCsvLib
   /// </summary>
   public class SchemaRecord : SchemaRecordBase
   {
+    /// <summary>
+    /// Collection of ShemaField owned by this record
+    /// </summary>
     private List<SchemaField> _Fields;
+
+    private bool _ColHeaders;
+    /// <summary>
+    /// True if the first line of this record contains column names
+    /// </summary>
+    public bool ColHeaders
+    {
+      get { return _ColHeaders; }
+      set { _ColHeaders = value; }
+    }
     
     public SchemaField this[int idx]
     {

@@ -63,6 +63,13 @@ namespace NCsvLib
         WriteString(sEol);
     }
 
+    public override void WriteColHeaders(SchemaRecord rec, string sep, string eol)
+    {
+      string s = PrepareColHeaders(rec, sep, eol);
+      if (s != string.Empty)
+        WriteString(s);
+    }
+
     private void WriteString(string s)
     {
       //Checks if client is still connected

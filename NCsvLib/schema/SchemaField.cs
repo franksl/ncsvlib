@@ -150,6 +150,16 @@ namespace NCsvLib
       set { _Comment = value; }
     }
 
+    private string _ColHdr;
+    /// <summary>
+    ///Text for the column header (if Record.ColHeaders is true)
+    /// </summary>
+    public string ColHdr
+    {
+      get { return _ColHdr; }
+      set { _ColHdr = value; }
+    }
+
     public SchemaField()
     {
       Name = string.Empty;
@@ -165,6 +175,7 @@ namespace NCsvLib
       HasFixedValue = false;
       FixedValue = string.Empty;
       Comment = string.Empty;
+      ColHdr = string.Empty;
     }
   }
 

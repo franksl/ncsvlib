@@ -141,8 +141,21 @@ namespace NCsvLib
 
     private void ReadRecord(SchemaRecord rec)
     {
+      string s;
       rec.Id = Rdr.GetAttribute("id");
       rec.Repeat = int.Parse(Rdr.GetAttribute("repeat"));
+      s = Rdr.GetAttribute("colheaders");
+      if (s != null && s != string.Empty)
+      {
+        try
+        {
+          rec.ColHeaders = bool.Parse(s);
+        }
+        catch
+        {
+          throw new NCsvLibSchemaException("Error reading record.colheaders");
+        }
+      }
       if (rec.Id == null || rec.Id.Trim() == string.Empty)
         throw new NCsvLibSchemaException("id not specified in record");
       while (Rdr.Read() && Rdr.MoveToContent() != XmlNodeType.EndElement &&
@@ -301,9 +314,17 @@ namespace NCsvLib
           break;
       }
       //FixedValue
-      fld.FixedValue = Rdr.GetAttribute("fixedvalue");
+      s = Rdr.GetAttribute("fixedvalue");
+      if (s != null)
+        fld.FixedValue = s;
       //Comment
-      fld.Comment = Rdr.GetAttribute("comment");
+      s = Rdr.GetAttribute("comment");
+      if (s != null)
+        fld.Comment = s;
+      //ColHdr
+      s = Rdr.GetAttribute("colhdr");
+      if (s != null)
+        fld.ColHdr = s;
 
       return fld;
     }
