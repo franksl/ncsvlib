@@ -6,8 +6,9 @@
 1.5. Custom formatters
 
 2. CsvWriter
-2.1. Data Source
-2.2. 
+2.1. Introduction
+2.2. Data Source
+2.3. 
 3. CsvReader
 
 --------------------------------------------------------------------------------
@@ -24,3 +25,37 @@ There are some prebuilt custom formatters:
 - NumberDigitsFormatter: removes any separator from a number representation,
 leaving only digits. For example the number 15,742.83 will be converted to
 "1574283".
+
+
+2. CsvWriter
+
+2.1. Introduction
+
+
+                                |------ Schema ------|
+                                |                    |
+                                |                    |
+DataSourceReader ----> CsvWriterController ----> Formatter ----> OutputWriter
+        |
+        |
+DataSourceRecordReader
+
+The basic blocks are:
+
+- Schema:
+Represents the structure of a csv file. It is a tree of 'records', where each 
+record represents the structure of a single line. 
+Every record is a collection of 'fields' that represent a single value.
+Every field will be separated from the following by a field separator, if 
+specified.
+For example, let's define a schema with a single 'Users' record with a total of
+4 fields: first name, surname, city, email. We also specify that the field 
+separator is ';'. An example output file may contain two users:
+
+name1;surname1;city1;email1@address;
+name2;surname2;city2;email2@address;
+
+The schema is implemented with a 'Composite' pattern, so it is possible to 
+define even complex file structures.
+
+- CsvWriterController

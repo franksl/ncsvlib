@@ -9,7 +9,7 @@ namespace NCsvLib
   {
     private StreamWriter _Sw;
     protected Stream _Str;
-
+    
     public CsvOutputWriterStream(Stream stream)
       : base()
     {
@@ -26,11 +26,10 @@ namespace NCsvLib
       _Sw.Close();
     }
 
-    public override void WriteField(DataSourceField fld, SchemaField sch)
+    public override void WriteFieldValue(string val)
     {
-      string s = PrepareField(fld, sch);
-      if (s != string.Empty)
-        _Sw.Write(s);
+      if (val != string.Empty)
+        _Sw.Write(val);
     }
 
     public override void WriteSeparator(string sep)

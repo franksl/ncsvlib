@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.IO;
+using NCsvLib.Formatters;
 
 namespace NCsvLib
 {
   public class SchemaReaderXml : ISchemaReader
   {
     public string FileName;
-    private XmlReader Rdr;
+    private XmlReader _Rdr;
+    private Schema _Sch;
 
     private SchemaReaderXml()
     {
@@ -24,109 +26,109 @@ namespace NCsvLib
 
     public Schema GetSchema()
     {
-      Schema sch = new Schema();
+      _Sch = new Schema();
       
-      Rdr = XmlReader.Create(FileName);
-      Rdr.ReadStartElement("ncsvlib");
+      _Rdr = XmlReader.Create(FileName);
+      _Rdr.ReadStartElement("ncsvlib");
       try
       {
-        while (Rdr.Read())
+        while (_Rdr.Read())
         {
-          if (Rdr.IsStartElement("options"))
+          if (_Rdr.IsStartElement("options"))
           {
-            ReadOptions(sch);
+            ReadOptions();
           }
-          else if (Rdr.IsStartElement("schema"))
+          else if (_Rdr.IsStartElement("schema"))
           {
-            ReadRecords(sch);
+            ReadRecords();
           }
         }
       }
       finally
       {
-        Rdr.Close();
+        _Rdr.Close();
       }
-      return sch;
+      return _Sch;
     }
 
-    private void ReadOptions(Schema sch)
+    private void ReadOptions()
     {
-      while (Rdr.Read() && Rdr.MoveToContent() != XmlNodeType.EndElement &&
-            Rdr.Name != "options")
+      while (_Rdr.Read() && _Rdr.MoveToContent() != XmlNodeType.EndElement &&
+            _Rdr.Name != "options")
       {
-        if (Rdr.IsStartElement("fieldseparator"))
+        if (_Rdr.IsStartElement("fieldseparator"))
         {
-          if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          if (_Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
           {
-            sch.Options.FieldSeparator = Rdr.ReadElementContentAsString();
+            _Sch.Options.FieldSeparator = _Rdr.GetAttribute("value");
           }
         }
-        else if (Rdr.IsStartElement("eol"))
+        else if (_Rdr.IsStartElement("eol"))
         {
-          if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          if (_Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
           {
-            sch.Options.Eol = Rdr.ReadElementContentAsString();
+            _Sch.Options.Eol = _Rdr.GetAttribute("value");
           }
         }
-        else if (Rdr.IsStartElement("quotes"))
+        else if (_Rdr.IsStartElement("quotes"))
         {
-          if (Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          if (_Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
           {
-            sch.Options.Quotes = Rdr.ReadElementContentAsString();
+            _Sch.Options.Quotes = _Rdr.GetAttribute("value");
           }
         }
-        else if (Rdr.IsStartElement("encoding"))
+        else if (_Rdr.IsStartElement("encoding"))
         {
-          string s = Rdr.GetAttribute("value");
-          sch.Options.Enc = Encoding.GetEncoding(s);          
+          string s = _Rdr.GetAttribute("value");
+          _Sch.Options.Enc = Encoding.GetEncoding(s);          
         }
       }
     }
 
-    private void ReadRecords(Schema sch)
+    private void ReadRecords()
     {
       SchemaRecordBase rec = null;
       Stack<SchemaRecordComposite> stk = new Stack<SchemaRecordComposite>();
 
-      while (Rdr.Read() && Rdr.MoveToContent() != XmlNodeType.EndElement &&
-            Rdr.Name != "schema")
+      while (_Rdr.Read() && _Rdr.MoveToContent() != XmlNodeType.EndElement &&
+            _Rdr.Name != "schema")
       {
-        if (Rdr.IsStartElement("recordgroup"))
+        if (_Rdr.IsStartElement("recordgroup"))
         {
           rec = new SchemaRecordComposite();
           //rec.Id = Rdr.GetAttribute("id");
           stk.Push((SchemaRecordComposite)rec);
           ReadRecordGroup(stk);
-          sch.Add(rec);
+          _Sch.Add(rec);
         }
-        else if (Rdr.IsStartElement("record"))
+        else if (_Rdr.IsStartElement("record"))
         {
           SchemaRecord r = new SchemaRecord();
           ReadRecord(r);
-          sch.Add(r);
+          _Sch.Add(r);
         }
       }
-      if (Rdr.MoveToContent() == XmlNodeType.EndElement && Rdr.Name == "schema")
-        Rdr.ReadEndElement();
+      if (_Rdr.MoveToContent() == XmlNodeType.EndElement && _Rdr.Name == "schema")
+        _Rdr.ReadEndElement();
     }
 
     private void ReadRecordGroup(Stack<SchemaRecordComposite> stk)
     {
       SchemaRecordComposite comp = stk.Peek();
-      comp.Id = Rdr.GetAttribute("id");
-      comp.Repeat = int.Parse(Rdr.GetAttribute("repeat"));
+      comp.Id = _Rdr.GetAttribute("id");
+      comp.Repeat = int.Parse(_Rdr.GetAttribute("repeat"));
       if (comp.Id == null || comp.Id.Trim() == string.Empty)
         throw new NCsvLibSchemaException("id not specified in recordgroup");
-      while (Rdr.Read() && Rdr.MoveToContent() != XmlNodeType.EndElement &&
-            Rdr.Name != "recordgroup")
+      while (_Rdr.Read() && _Rdr.MoveToContent() != XmlNodeType.EndElement &&
+            _Rdr.Name != "recordgroup")
       {
-        if (Rdr.IsStartElement("record"))
+        if (_Rdr.IsStartElement("record"))
         {
           SchemaRecord r = new SchemaRecord();          
           ReadRecord(r);
           stk.Peek().Add(r);
         }
-        else if (Rdr.IsStartElement("recordgroup"))
+        else if (_Rdr.IsStartElement("recordgroup"))
         {
           comp = new SchemaRecordComposite();
           stk.Peek().Add(comp);
@@ -134,17 +136,17 @@ namespace NCsvLib
           ReadRecordGroup(stk);
         }
       }
-      if (Rdr.MoveToContent() == XmlNodeType.EndElement && Rdr.Name == "recordgroup")
-        Rdr.ReadEndElement();
+      if (_Rdr.MoveToContent() == XmlNodeType.EndElement && _Rdr.Name == "recordgroup")
+        _Rdr.ReadEndElement();
       stk.Pop();
     }
 
     private void ReadRecord(SchemaRecord rec)
     {
       string s;
-      rec.Id = Rdr.GetAttribute("id");
-      rec.Repeat = int.Parse(Rdr.GetAttribute("repeat"));
-      s = Rdr.GetAttribute("colheaders");
+      rec.Id = _Rdr.GetAttribute("id");
+      rec.Repeat = int.Parse(_Rdr.GetAttribute("repeat"));
+      s = _Rdr.GetAttribute("colheaders");
       if (s != null && s != string.Empty)
       {
         try
@@ -158,16 +160,16 @@ namespace NCsvLib
       }
       if (rec.Id == null || rec.Id.Trim() == string.Empty)
         throw new NCsvLibSchemaException("id not specified in record");
-      while (Rdr.Read() && Rdr.MoveToContent() != XmlNodeType.EndElement &&
-            Rdr.Name != "record")
-      {      
-        if (Rdr.IsStartElement("field"))
+      while (_Rdr.Read() && _Rdr.MoveToContent() != XmlNodeType.EndElement &&
+            _Rdr.Name != "record")
+      {
+        if (_Rdr.IsStartElement("field"))
         {
           rec.AddField(ReadField());
         }
       }
-      if (Rdr.NodeType == XmlNodeType.EndElement && Rdr.Name == "record")
-        Rdr.ReadEndElement();
+      if (_Rdr.NodeType == XmlNodeType.EndElement && _Rdr.Name == "record")
+        _Rdr.ReadEndElement();
     }
     
     private SchemaField ReadField()
@@ -175,11 +177,11 @@ namespace NCsvLib
       SchemaField fld;
       string s;
 
-      fld = new SchemaField();
+      fld = new SchemaField(_Sch);
       //Name
-      fld.Name = Rdr.GetAttribute("name");
+      fld.Name = _Rdr.GetAttribute("name");
       //FldType
-      s = Rdr.GetAttribute("type");
+      s = _Rdr.GetAttribute("type");
       if (s != null)
         s = s.ToLower();
       switch (s)
@@ -201,9 +203,9 @@ namespace NCsvLib
           break;
       }
       //Format
-      fld.Format = Rdr.GetAttribute("format");
+      fld.Format = _Rdr.GetAttribute("format");
       //CustFmt (uses Activator to create an ICustomFormatter instance)
-      s = Rdr.GetAttribute("custfmt");
+      s = _Rdr.GetAttribute("custfmt");
       if (s != null)
       {
         char sep = '|';
@@ -212,10 +214,10 @@ namespace NCsvLib
           if (s.IndexOf(sep) >= 0)
           {
             string[] sarr = s.Split(new char[] { sep }, 2);
-            fld.CustFmt = (IFormatProvider)Activator.CreateInstanceFrom(sarr[0], sarr[1]).Unwrap();            
+            fld.CustFmt = (ICsvOutputFormatter)Activator.CreateInstanceFrom(sarr[0], sarr[1]).Unwrap();            
           }
           else
-            fld.CustFmt = (IFormatProvider)Activator.CreateInstance(Type.GetType(s, true, true));
+            fld.CustFmt = (ICsvOutputFormatter)Activator.CreateInstance(Type.GetType(s, true, true));
 
           //fld.CustFmt = (IFormatProvider)Activator.CreateInstance(Type.GetType(s, true, true));
           //fld.CustFmt = (IFormatProvider)AppDomain.CurrentDomain.CreateInstanceAndUnwrap(
@@ -232,7 +234,7 @@ namespace NCsvLib
         }
       }
       //Alignment
-      s = Rdr.GetAttribute("alignment");
+      s = _Rdr.GetAttribute("alignment");
       if (s != null)
         s = s.ToLower();
       switch (s)
@@ -246,7 +248,7 @@ namespace NCsvLib
           break;
       }
       //FixedLen
-      s = Rdr.GetAttribute("fixedlen");
+      s = _Rdr.GetAttribute("fixedlen");
       if (s != null)
         s = s.ToLower();
       switch (s)
@@ -260,13 +262,13 @@ namespace NCsvLib
           break;
       }
       //Size
-      s = Rdr.GetAttribute("size");
+      s = _Rdr.GetAttribute("size");
       if (s != null)
         fld.Size = XmlConvert.ToInt32(s);
       else
         fld.Size = 0;
       //Filled
-      s = Rdr.GetAttribute("filled");
+      s = _Rdr.GetAttribute("filled");
       if (s != null)
         s = s.ToLower();
       switch (s)
@@ -280,13 +282,13 @@ namespace NCsvLib
           break;
       }
       //FillChar
-      s = Rdr.GetAttribute("fillchar");
+      s = _Rdr.GetAttribute("fillchar");
       if (s == null || s.Length == 0)
         fld.FillChar = ' ';
       else
         fld.FillChar = s[0];
       //AddQuotes
-      s = Rdr.GetAttribute("addquotes");
+      s = _Rdr.GetAttribute("addquotes");
       if (s != null)
         s = s.ToLower();
       switch (s)
@@ -299,8 +301,13 @@ namespace NCsvLib
           fld.AddQuotes = false;
           break;
       }
+      //Quotes (if not defined it will be inherited from schema options)
+      //TODO only first char is used, could be more than one char
+      s = _Rdr.GetAttribute("quotes");
+      if (s != null)
+        fld.Quotes = s[0].ToString();
       //HasFixedValue
-      s = Rdr.GetAttribute("hasfixedvalue");
+      s = _Rdr.GetAttribute("hasfixedvalue");
       if (s != null)
         s = s.ToLower();
       switch (s)
@@ -314,15 +321,15 @@ namespace NCsvLib
           break;
       }
       //FixedValue
-      s = Rdr.GetAttribute("fixedvalue");
+      s = _Rdr.GetAttribute("fixedvalue");
       if (s != null)
         fld.FixedValue = s;
       //Comment
-      s = Rdr.GetAttribute("comment");
+      s = _Rdr.GetAttribute("comment");
       if (s != null)
         fld.Comment = s;
       //ColHdr
-      s = Rdr.GetAttribute("colhdr");
+      s = _Rdr.GetAttribute("colhdr");
       if (s != null)
         fld.ColHdr = s;
 

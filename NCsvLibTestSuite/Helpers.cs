@@ -57,9 +57,9 @@ namespace NCsvLibTestSuite
     }
   }
 
-  class DummyFormatter : NCsvLib.Formatters.CustomFormatter
+  class DummyFormatter : NCsvLib.Formatters.ICsvOutputFormatter
   {
-    public override string Format(string format, object arg, IFormatProvider formatProvider)
+    public string Format(NCsvLib.DataSourceField fld, NCsvLib.SchemaField sch)
     {
       return "DUMMY";
     }

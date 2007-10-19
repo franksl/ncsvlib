@@ -44,11 +44,10 @@ namespace NCsvLib
       
     }
 
-    public override void WriteField(DataSourceField fld, SchemaField sch)
+    public override void WriteFieldValue(string val)
     {
-      string s = PrepareField(fld, sch);
-      if (s != string.Empty)
-        WriteString(s);
+      if (val != string.Empty)
+        WriteString(val);
     }
 
     public override void WriteSeparator(string sep)

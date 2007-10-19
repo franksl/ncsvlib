@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using NCsvLib.Formatters;
 
 namespace NCsvLib
 {
@@ -12,25 +13,36 @@ namespace NCsvLib
       get { return _InputRdr; }
       set { _InputRdr = value; }
     }
+    
     private ICsvOutputWriter _OutWriter;
     public ICsvOutputWriter OutWriter
     {
       get { return _OutWriter; }
       set { _OutWriter = value; }
     }
+
     private ISchemaReader _SchemaRdr;
     public ISchemaReader SchemaRdr
     {
       get { return _SchemaRdr; }
       set { _SchemaRdr = value; }
     }
+    
     private Schema _Sch;
+
+    /// <summary>
+    /// Default formatter, used if no custom formatter is specified for a particular
+    /// field. Stored with controller for performance reasons, to keep a single
+    /// instance
+    /// </summary>
+    private FormatterBase _Fmt;
 
     public CsvWriterController()
     {
       _InputRdr = null;
       _OutWriter = null;
       _SchemaRdr = null;
+      _Fmt = new FormatterBase();
     }
 
     public void Execute()
@@ -45,11 +57,13 @@ namespace NCsvLib
       try
       {        
         _Sch = _SchemaRdr.GetSchema();
+        //Sets schema on default formatter (it uses encoding, quotes, etc.)
+        _Fmt.Sch = _Sch;
         //If the output writer derives from CsvOutputWriterBase sets the options
         if (_OutWriter is CsvOutputWriterBase)
         {
           ((CsvOutputWriterBase)_OutWriter).Enc = _Sch.Options.Enc;
-          ((CsvOutputWriterBase)_OutWriter).Quotes = _Sch.Options.Quotes;
+          //((CsvOutputWriterBase)_OutWriter).Quotes = _Sch.Options.Quotes;
         }
                 
         _OutWriter.Open();
@@ -111,13 +125,20 @@ namespace NCsvLib
     private void WriteRecord(SchemaRecord r, IDataSourceRecordReader rdr)
     {
       DataSourceField infld;
+      string s;
+
       for (int i = 0; i < r.Count; i++)
       {
         if (r[i].HasFixedValue)
           infld = null;
         else
           infld = rdr.GetField(r[i].Name);
-        _OutWriter.WriteField(infld, r[i]);
+        //Uses base formatter if no custom formatter is specified
+        if (r[i].CustFmt != null)
+          s = r[i].CustFmt.Format(infld, r[i]);
+        else
+          s = _Fmt.Format(infld, r[i]);
+        _OutWriter.WriteFieldValue(s);
         _OutWriter.WriteSeparator(_Sch.Options.FieldSeparator);
       }
       _OutWriter.WriteEol(_Sch.Options.Eol);

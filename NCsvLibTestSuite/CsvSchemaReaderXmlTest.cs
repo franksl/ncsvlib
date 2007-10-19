@@ -23,7 +23,7 @@ namespace NCsvLibTestSuite
       Assert.That(sch.Options.FieldSeparator, Is.EqualTo("|"));
       Assert.That(sch.Options.Eol, Is.EqualTo(Environment.NewLine));
       Assert.That(sch.Options.Quotes, Is.EqualTo("\""));
-      Assert.That(sch.Options.Enc.EncodingName, Text.Contains("UTF-8"));
+      Assert.That(sch.Options.Enc.EncodingName, Text.Matches("UTF-8"));
       
       //*** First record
       Assert.That(sch[0], Is.TypeOf(typeof(SchemaRecord)));
@@ -115,7 +115,8 @@ namespace NCsvLibTestSuite
       Assert.That(rec[0].FixedValue, Is.EqualTo("FLDR3"));
       //intr3
       Assert.That(rec[1].Name, Is.EqualTo("intr3"));
-      Assert.That(rec[1].AddQuotes, Is.False);
+      Assert.That(rec[1].AddQuotes, Is.True);
+      Assert.That(rec[1].Quotes, Text.Matches("'"));
       Assert.That(rec[1].FldType, Is.EqualTo(SchemaFieldType.Int));
       //strr3
       Assert.That(rec[2].Name, Is.EqualTo("strr3"));

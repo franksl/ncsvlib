@@ -46,7 +46,8 @@
     <Compile Include="csvwriter\ICsvOutputWriter.cs" />
     <Compile Include="csvwriter\IDataSourceReader.cs" />
     <Compile Include="csvwriter\IDataSourceRecordReader.cs" />
-    <Compile Include="fmt\CustomFormatter.cs" />
+    <Compile Include="fmt\FormatterBase.cs" />
+    <Compile Include="fmt\ICsvOutputFormatter.cs" />
     <Compile Include="fmt\NumberDigitsFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="schema\ISchemaReader.cs" />

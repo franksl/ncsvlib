@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ncsvlib>
   <options>
-    <fieldseparator usedefault="false"><![CDATA[|]]></fieldseparator>
+    <fieldseparator usedefault="false" value="|" />
     <eol usedefault="true" />
-    <quotes usedefault="false"><![CDATA["]]></quotes>
+    <quotes usedefault="false" value="&quot;" />
     <encoding value="utf-8" />
   </options>
   <schema>
@@ -25,7 +25,7 @@
       </record>
       <record id="R3" repeat="4">
         <field name="fixedr3" hasfixedvalue="true" fixedvalue="FLDR3" />
-        <field name="intr3" type="int" format="0" alignment="right" fixedlen="false" />
+        <field name="intr3" type="int" format="0" alignment="right" fixedlen="false" addquotes="true" quotes="'" />
         <field name="strr3" type="string" format="" alignment="right" fixedlen="true" size="20" addquotes="true" />
       </record>
     </recordgroup>

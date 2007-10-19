@@ -8,26 +8,29 @@ namespace NCsvLib.Formatters
   /// <summary>
   /// 
   /// </summary>
-  public class NumberDigitsFormatter : CustomFormatter
+  public class NumberDigitsFormatter : FormatterBase
   {
-    public override string Format(string format, object arg, IFormatProvider formatProvider)
+    /*in questa classe non è definito _Sch da cui viene prelevato il carattere
+    per Quotes utilizzato in Fill. 
+    SchemaField potrebbe contenere un rif. allo schema?
+    Il costruttore andrebbe mantenuto senza argomenti.*/
+    
+    public override string Format(DataSourceField fld, SchemaField sch)
     {
-      string s;      
-      if (arg is double)
-        s = ((double)arg).ToString(CultureInfo.InvariantCulture);
-      else if (arg is float)
-        s = ((float)arg).ToString(CultureInfo.InvariantCulture);
-      else if (arg is decimal)
-        s = ((decimal)arg).ToString(CultureInfo.InvariantCulture);
+      string s;
+      if (sch.FldType == SchemaFieldType.Double)
+        s = ((double)fld.Value).ToString(CultureInfo.InvariantCulture);
+      else if (sch.FldType == SchemaFieldType.Decimal)
+        s = ((decimal)fld.Value).ToString(CultureInfo.InvariantCulture);
       else
-        s = arg.ToString();
+        s = fld.Value.ToString();
       StringBuilder sb = new StringBuilder(s.Length);
       for (int i = 0; i < s.Length; i++)
       {
         if (Char.IsDigit(s[i]))
           sb.Append(s[i]);
       }
-      return sb.ToString();
+      return Fill(sb.ToString(), sch);
     }
   }
 }

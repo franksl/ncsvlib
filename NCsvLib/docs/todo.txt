@@ -1,6 +1,6 @@
 Schema:
-- field: add possibility to override quotes char, etc. that
-         are now defined in the <options> section
+- record: add possibility to override fieldseparator char that
+         is now defined in the <options> section
 - add "nullvalue" attribute to represent the string that should be output if
   a field has Value = null. Default value: string.Empty        
 - <fixedlen> should be changed to <fixedsize>
@@ -12,30 +12,17 @@ Schema:
   Id property setter) 
   (should already be implemented because it inherits from IDictionary)
 
-Writer:
+Formatters:
 - Support multiline strings (see articles on the web for the correct format)
 - PrepareField: 
   - if a field has fixed size and fixed value the fixed value length should be
     the same as fixed size or the output string should be filled, or an exception
     should be thrown while reading the schema
-- Separate output string generation from writing to output, ie in a 'Formatter'
-  class.
 - Add event generation during conversion to string, ie. 'Converting' and 'Converted'
   events. Pass as event args the string that should be output, the DataSourceField
   and SchemaField to be used.
 - Evaluate an eventual Lua interface for custom formatters
-
-- IMPORTANT!!!: merge last trunk modifications into branch mod_fmt (ColHeaders, etc.)    
-
-
-
-DataSourceReader:
-- add methods or events to recognize when a reader for a record with repeat=0 
-  should stop (Read() returns false) (ie. because it's contained in a recordgroup)
-  - pass parameters to open()? (ex. to put them in a WHERE clause)
-  - expose events (passing current and previous lines)?
-
-- Improve custom formats:
+- IDEAS: Improve custom formats:
   - expose only a IFieldFilter (or formatter or similar) interface with 
     at least one method:
     string Filter(object val) (where val is field value). 
@@ -51,6 +38,12 @@ DataSourceReader:
         <filter classname="Filter2" order="2" />  <-- second filter applied
       </field>
     - user can define a custom filter that contains more than one filter
+
+DataSourceReader:
+- add methods or events to recognize when a reader for a record with repeat=0 
+  should stop (Read() returns false) (ie. because it's contained in a recordgroup)
+  - pass parameters to open()? (ex. to put them in a WHERE clause)
+  - expose events (passing current and previous lines)?
 
 CsvReader:
 - Add options to handle csv read errors in various ways: throw exception, 

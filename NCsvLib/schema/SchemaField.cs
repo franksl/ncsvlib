@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using NCsvLib.Formatters;
 
 namespace NCsvLib
 {
@@ -36,7 +37,7 @@ namespace NCsvLib
       set { _Format = value; }
     }
 
-    private IFormatProvider _CustFmt;
+    private ICsvOutputFormatter _CustFmt;
     /// <summary>
     /// Custom formatter to be eventually used while converting values to
     /// strings. It has precedence over Format.
@@ -51,7 +52,7 @@ namespace NCsvLib
     ///   the assembly MyAssembly.dll, the custfmt attribute should be:
     ///   custfmt="MyAssembly.dll|MyNamespace.Formatters.MyFormatter"
     /// </summary>
-    public IFormatProvider CustFmt
+    public ICsvOutputFormatter CustFmt
     {
       get { return _CustFmt; }
       set { _CustFmt = value; }
@@ -119,6 +120,23 @@ namespace NCsvLib
       set { _AddQuotes = value; }
     }
 
+    private string _Quotes;
+    /// <summary>
+    /// Character to be used if field value is to be quoted. If not defined
+    /// it will be inherited from schema options
+    /// </summary>
+    public string Quotes
+    {
+      get 
+      {
+        if (_Quotes == null)
+          return _Sch.Options.Quotes;
+        else
+          return _Quotes; 
+      }
+      set { _Quotes = value; }
+    }
+
     private bool _HasFixedValue;
     /// <summary>
     /// True if the field has a fixed value, represented by the FixedValue property.
@@ -159,9 +177,23 @@ namespace NCsvLib
       get { return _ColHdr; }
       set { _ColHdr = value; }
     }
-
-    public SchemaField()
+    
+    private Schema _Sch;
+    /// <summary>
+    /// Schema that owns this field
+    /// </summary>
+    public Schema Sch
     {
+      get { return _Sch; }
+    }
+
+    private SchemaField()
+    {
+    }
+
+    public SchemaField(Schema sch)
+    {
+      _Sch = sch;
       Name = string.Empty;
       FldType = SchemaFieldType.String;
       Format = string.Empty;
@@ -172,6 +204,7 @@ namespace NCsvLib
       Filled = false;
       FillChar = char.MinValue;
       AddQuotes = false;
+      _Quotes = null;
       HasFixedValue = false;
       FixedValue = string.Empty;
       Comment = string.Empty;

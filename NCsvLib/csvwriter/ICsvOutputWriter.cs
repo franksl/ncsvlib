@@ -6,6 +6,7 @@ namespace NCsvLib
 {
   public interface ICsvOutputWriter
   {
+    Encoding Enc { get; set; }
     /// <summary>
     /// Opens the output writer
     /// </summary>
@@ -19,7 +20,7 @@ namespace NCsvLib
     /// </summary>
     /// <param name="fld">Field containing the value to be written</param>
     /// <param name="sch"></param>
-    void WriteField(DataSourceField fld, SchemaField sch);
+    void WriteFieldValue(string value);
     /// <summary>
     /// Writes the field separator
     /// </summary>
