@@ -4,9 +4,10 @@ Schema:
 - add "nullvalue" attribute to represent the string that should be output if
   a field has Value = null. Default value: string.Empty        
 - <fixedlen> should be changed to <fixedsize>
-- Xml reader: add tests for missing arguments (es. repeat) and various checks:
+- Add tests for missing arguments (es. repeat) and various checks:
   - repeat must be >= 0
   - fields inside a single record must have unique names
+  - if separator is empty string, all fields must have size and fixed length
 - SchemaRecordBase: add checking methods for unique id (to be executed in 
   Id property setter) 
   (should already be implemented because it inherits from IDictionary)
