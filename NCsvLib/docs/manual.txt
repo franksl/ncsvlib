@@ -1,9 +1,12 @@
 1. Schema
 1.1. Introduction
-1.2. Record
-1.3. Record Group
-1.4. Field
-1.5. Custom formatters
+1.2. Xml schema
+1.3. Options
+1.4. Record
+1.5. Record Group
+1.6. Field
+1.7. Custom formatters
+1.8. Schema readers
 
 2. CsvWriter
 2.1. Introduction
@@ -13,7 +16,24 @@
 
 --------------------------------------------------------------------------------
 
-1.5. Custom formatters
+1.3. Options
+
+- Limit
+This can be used to constrain the number of rows read by the DataSourceReader
+that will be output to the csv file/stream.
+It can have one or two numeric arguments, separated by a comma. With two 
+arguments, the first specifies the offset of the first row to output (zero 
+based), the second specifies the maximum number of rows to output.
+With only one argument, its value specifies the maximum number of rows to 
+output.
+Limit is ignored if it has a value of zero for the maximum
+Examples: 
+<record id="recid" limit="50,100" /> outputs a maximum of 100 rows starting from
+                                     the 51th.
+<record id="recid" limit="0" /> ignored (no limits)
+
+
+1.7. Custom formatters
 
 It is possible to define an attribute <custfmt> for a field. This must be set
 to the name of a class that implements the IFormatProvider and ICustomFormatter
@@ -25,6 +45,14 @@ There are some prebuilt custom formatters:
 - NumberDigitsFormatter: removes any separator from a number representation,
 leaving only digits. For example the number 15,742.83 will be converted to
 "1574283".
+
+1.8. Schema readers
+A schema reader is a class that implements ISchemaReader interface. This is a
+very basic interface that imposes just the property Sch.
+The default schema reader is SchemaReaderXml that reads an xml file built as
+explained before.
+SchemaReaderXml.Sch property reads and returns the schema, for it to be 
+eventually modified before calling controller's Execute method.
 
 
 2. CsvWriter

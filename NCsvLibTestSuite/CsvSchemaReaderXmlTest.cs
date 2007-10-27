@@ -30,7 +30,8 @@ namespace NCsvLibTestSuite
       rec = (SchemaRecord)sch[0];
       Assert.That(rec.Count, Is.EqualTo(7));
       Assert.That(rec.Id, Is.EqualTo("R1"));
-      Assert.That(rec.Repeat, Is.EqualTo(0));
+      Assert.That(rec.Limit.Offset, Is.EqualTo(0));
+      Assert.That(rec.Limit.Max, Is.EqualTo(0));
       Assert.That(rec.ColHeaders, Is.True);
       //intfld
       Assert.That(rec[0].Name, Is.EqualTo("intfld"));
@@ -74,12 +75,14 @@ namespace NCsvLibTestSuite
       Assert.That(sch[1], Is.TypeOf(typeof(SchemaRecordComposite)));
       comp = (SchemaRecordComposite)sch[1];
       Assert.That(comp.Count, Is.EqualTo(2));
-      Assert.That(comp.Repeat, Is.EqualTo(2));
+      Assert.That(comp.Limit.Offset, Is.EqualTo(0));
+      Assert.That(comp.Limit.Max, Is.EqualTo(2));
       Assert.That(comp[0], Is.TypeOf(typeof(SchemaRecord)));      
       //record R2
       rec = (SchemaRecord)comp[0];
       Assert.That(rec.Count, Is.EqualTo(4));
-      Assert.That(rec.Repeat, Is.EqualTo(4));
+      Assert.That(rec.Limit.Offset, Is.EqualTo(0));
+      Assert.That(rec.Limit.Max, Is.EqualTo(4));
       Assert.That(rec.ColHeaders, Is.False);
       //fixedr2
       Assert.That(rec[0].Name, Is.EqualTo("fixedr2"));
@@ -107,7 +110,8 @@ namespace NCsvLibTestSuite
       //record R3
       rec = (SchemaRecord)comp[1];
       Assert.That(rec.Count, Is.EqualTo(3));
-      Assert.That(rec.Repeat, Is.EqualTo(4));
+      Assert.That(rec.Limit.Offset, Is.EqualTo(0));
+      Assert.That(rec.Limit.Max, Is.EqualTo(4));
       Assert.That(rec.ColHeaders, Is.False);
       //fixedr3
       Assert.That(rec[0].Name, Is.EqualTo("fixedr3"));
@@ -126,7 +130,8 @@ namespace NCsvLibTestSuite
       //*** Third record (R4)
       Assert.That(sch[2], Is.TypeOf(typeof(SchemaRecord)));
       rec = (SchemaRecord)sch[2];
-      Assert.That(rec.Repeat, Is.EqualTo(4));
+      Assert.That(rec.Limit.Offset, Is.EqualTo(3));
+      Assert.That(rec.Limit.Max, Is.EqualTo(5));
       Assert.That(rec.ColHeaders, Is.False);
       //fixedr4
       Assert.That(rec[0].Name, Is.EqualTo("fixedr4"));

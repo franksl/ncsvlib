@@ -154,7 +154,9 @@ namespace NCsvLib
     {
       SchemaRecordComposite comp = stk.Peek();
       comp.Id = _Rdr.GetAttribute("id");
-      comp.Repeat = int.Parse(_Rdr.GetAttribute("repeat"));
+      //SchemaRecordLimit lim = ParseLimit(_Rdr.GetAttribute("limit"));
+      //comp.Limit = new SchemaRecordLimit(lim.Offset, lim.Max);
+      comp.Limit = ParseLimit(_Rdr.GetAttribute("limit"));
       if (comp.Id == null || comp.Id.Trim() == string.Empty)
         throw new NCsvLibSchemaException("id not specified in recordgroup");
       while (_Rdr.Read() && _Rdr.MoveToContent() != XmlNodeType.EndElement &&
@@ -183,7 +185,10 @@ namespace NCsvLib
     {
       string s;
       rec.Id = _Rdr.GetAttribute("id");
-      rec.Repeat = int.Parse(_Rdr.GetAttribute("repeat"));
+      //SchemaRecordLimit lim = ParseLimit(_Rdr.GetAttribute("limit"));
+      //rec.Limit = new SchemaRecordLimit(lim.Offset, lim.Max);
+      rec.Limit = ParseLimit(_Rdr.GetAttribute("limit"));
+      Console.WriteLine(rec.Limit.Max.ToString());
       s = _Rdr.GetAttribute("colheaders");
       if (s != null && s != string.Empty)
       {
@@ -372,6 +377,34 @@ namespace NCsvLib
         fld.ColHdr = s;
 
       return fld;
+    }
+
+    private SchemaRecordLimit ParseLimit(string attr)
+    {      
+      SchemaRecordLimit lim = new SchemaRecordLimit();
+      if (attr == null || attr == string.Empty)
+        return lim;
+      //Two arguments
+      if (attr.IndexOf(",") >= 0)
+      {
+        //Tries splitting and converting (0 => offset, 1 => max)
+        string[] arr = attr.Split(new char[] { ',' }, 2);
+        if (arr.Length != 2)
+          return lim;
+        if (!int.TryParse(arr[0], out lim.Offset))
+          return lim;
+        if (!int.TryParse(arr[1], out lim.Max))
+        {
+          lim.Offset = 0;
+          return lim;
+        }        
+        return lim;
+      }
+      else
+      {
+        int.TryParse(attr, out lim.Max);
+        return lim;
+      }
     }
   }
 }

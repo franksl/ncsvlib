@@ -43,15 +43,17 @@ namespace NCsvLib
 
     public override void Execute(ExecuteMethodDelegate em)
     {
-      if (this.Repeat == 0)
+      if (this.Limit.Max == 0)
       {
         foreach (SchemaRecordBase rec in _Records)
           rec.Execute(em);
       }
       else
       {
-        for (int i = 0; i < this.Repeat; i++)
+        for (int i = 0; i < (Limit.Offset+Limit.Max); i++)
         {
+          if (i < Limit.Offset)
+            continue;
           foreach (SchemaRecordBase rec in _Records)
             rec.Execute(em);
         }

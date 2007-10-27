@@ -100,7 +100,7 @@ namespace NCsvLib
         if (r.ColHeaders)
           _OutWriter.WriteColHeaders(r, _Sch.Options.FieldSeparator, _Sch.Options.Eol);
 
-        if (rec.Repeat == 0)
+        if (rec.Limit.Max == 0)
         {
           while (rdr.Read())
           {
@@ -109,10 +109,12 @@ namespace NCsvLib
         }
         else
         {
-          for (int i = 0; i < rec.Repeat; i++)
+          for (int i = 0; i < (rec.Limit.Offset+rec.Limit.Max); i++)
           {
             if (!rdr.Read())
               break;
+            if (i < rec.Limit.Offset)
+              continue;
             WriteRecord(r, rdr);
           }
         }

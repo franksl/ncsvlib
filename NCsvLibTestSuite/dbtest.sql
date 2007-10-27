@@ -87,7 +87,17 @@ BEGIN
   INSERT INTO csvtest4 (intr4, doubler4, decimalr4)
   VALUES (3, 33.3, 333.33);
   INSERT INTO csvtest4 (intr4, doubler4, decimalr4)
-  VALUES (4, 44.4, 444.44);
+  VALUES (4, 44.4, 444.44);  
+  INSERT INTO csvtest4 (intr4, doubler4, decimalr4)
+  VALUES (5, 55.5, 555.55);
+  INSERT INTO csvtest4 (intr4, doubler4, decimalr4)
+  VALUES (6, 66.6, 666.66);
+  INSERT INTO csvtest4 (intr4, doubler4, decimalr4)
+  VALUES (7, 77.7, 777.77);
+  INSERT INTO csvtest4 (intr4, doubler4, decimalr4)
+  VALUES (8, 88.8, 888.88);
+  INSERT INTO csvtest4 (intr4, doubler4, decimalr4)
+  VALUES (9, 99.9, 999.99);
   
 END//
 DELIMITER ;

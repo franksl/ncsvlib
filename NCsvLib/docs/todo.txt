@@ -4,8 +4,8 @@ Schema:
 - add "nullvalue" attribute to represent the string that should be output if
   a field has Value = null. Default value: string.Empty        
 - <fixedlen> should be changed to <fixedsize>
-- Add tests for missing arguments (es. repeat) and various checks:
-  - repeat must be >= 0
+- Add tests for missing arguments (es. limit) and various checks:
+  - limit values must be >= 0
   - fields inside a single record must have unique names
   - if separator is empty string, all fields must have size and fixed length
 - SchemaRecordBase: add checking methods for unique id (to be executed in 
@@ -13,7 +13,6 @@ Schema:
   (should already be implemented because it inherits from IDictionary)
 - Add bool type, with optional parameters for "truevalue" (default 'true') and
   "falsevalue" (default 'false')
-- Change "repeat" to "limit" (it has a behaviour similar to SQL LIMIT CLAUSE)
 
 Formatters:
 - Support multiline strings (see articles on the web for the correct format)
@@ -43,7 +42,7 @@ Formatters:
     - user can define a custom filter that contains more than one filter
 
 DataSourceReader:
-- add methods or events to recognize when a reader for a record with repeat=0 
+- add methods or events to recognize when a reader for a record with limit=0 
   should stop (Read() returns false) (ie. because it's contained in a recordgroup)
   - pass parameters to open()? (ex. to put them in a WHERE clause)
   - expose events (passing current and previous lines)?
@@ -51,7 +50,7 @@ DataSourceReader:
 CsvReader:
 - Add options to handle csv read errors in various ways: throw exception, 
   skip field, skip row, etc.
-- If a record has repeat=true and repeat count is undefined there must be
+- If a record has limit=0 there must be
   some method to identify the end of record, maybe by recognizing a sort
   of 'signature' for a line
 - Schema: add options:

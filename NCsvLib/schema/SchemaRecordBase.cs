@@ -19,15 +19,15 @@ namespace NCsvLib
       set { _Id = value; }
     }
 
-    protected int _Repeat;
+    protected SchemaRecordLimit _Limit;
     /// <summary>
-    /// Number of times this record is repeated.
+    /// Number of times this record is repeated and offset
     /// If zero the record is repeated for an undefined number of times.
     /// </summary>
-    public int Repeat
+    public SchemaRecordLimit Limit
     {
-      get { return _Repeat; }
-      set { _Repeat = value; }
+      get { return _Limit; }
+      set { _Limit = value; }
     }
 
     protected SchemaRecordBase()
@@ -50,6 +50,20 @@ namespace NCsvLib
     {
 
     }
-    
+  }
+
+  /// <summary>
+  /// Values for the Limit attribute, offset and max number of records
+  /// </summary>
+  public struct SchemaRecordLimit
+  {
+    public int Offset;
+    public int Max;
+
+    public SchemaRecordLimit(int offs, int max)
+    {
+      Offset = offs;
+      Max = max;
+    }
   }
 }

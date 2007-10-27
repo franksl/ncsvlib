@@ -49,14 +49,14 @@ namespace NCsvLibTestSuite
       //File tests
       List<string> ln = Helpers.GetFileLines(Helpers.OutFileName, Helpers.Enc);
       i = 0;
-      Assert.That(ln.Count, Is.EqualTo(25));
+      Assert.That(ln.Count, Is.EqualTo(26));
       //R1 (contains headers)
       Assert.That(ln[i++], Is.EqualTo("int1|str1|dbl1|dec1|dt1|fix1|str1_2|"));
       Assert.That(ln[i++], Is.EqualTo("00001|\"aaa                 \"|        100,10|\"        100011\"|11/01/2001 10:11:12|AAA|DUMMY|"));
       Assert.That(ln[i++], Is.EqualTo("00002|\"bbb                 \"|        200,20|\"        200022\"|12/02/2002 12:13:14|AAA|DUMMY|"));
       Assert.That(ln[i++], Is.EqualTo("00003|\"ccc                 \"|        300,30|\"        300033\"|13/03/2003 13:14:15|AAA|DUMMY|"));
       Assert.That(ln[i++], Is.EqualTo("00004|\"ddd                 \"|        400,40|\"        400044\"|14/04/2004 14:15:16|AAA|DUMMY|"));
-      //Record group that contains records 2 and 3 has repeat = 2
+      //Record group that contains records 2 and 3 has limit = 2
       Assert.That(ln[i++], Is.EqualTo("FLDR2|001|11000|\"                r2_1\"|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR2|002|22000|\"                r2_2\"|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR2|003|33000|\"                r2_3\"|"));
@@ -73,10 +73,12 @@ namespace NCsvLibTestSuite
       Assert.That(ln[i++], Is.EqualTo("FLDR3|'6'|\"                r3_6\"|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR3|'7'|\"                r3_7\"|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR3|'8'|\"                r3_8\"|"));
-      Assert.That(ln[i++], Is.EqualTo("FLDR4|    1|         11,10|        111,11|"));
-      Assert.That(ln[i++], Is.EqualTo("FLDR4|    2|         22,20|        222,22|"));
-      Assert.That(ln[i++], Is.EqualTo("FLDR4|    3|         33,30|        333,33|"));
+      //Limit is 3,5
       Assert.That(ln[i++], Is.EqualTo("FLDR4|    4|         44,40|        444,44|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR4|    5|         55,50|        555,55|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR4|    6|         66,60|        666,66|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR4|    7|         77,70|        777,77|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR4|    8|         88,80|        888,88|"));
     }
   }
 }

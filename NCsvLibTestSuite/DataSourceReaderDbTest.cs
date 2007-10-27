@@ -106,6 +106,9 @@ namespace NCsvLibTestSuite
       //Records 2 and 3 have 8 records in db
       Assert.That(rdr[Helpers.R2].Read(), Is.True);
       Assert.That(rdr[Helpers.R3].Read(), Is.True);
+      //Record 4 has 9 records in db
+      for (int i = 0; i < 5; i++)
+        Assert.That(rdr[Helpers.R4].Read(), Is.True);
       Assert.That(rdr[Helpers.R4].Read(), Is.False);
       rdr[Helpers.R1].Close();
       rdr[Helpers.R2].Close();
