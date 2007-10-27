@@ -111,7 +111,8 @@ namespace NCsvLib
         {
           for (int i = 0; i < rec.Repeat; i++)
           {
-            rdr.Read();
+            if (!rdr.Read())
+              break;
             WriteRecord(r, rdr);
           }
         }
