@@ -78,7 +78,9 @@ namespace NCsvLib
           s = _Rdr.GetAttribute("usedefault");
           if (s != null && s.ToLower().Trim() == "false")
           {
-            _Sch.Options.FieldSeparator = _Rdr.GetAttribute("value");
+            s = _Rdr.GetAttribute("value");
+            if (s != null)
+              _Sch.Options.FieldSeparator = s;
           }
         }
         else if (_Rdr.IsStartElement("eol"))
@@ -86,7 +88,9 @@ namespace NCsvLib
           s = _Rdr.GetAttribute("usedefault");
           if (s != null && s.ToLower().Trim() == "false")
           {
-            _Sch.Options.Eol = _Rdr.GetAttribute("value");
+            s = _Rdr.GetAttribute("value");
+            if (s != null)
+              _Sch.Options.Eol = s;
           }
         }
         else if (_Rdr.IsStartElement("quotes"))
@@ -94,7 +98,9 @@ namespace NCsvLib
           s = _Rdr.GetAttribute("usedefault");
           if (s != null && s.ToLower().Trim() == "false")
           {
-            _Sch.Options.Quotes = _Rdr.GetAttribute("value");
+            s = _Rdr.GetAttribute("value");
+            if (s != null)
+              _Sch.Options.Quotes = s;
           }
         }
         else if (_Rdr.IsStartElement("encoding"))
