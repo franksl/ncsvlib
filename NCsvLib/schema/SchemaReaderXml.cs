@@ -12,19 +12,31 @@ namespace NCsvLib
     public string FileName;
     private XmlReader _Rdr;
     private Schema _Sch;
+    public Schema Sch
+    {
+      get
+      {
+        //If schema has not been already read, read it
+        if (_Sch == null)
+          ReadSchema();
+        return _Sch;
+      }
+    }
 
     private SchemaReaderXml()
     {
+      _Sch = null;
     }
 
     public SchemaReaderXml(string file_name)
+      : this()
     {
       if (!File.Exists(file_name))
         throw new NCsvLibSchemaException("Xml schema file not found: " + file_name);
       FileName = file_name;
     }
 
-    public Schema GetSchema()
+    public void ReadSchema()
     {
       _Sch = new Schema();
       
@@ -64,7 +76,6 @@ namespace NCsvLib
       {
         _Rdr.Close();
       }
-      return _Sch;
     }
 
     private void ReadOptions()

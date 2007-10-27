@@ -56,7 +56,7 @@ namespace NCsvLib
       
       try
       {        
-        _Sch = _SchemaRdr.GetSchema();
+        _Sch = _SchemaRdr.Sch;
         //Sets schema on default formatter (it uses encoding, quotes, etc.)
         _Fmt.Sch = _Sch;
         //If the output writer derives from CsvOutputWriterBase sets the options

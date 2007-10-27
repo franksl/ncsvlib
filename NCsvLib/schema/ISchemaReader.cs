@@ -6,6 +6,6 @@ namespace NCsvLib
 {
   public interface ISchemaReader
   {
-    Schema GetSchema();
+    Schema Sch { get; }
   }
 }

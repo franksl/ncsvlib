@@ -16,7 +16,7 @@ namespace NCsvLibTestSuite
       SchemaRecord rec;
       SchemaRecordComposite comp;
       SchemaReaderXml rdr = new SchemaReaderXml(Helpers.SchFileName);
-      Schema sch = rdr.GetSchema();
+      Schema sch = rdr.Sch;
       Assert.That(sch.Count, Is.EqualTo(3));
 
       //options

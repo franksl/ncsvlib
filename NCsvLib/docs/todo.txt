@@ -13,6 +13,7 @@ Schema:
   (should already be implemented because it inherits from IDictionary)
 - Add bool type, with optional parameters for "truevalue" (default 'true') and
   "falsevalue" (default 'false')
+- Change "repeat" to "limit" (it has a behaviour similar to SQL LIMIT CLAUSE)
 
 Formatters:
 - Support multiline strings (see articles on the web for the correct format)
