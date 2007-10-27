@@ -11,6 +11,8 @@ Schema:
 - SchemaRecordBase: add checking methods for unique id (to be executed in 
   Id property setter) 
   (should already be implemented because it inherits from IDictionary)
+- Add bool type, with optional parameters for "truevalue" (default 'true') and
+  "falsevalue" (default 'false')
 
 Formatters:
 - Support multiline strings (see articles on the web for the correct format)
