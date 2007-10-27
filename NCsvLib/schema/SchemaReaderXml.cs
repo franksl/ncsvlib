@@ -36,11 +36,27 @@ namespace NCsvLib
         {
           if (_Rdr.IsStartElement("options"))
           {
-            ReadOptions();
+            try
+            {
+              ReadOptions();
+            }
+            catch (Exception ex)
+            {
+              throw new NCsvLibSchemaException("Error while reading schema options." 
+                + Environment.NewLine + ex.Message);
+            }
           }
           else if (_Rdr.IsStartElement("schema"))
           {
-            ReadRecords();
+            try
+            {
+              ReadRecords();
+            }
+            catch (Exception ex)
+            {
+              throw new NCsvLibSchemaException("Error while reading schema records."
+                + Environment.NewLine + ex.Message);
+            }
           }
         }
       }
@@ -53,34 +69,39 @@ namespace NCsvLib
 
     private void ReadOptions()
     {
+      string s;
       while (_Rdr.Read() && _Rdr.MoveToContent() != XmlNodeType.EndElement &&
             _Rdr.Name != "options")
       {
         if (_Rdr.IsStartElement("fieldseparator"))
         {
-          if (_Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          s = _Rdr.GetAttribute("usedefault");
+          if (s != null && s.ToLower().Trim() == "false")
           {
             _Sch.Options.FieldSeparator = _Rdr.GetAttribute("value");
           }
         }
         else if (_Rdr.IsStartElement("eol"))
         {
-          if (_Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          s = _Rdr.GetAttribute("usedefault");
+          if (s != null && s.ToLower().Trim() == "false")
           {
             _Sch.Options.Eol = _Rdr.GetAttribute("value");
           }
         }
         else if (_Rdr.IsStartElement("quotes"))
         {
-          if (_Rdr.GetAttribute("usedefault").ToLower().Trim() == "false")
+          s = _Rdr.GetAttribute("usedefault");
+          if (s != null && s.ToLower().Trim() == "false")
           {
             _Sch.Options.Quotes = _Rdr.GetAttribute("value");
           }
         }
         else if (_Rdr.IsStartElement("encoding"))
         {
-          string s = _Rdr.GetAttribute("value");
-          _Sch.Options.Enc = Encoding.GetEncoding(s);          
+          s = _Rdr.GetAttribute("value");
+          if (s != null)
+            _Sch.Options.Enc = Encoding.GetEncoding(s);          
         }
       }
     }
