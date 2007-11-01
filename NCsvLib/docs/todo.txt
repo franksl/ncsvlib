@@ -23,6 +23,7 @@ Formatters:
 - Add event generation during conversion to string, ie. 'Converting' and 'Converted'
   events. Pass as event args the string that should be output, the DataSourceField
   and SchemaField to be used.
+- Allow the use of parameters passed to fmt constructor in cutfmt schema attribute
 - Evaluate an eventual Lua interface for custom formatters
 - IDEAS: Improve custom formats:
   - expose only a IFieldFilter (or formatter or similar) interface with 
