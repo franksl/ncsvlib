@@ -28,7 +28,7 @@ namespace NCsvLibTestSuite
       //*** First record
       Assert.That(sch[0], Is.TypeOf(typeof(SchemaRecord)));
       rec = (SchemaRecord)sch[0];
-      Assert.That(rec.Count, Is.EqualTo(7));
+      Assert.That(rec.Count, Is.EqualTo(8));
       Assert.That(rec.Id, Is.EqualTo("R1"));
       Assert.That(rec.Limit.Offset, Is.EqualTo(0));
       Assert.That(rec.Limit.Max, Is.EqualTo(0));
@@ -70,6 +70,15 @@ namespace NCsvLibTestSuite
       Assert.That(rec[6].FldType, Is.EqualTo(SchemaFieldType.String));
       Assert.That(rec[6].CustFmt.GetType().Name, Text.Matches("DummyFormatter"));
       Assert.That(rec[6].ColHdr, Text.Matches("str1_2"));
+      //boolfld
+      Assert.That(rec[7].Name, Is.EqualTo("boolfld"));
+      Assert.That(rec[7].FldType, Is.EqualTo(SchemaFieldType.Bool));
+      Assert.That(rec[7].BoolSettings.TrueValue, Text.Matches("true"));
+      Assert.That(rec[7].BoolSettings.FalseValue, Text.Matches("false"));
+      Assert.That(rec[7].BoolSettings.TrueIoValue, Is.EqualTo((int)1));
+      Assert.That(rec[7].BoolSettings.FalseIoValue, Is.EqualTo((int)0));
+      Assert.That(rec[7].BoolSettings.BoolIoType, Is.EqualTo(SchemaFieldBoolIoType.Int));
+      Assert.That(rec[7].ColHdr, Text.Matches("bool1"));
       
       //*** Second record (group RG1)
       Assert.That(sch[1], Is.TypeOf(typeof(SchemaRecordComposite)));
@@ -80,7 +89,7 @@ namespace NCsvLibTestSuite
       Assert.That(comp[0], Is.TypeOf(typeof(SchemaRecord)));      
       //record R2
       rec = (SchemaRecord)comp[0];
-      Assert.That(rec.Count, Is.EqualTo(4));
+      Assert.That(rec.Count, Is.EqualTo(5));
       Assert.That(rec.Limit.Offset, Is.EqualTo(0));
       Assert.That(rec.Limit.Max, Is.EqualTo(4));
       Assert.That(rec.ColHeaders, Is.False);
@@ -106,6 +115,14 @@ namespace NCsvLibTestSuite
       Assert.That(rec[3].Name, Is.EqualTo("strr2"));
       Assert.That(rec[3].AddQuotes, Is.True);
       Assert.That(rec[3].FldType, Is.EqualTo(SchemaFieldType.String));
+      //bool2
+      Assert.That(rec[4].Name, Is.EqualTo("bool2"));
+      Assert.That(rec[4].FldType, Is.EqualTo(SchemaFieldType.Bool));
+      Assert.That(rec[4].BoolSettings.TrueValue, Text.Matches("TTT"));
+      Assert.That(rec[4].BoolSettings.FalseValue, Text.Matches("FFF"));
+      Assert.That(rec[4].BoolSettings.TrueIoValue, Text.Matches("T"));
+      Assert.That(rec[4].BoolSettings.FalseIoValue, Text.Matches("F"));
+      Assert.That(rec[4].BoolSettings.BoolIoType, Is.EqualTo(SchemaFieldBoolIoType.String));
       
       //record R3
       rec = (SchemaRecord)comp[1];

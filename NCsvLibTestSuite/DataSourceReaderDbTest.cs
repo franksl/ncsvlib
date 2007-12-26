@@ -135,6 +135,10 @@ namespace NCsvLibTestSuite
       Assert.That((decimal)fld.Value, Is.EqualTo((decimal)1000.11));
       fld = rdr[Helpers.R1].GetField("dtfld");
       Assert.That((DateTime)fld.Value, Is.EqualTo(new DateTime(2001, 1, 11, 10, 11, 12)));
+      fld = rdr[Helpers.R1].GetField("strfld2");
+      Assert.That((string)fld.Value, Is.EqualTo("TEST1"));
+      fld = rdr[Helpers.R1].GetField("boolfld");
+      Assert.That((int)fld.Value, Is.EqualTo((int)1));
       rdr[Helpers.R1].Read();
       rdr[Helpers.R1].Read();
       fld = rdr[Helpers.R1].GetField("intfld");
@@ -147,6 +151,10 @@ namespace NCsvLibTestSuite
       Assert.That((decimal)fld.Value, Is.EqualTo((decimal)3000.33));
       fld = rdr[Helpers.R1].GetField("dtfld");
       Assert.That((DateTime)fld.Value, Is.EqualTo(new DateTime(2003, 3, 13, 13, 14, 15)));
+      fld = rdr[Helpers.R1].GetField("strfld2");
+      Assert.That((string)fld.Value, Is.EqualTo("TEST3"));
+      fld = rdr[Helpers.R1].GetField("boolfld");
+      Assert.That((int)fld.Value, Is.EqualTo((int)1));
       rdr[Helpers.R1].Close();
     }
 
@@ -170,6 +178,8 @@ namespace NCsvLibTestSuite
       Assert.That((int)fld.Value, Is.EqualTo(1));
       fld = rdr[Helpers.R2].GetField("strr2");
       Assert.That((string)fld.Value, Is.EqualTo("r2_1"));
+      fld = rdr[Helpers.R2].GetField("bool2");
+      Assert.That((string)fld.Value, Text.Matches("T"));
       rdr[Helpers.R2].Read();
       rdr[Helpers.R2].Read();
       fld = rdr[Helpers.R2].GetField("intr2");
@@ -180,6 +190,8 @@ namespace NCsvLibTestSuite
       Assert.That((int)fld.Value, Is.EqualTo(33));
       fld = rdr[Helpers.R2].GetField("strr2");
       Assert.That((string)fld.Value, Is.EqualTo("r2_3"));
+      fld = rdr[Helpers.R2].GetField("bool2");
+      Assert.That((string)fld.Value, Text.Matches("T"));
 
       rdr[Helpers.R3].Read();
       fld = rdr[Helpers.R3].GetField("intr3");

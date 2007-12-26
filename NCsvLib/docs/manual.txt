@@ -16,6 +16,9 @@
 
 --------------------------------------------------------------------------------
 
+1. Schema
+
+
 1.3. Options
 
 - Limit
@@ -31,6 +34,40 @@ Examples:
 <record id="recid" limit="50,100" /> outputs a maximum of 100 rows starting from
                                      the 51th.
 <record id="recid" limit="0" /> ignored (no limits)
+
+
+1.6. Field
+
+Field is the smallest working unit in NCsvLib. It represents a single value for
+a record, and reflects a single value coming from the data source.
+Field definition contains various parameters to define many aspects of the
+conversion that will take place while writing to or reading from a csv stream.
+These parameters are:
+- name: the unique name of the field, must be the same in data source
+- type
+- format
+- custfmt
+- alignment
+- fixedlen
+- size
+- filled
+- fillchar
+- addquotes
+- quotes
+- hasfixedvalue
+- fixedvalue
+- comment
+- colhdr
+- truevalue: only for bool type, defines the string used to represent 'true'
+             in csv stream
+- falsevalue: only for bool type, defines the string used to represent 'true'
+              in csv stream
+- trueiovalue: only for bool type, defines the value used to represent 'true'
+               in data source/destination
+- falseiovalue: only for bool type, defines the value used to represent 'false'
+               in data source/destination
+- booliotype: only for bool type, defines the data type used in data source/
+              destination
 
 
 1.7. Custom formatters

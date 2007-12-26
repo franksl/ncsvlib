@@ -177,6 +177,20 @@ namespace NCsvLib
       get { return _ColHdr; }
       set { _ColHdr = value; }
     }
+
+    private SchemaFieldBool _BoolSettings;
+    /// <summary>
+    /// Contains settings for bool fields
+    /// </summary>
+    public SchemaFieldBool BoolSettings
+    {
+      get
+      {
+        if (_BoolSettings == null)
+          _BoolSettings = new SchemaFieldBool();
+        return _BoolSettings; 
+      }
+    }
     
     private Schema _Sch;
     /// <summary>
@@ -209,6 +223,7 @@ namespace NCsvLib
       FixedValue = string.Empty;
       Comment = string.Empty;
       ColHdr = string.Empty;
+      _BoolSettings = null;
     }
   }
 
@@ -224,6 +239,7 @@ namespace NCsvLib
     String = 2,
     Double = 3,
     Decimal = 4,
-    DateTime = 5
+    DateTime = 5,
+    Bool = 6
   }
 }

@@ -53,6 +53,7 @@
     <Compile Include="schema\ISchemaReader.cs" />
     <Compile Include="schema\Schema.cs" />
     <Compile Include="schema\SchemaField.cs" />
+    <Compile Include="schema\SchemaFieldBool.cs" />
     <Compile Include="schema\SchemaReaderXml.cs" />
     <Compile Include="schema\SchemaRecord.cs" />
     <Compile Include="schema\SchemaRecordBase.cs" />

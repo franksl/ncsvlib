@@ -188,7 +188,6 @@ namespace NCsvLib
       //SchemaRecordLimit lim = ParseLimit(_Rdr.GetAttribute("limit"));
       //rec.Limit = new SchemaRecordLimit(lim.Offset, lim.Max);
       rec.Limit = ParseLimit(_Rdr.GetAttribute("limit"));
-      Console.WriteLine(rec.Limit.Max.ToString());
       s = _Rdr.GetAttribute("colheaders");
       if (s != null && s != string.Empty)
       {
@@ -219,6 +218,7 @@ namespace NCsvLib
     {
       SchemaField fld;
       string s;
+      int ival;
 
       fld = new SchemaField(_Sch);
       //Name
@@ -243,6 +243,9 @@ namespace NCsvLib
           break;
         case "datetime":
           fld.FldType = SchemaFieldType.DateTime;
+          break;
+        case "bool":
+          fld.FldType = SchemaFieldType.Bool;
           break;
       }
       //Format
@@ -375,7 +378,65 @@ namespace NCsvLib
       s = _Rdr.GetAttribute("colhdr");
       if (s != null)
         fld.ColHdr = s;
-
+      //TrueValue
+      s = _Rdr.GetAttribute("truevalue");
+      if (s != null)
+        fld.BoolSettings.TrueValue = s;
+      //FalseValue
+      s = _Rdr.GetAttribute("falsevalue");
+      if (s != null)
+        fld.BoolSettings.FalseValue = s;
+      //BoolIoType
+      s = _Rdr.GetAttribute("booliotype");
+      if (s != null)
+        s = s.ToLower();
+      switch (s)
+      {
+        case "int":
+          fld.BoolSettings.BoolIoType = SchemaFieldBoolIoType.Int;
+          break;
+        case "string":
+          fld.BoolSettings.BoolIoType = SchemaFieldBoolIoType.String;
+          break;
+        case null:
+          break;
+        default:
+          throw new NCsvLibSchemaException("Invalid value for booliotype");
+      }
+      //TrueIoValue
+      s = _Rdr.GetAttribute("trueiovalue");
+      if (s != null)
+      {
+        switch (fld.BoolSettings.BoolIoType)
+        {
+          case SchemaFieldBoolIoType.Int:
+            if (int.TryParse(s, out ival))
+              fld.BoolSettings.TrueIoValue = ival;
+            else
+              throw new NCsvLibSchemaException("Invalid value for trueiovalue");
+            break;
+          case SchemaFieldBoolIoType.String:
+            fld.BoolSettings.TrueIoValue = s;
+            break;
+        }
+      }
+      //FalseIoValue
+      s = _Rdr.GetAttribute("falseiovalue");
+      if (s != null)
+      {
+        switch (fld.BoolSettings.BoolIoType)
+        {
+          case SchemaFieldBoolIoType.Int:
+            if (int.TryParse(s, out ival))
+              fld.BoolSettings.FalseIoValue = ival;
+            else
+              throw new NCsvLibSchemaException("Invalid value for falseiovalue");
+            break;
+          case SchemaFieldBoolIoType.String:
+            fld.BoolSettings.FalseIoValue = s;
+            break;
+        }
+      }
       return fld;
     }
 

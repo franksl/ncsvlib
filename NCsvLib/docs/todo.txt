@@ -11,7 +11,7 @@ Schema:
 - SchemaRecordBase: add checking methods for unique id (to be executed in 
   Id property setter) 
   (should already be implemented because it inherits from IDictionary)
-- Add bool data type, with optional parameters for "truevalue" 
+- *** Add bool data type, with optional parameters for "truevalue" 
   (default 'true') and "falsevalue" (default 'false')
 - Add BLOB data type to handle arbitrary data (evaluate how to handle size)
 
@@ -61,3 +61,4 @@ CsvReader:
   - match: reg.expr. pattern to be matched (also in writer for control)
 - Add a Parse() method to filters/formatters with reverse behaviour of 
   output filters
+- DataDestination is like DataSource

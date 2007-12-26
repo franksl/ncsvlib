@@ -45,6 +45,15 @@ namespace NCsvLib.Formatters
             sb.Append(fld.Value.ToString());
           else if (sch.FldType == SchemaFieldType.DateTime)
             sb.Append(((DateTime)fld.Value).ToString(sch.Format));
+          else if (sch.FldType == SchemaFieldType.Bool)
+          {
+            if (sch.BoolSettings == null)
+              throw new NCsvLibOutputException("Settings for bool field not found");
+            if (sch.BoolSettings.CompareIoValue(fld.Value))
+              return sch.BoolSettings.TrueValue;
+            else
+              return sch.BoolSettings.FalseValue;
+          }
           else
             throw new NCsvLibOutputException("Schema data type not supported");
         }

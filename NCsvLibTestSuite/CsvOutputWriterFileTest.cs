@@ -51,24 +51,24 @@ namespace NCsvLibTestSuite
       i = 0;
       Assert.That(ln.Count, Is.EqualTo(26));
       //R1 (contains headers)
-      Assert.That(ln[i++], Is.EqualTo("int1|str1|dbl1|dec1|dt1|fix1|str1_2|"));
-      Assert.That(ln[i++], Is.EqualTo("00001|\"aaa                 \"|        100,10|\"        100011\"|11/01/2001 10:11:12|AAA|DUMMY|"));
-      Assert.That(ln[i++], Is.EqualTo("00002|\"bbb                 \"|        200,20|\"        200022\"|12/02/2002 12:13:14|AAA|DUMMY|"));
-      Assert.That(ln[i++], Is.EqualTo("00003|\"ccc                 \"|        300,30|\"        300033\"|13/03/2003 13:14:15|AAA|DUMMY|"));
-      Assert.That(ln[i++], Is.EqualTo("00004|\"ddd                 \"|        400,40|\"        400044\"|14/04/2004 14:15:16|AAA|DUMMY|"));
+      Assert.That(ln[i++], Is.EqualTo("int1|str1|dbl1|dec1|dt1|fix1|str1_2|bool1|"));
+      Assert.That(ln[i++], Is.EqualTo("00001|\"aaa                 \"|        100,10|\"        100011\"|11/01/2001 10:11:12|AAA|DUMMY|true|"));
+      Assert.That(ln[i++], Is.EqualTo("00002|\"bbb                 \"|        200,20|\"        200022\"|12/02/2002 12:13:14|AAA|DUMMY|false|"));
+      Assert.That(ln[i++], Is.EqualTo("00003|\"ccc                 \"|        300,30|\"        300033\"|13/03/2003 13:14:15|AAA|DUMMY|true|"));
+      Assert.That(ln[i++], Is.EqualTo("00004|\"ddd                 \"|        400,40|\"        400044\"|14/04/2004 14:15:16|AAA|DUMMY|false|"));
       //Record group that contains records 2 and 3 has limit = 2
-      Assert.That(ln[i++], Is.EqualTo("FLDR2|001|11000|\"                r2_1\"|"));
-      Assert.That(ln[i++], Is.EqualTo("FLDR2|002|22000|\"                r2_2\"|"));
-      Assert.That(ln[i++], Is.EqualTo("FLDR2|003|33000|\"                r2_3\"|"));
-      Assert.That(ln[i++], Is.EqualTo("FLDR2|004|44000|\"                r2_4\"|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR2|001|11000|\"                r2_1\"|TTT|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR2|002|22000|\"                r2_2\"|FFF|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR2|003|33000|\"                r2_3\"|TTT|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR2|004|44000|\"                r2_4\"|FFF|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR3|'1'|\"                r3_1\"|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR3|'2'|\"                r3_2\"|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR3|'3'|\"                r3_3\"|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR3|'4'|\"                r3_4\"|"));
-      Assert.That(ln[i++], Is.EqualTo("FLDR2|005|55000|\"                r2_5\"|"));
-      Assert.That(ln[i++], Is.EqualTo("FLDR2|006|66000|\"                r2_6\"|"));
-      Assert.That(ln[i++], Is.EqualTo("FLDR2|007|77000|\"                r2_7\"|"));
-      Assert.That(ln[i++], Is.EqualTo("FLDR2|008|88000|\"                r2_8\"|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR2|005|55000|\"                r2_5\"|TTT|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR2|006|66000|\"                r2_6\"|FFF|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR2|007|77000|\"                r2_7\"|TTT|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR2|008|88000|\"                r2_8\"|FFF|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR3|'5'|\"                r3_5\"|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR3|'6'|\"                r3_6\"|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR3|'7'|\"                r3_7\"|"));
