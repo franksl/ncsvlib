@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 using NCsvLib;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
@@ -11,12 +12,29 @@ namespace NCsvLibTestSuite
   public class CsvSchemaReaderXmlTest
   {
     [Test]
-    public void GetSchema()
+    public void GetSchemaFromFile()
     {
-      SchemaRecord rec;
-      SchemaRecordComposite comp;
       SchemaReaderXml rdr = new SchemaReaderXml(Helpers.SchFileName);
       Schema sch = rdr.Sch;
+			AssertSchema(sch);
+		}
+
+		[Test]
+		public void GetSchemaFromStream()
+		{
+			using (StreamReader txtr = new StreamReader(Helpers.SchFileName))
+			{
+				SchemaReaderXml rdr = new SchemaReaderXml(txtr.BaseStream);
+				Schema sch = rdr.Sch;
+				AssertSchema(sch);
+			}
+		}
+
+		private void AssertSchema(Schema sch)
+		{
+			SchemaRecord rec;
+			SchemaRecordComposite comp;
+
       Assert.That(sch.Count, Is.EqualTo(3));
 
       //options

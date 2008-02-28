@@ -9,7 +9,8 @@ namespace NCsvLib
 {
   public class SchemaReaderXml : ISchemaReader
   {
-    public string FileName;
+    private string _FileName;
+		private Stream _Str;
     private XmlReader _Rdr;
     private Schema _Sch;
     public Schema Sch
@@ -25,6 +26,8 @@ namespace NCsvLib
 
     private SchemaReaderXml()
     {
+			_FileName = null;
+			_Str = null;
       _Sch = null;
     }
 
@@ -33,14 +36,27 @@ namespace NCsvLib
     {
       if (!File.Exists(file_name))
         throw new NCsvLibSchemaException("Xml schema file not found: " + file_name);
-      FileName = file_name;
+      _FileName = file_name;
     }
+
+		public SchemaReaderXml(Stream str)
+			: this()
+		{
+			if (!str.CanRead)
+				throw new NCsvLibSchemaException("Cannot read from stream");
+			_Str = str;
+		}
 
     public void ReadSchema()
     {
       _Sch = new Schema();
-      
-      _Rdr = XmlReader.Create(FileName);
+
+			if (_FileName != null)
+				_Rdr = XmlReader.Create(_FileName);
+			else if (_Str != null)
+				_Rdr = XmlReader.Create(_Str);
+			else
+				throw new NCsvLibSchemaException("Missing input file name or stream");
       _Rdr.ReadStartElement("ncsvlib");
       try
       {
