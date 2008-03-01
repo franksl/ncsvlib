@@ -110,8 +110,8 @@ The basic blocks are:
 - Schema:
 Represents the structure of a csv file. It is a tree of 'records', where each 
 record represents the structure of a single line. 
-Every record is a collection of 'fields' that represent a single value.
-Every field will be separated from the following by a field separator, if 
+Each record is a collection of 'fields' that represent a single value.
+Each field will be separated from the following by a field separator, if 
 specified.
 For example, let's define a schema with a single 'Users' record with a total of
 4 fields: first name, surname, city, email. We also specify that the field 

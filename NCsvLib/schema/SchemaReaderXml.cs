@@ -42,6 +42,8 @@ namespace NCsvLib
 		public SchemaReaderXml(Stream str)
 			: this()
 		{
+			if (str == null)
+				throw new NCsvLibSchemaException("Stream is null");
 			if (!str.CanRead)
 				throw new NCsvLibSchemaException("Cannot read from stream");
 			_Str = str;

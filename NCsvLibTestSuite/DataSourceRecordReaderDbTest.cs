@@ -10,11 +10,10 @@ using System.IO;
 namespace NCsvLibTestSuite
 {
   [TestFixture]
-  public class DbInputReaderTest
+  public class DataSourceRecordReaderDbTest
   {
     DbConnection[] Conn;
     
-
     [SetUp]
     public void SetUp()
     {

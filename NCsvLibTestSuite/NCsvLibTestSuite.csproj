@@ -39,9 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSourceRecordReaderDbTest.cs" />
     <Compile Include="CsvOutputWriterFileTest.cs" />
     <Compile Include="CsvSchemaReaderXmlTest.cs" />
-    <Compile Include="DataSourceReaderDbTest.cs" />
+    <Compile Include="DataSourceRecordReaderDataTableTest.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -48,6 +48,8 @@ DataSourceReader:
   should stop (Read() returns false) (ie. because it's contained in a recordgroup)
   - pass parameters to open()? (ex. to put them in a WHERE clause)
   - expose events (passing current and previous lines)?
+- add 'filters' that remember current record index (ie. to implement row
+  counters)
 
 CsvReader:
 - Add options to handle csv read errors in various ways: throw exception, 

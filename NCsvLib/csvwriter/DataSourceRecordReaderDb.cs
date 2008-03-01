@@ -5,7 +5,7 @@ using System.Data.Common;
 
 namespace NCsvLib
 {
-  public class DataSourceRecordReaderDb : IDataSourceRecordReader
+  public class DataSourceRecordReaderDb : DataSourceRecordReaderBase
   {
     protected DbConnection _Conn;
     public DbConnection Connection
@@ -22,15 +22,6 @@ namespace NCsvLib
 
     protected DbDataReader _Rdr;
 
-    private string _Id;
-    public string Id
-    {
-      get
-      {
-        return _Id;
-      }
-    }
-
     private DataSourceRecordReaderDb()
     {
     }
@@ -43,7 +34,7 @@ namespace NCsvLib
       _Cmd.CommandText = commandText;
     }
 
-    public void Open()
+    public override void Open()
     {
       //Opens a db connection and creates a datareader
       _Cmd.Connection.Open();
@@ -58,7 +49,7 @@ namespace NCsvLib
       }
     }
 
-    public void Close()
+		public override void Close()
     {
       if (_Rdr == null)
         return;
@@ -68,7 +59,7 @@ namespace NCsvLib
         _Cmd.Connection.Close();
     }
 
-    public bool Read()
+		public override bool Read()
     {
       if (_Rdr == null)
         throw new NCsvLibDataSourceException("DbDataReader closed");
@@ -78,7 +69,7 @@ namespace NCsvLib
         throw new NCsvLibDataSourceException("DataSource Record Reader closed");
     }
 
-    public DataSourceField GetField(string name)
+		public override DataSourceField GetField(string name)
     {
       if (_Rdr == null)
         throw new NCsvLibDataSourceException("DbDataReader not defined");
