@@ -12,6 +12,8 @@ Schema:
   Id property setter) 
   (should already be implemented because it inherits from IDictionary)
 - Add BLOB data type to handle arbitrary data (evaluate how to handle size)
+- Add "record starter" and "record ender", a value that can be put on a line
+  by itself to delimit the start or the end of a record/record group.
 
 Formatters:
 - Support multiline strings (see articles on the web for the correct format)
