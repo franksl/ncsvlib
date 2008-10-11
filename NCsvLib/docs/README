@@ -16,4 +16,4 @@ file).
 2. Installation
 
 Simply copy NCsvLib.dll in the same directory of your project executables.
-The file license.txt should be deployed with NcsvLib.dll.
+The file license.txt should be deployed with NCsvLib.dll.

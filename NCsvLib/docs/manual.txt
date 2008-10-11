@@ -5,6 +5,7 @@
 1.4. Record
 1.5. Record Group
 1.6. Field
+1.6.1. Data types
 1.7. Custom formatters
 1.8. Schema readers
 
@@ -12,7 +13,9 @@
 2.1. Introduction
 2.2. Data Source
 2.3. 
+
 3. CsvReader
+3.1. Introduction
 
 --------------------------------------------------------------------------------
 
@@ -44,7 +47,7 @@ Field definition contains various parameters to define many aspects of the
 conversion that will take place while writing to or reading from a csv stream.
 These parameters are:
 - name: the unique name of the field, must be the same in data source
-- type
+- type: one of the predefined data types
 - format
 - custfmt
 - alignment
@@ -54,10 +57,10 @@ These parameters are:
 - fillchar
 - addquotes
 - quotes
-- hasfixedvalue
-- fixedvalue
-- comment
-- colhdr
+- hasfixedvalue: true if the field has a fixed value defined in fixedvalue
+- fixedvalue: fixed value given to the field, if hasfixedvalue is true
+- comment: user defined description for the field
+- colhdr: name to be given to the column header, if allowed
 - truevalue: only for bool type, defines the string used to represent 'true'
              in csv stream
 - falsevalue: only for bool type, defines the string used to represent 'true'
@@ -68,6 +71,17 @@ These parameters are:
                in data source/destination
 - booliotype: only for bool type, defines the data type used in data source/
               destination
+
+
+1.6.1. Data types
+
+Any field has a data type chosen from a list of predefined types:
+- int: integer
+- string
+- double: floating point
+- decimal: precision math
+- datetime
+- bool
 
 
 1.7. Custom formatters
@@ -124,3 +138,28 @@ The schema is implemented with a 'Composite' pattern, so it is possible to
 define even complex file structures.
 
 - CsvWriterController
+
+
+3. CsvReader
+
+3.1. Introduction
+
+
+                         CsvReaderSchemaChecker
+                                   |
+      |-----------------|------ Schema ------|
+      |                 |                    |
+      |                 |                    |
+CsvInputReader ----> Parser ----> CsvReaderController ----> DataDestinationWriter
+                                                                      |
+                                                                      |
+                                                         DataDestinationRecordWriter
+
+The basic blocks are:
+
+- Schema: please refer to the writer section
+
+- CsvReaderSchemaChecker: 
+Class that verifies the readability of the Schema, making sure that the reader
+can clearly identify record start, end, etc.
+

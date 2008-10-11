@@ -34,6 +34,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="csvreader\DataDestinationField.cs" />
     <Compile Include="csvwriter\DataSourceRecordReaderBase.cs" />
     <Compile Include="csvwriter\DataSourceRecordReaderDataTable.cs" />
     <Compile Include="csvwriter\CsvOutputWriterHttp.cs" />
@@ -70,9 +71,6 @@
     </None>
     <Content Include="docs\manual.txt" />
     <Content Include="docs\todo.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="csvreader\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
