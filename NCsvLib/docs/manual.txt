@@ -111,11 +111,10 @@ eventually modified before calling controller's Execute method.
 2.1. Introduction
 
 
-                                |------ Schema ------|
-                                |                    |
-                                |                    |
-DataSourceReader ----> CsvWriterController ----> Formatter ----> OutputWriter
-        |
+                       Schema ---- Formatter
+                          |           |
+                          |           |
+DataSourceReader ----> CsvWriterController ----> OutputWriter
         |
 DataSourceRecordReader
 
@@ -145,15 +144,14 @@ define even complex file structures.
 3.1. Introduction
 
 
-                         CsvReaderSchemaChecker
-                                   |
-      |-----------------|------ Schema ------|
-      |                 |                    |
-      |                 |                    |
-CsvInputReader ----> Parser ----> CsvReaderController ----> DataDestinationWriter
-                                                                      |
-                                                                      |
-                                                         DataDestinationRecordWriter
+         CsvReaderSchemaChecker
+                  |
+   Parser ---- Schema ------|
+      |                     |
+      |                     |
+CsvInputReader ----> CsvReaderController ----> DataDestinationWriter
+                                                        |
+                                            DataDestinationRecordWriter
 
 The basic blocks are:
 

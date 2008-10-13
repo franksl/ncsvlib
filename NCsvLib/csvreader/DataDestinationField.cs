@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NCsvLib
 {
-  public class DataSourceField
+  public class DataDestinationField
   {
     private string _Name;
     public string Name
@@ -19,5 +19,12 @@ namespace NCsvLib
       get { return _Value; }
       set { _Value = value; }
     }
+
+		private SchemaFieldType _ValueType;
+		public SchemaFieldType ValueType
+		{
+			get { return _ValueType; }
+			set { _ValueType = value; }
+		}
   }
 }

@@ -10,6 +10,7 @@ namespace NCsvLib
     /// Id of this record
     /// </summary>
     string Id { get; }
+
     /// <summary>
     /// Opens a 'connection' with the data source for the given record id
     /// and positions itself before the first row
@@ -30,7 +31,6 @@ namespace NCsvLib
     /// <summary>
     /// Returns an object of class CsvInputField that contains info about the requested field
     /// </summary>
-    /// <param name="id">Id of the requested record</param>
     /// <param name="name">Name of the requested field</param>
     /// <returns></returns>
     DataSourceField GetField(string name);
