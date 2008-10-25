@@ -191,6 +191,17 @@ namespace NCsvLib
         return _BoolSettings; 
       }
     }
+
+		private string _NullValueWrt;
+		/// <summary>
+		/// Writer: value to be assigned when data source field value is null
+		/// Default: empty string
+		/// </summary>
+		public string NullValueWrt
+		{
+			get { return _NullValueWrt; }
+			set { _NullValueWrt = value; }
+		}
     
     private Schema _Sch;
     /// <summary>
@@ -224,6 +235,7 @@ namespace NCsvLib
       Comment = string.Empty;
       ColHdr = string.Empty;
       _BoolSettings = null;
+			_NullValueWrt = string.Empty;
     }
   }
 

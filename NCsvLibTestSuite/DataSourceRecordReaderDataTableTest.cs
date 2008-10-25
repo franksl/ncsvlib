@@ -208,6 +208,9 @@ namespace NCsvLibTestSuite
       Assert.That((string)fld.Value, Is.EqualTo("r2_3"));
       fld = rdr[Helpers.R2].GetField("bool2");
       Assert.That((string)fld.Value, Text.Matches("T"));
+			rdr[Helpers.R2].Read();
+			fld = rdr[Helpers.R2].GetField("strr2");
+			Assert.That(fld.Value, Is.Null);
 
       rdr[Helpers.R3].Read();
       fld = rdr[Helpers.R3].GetField("intr3");

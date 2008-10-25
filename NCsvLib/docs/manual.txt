@@ -70,8 +70,9 @@ These parameters are:
 - falseiovalue: only for bool type, defines the value used to represent 'false'
                in data source/destination
 - booliotype: only for bool type, defines the data type used in data source/
-              destination
-
+              destination for bool type. It's the data type for trueiovalue
+              and falseiovalue and can be int, string, bool.
+- nullvaluewrt: Writer: value to be assigned when data source field value is null
 
 1.6.1. Data types
 

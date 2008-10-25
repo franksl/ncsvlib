@@ -60,7 +60,7 @@ namespace NCsvLibTestSuite
       Assert.That(ln[i++], Is.EqualTo("FLDR2|001|11000|\"                r2_1\"|TTT|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR2|002|22000|\"                r2_2\"|FFF|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR2|003|33000|\"                r2_3\"|TTT|"));
-      Assert.That(ln[i++], Is.EqualTo("FLDR2|004|44000|\"                r2_4\"|FFF|"));
+      Assert.That(ln[i++], Is.EqualTo("FLDR2|004|44000|\"                ABCD\"|FFF|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR3|'1'|\"                r3_1\"|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR3|'2'|\"                r3_2\"|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR3|'3'|\"                r3_3\"|"));

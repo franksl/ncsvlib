@@ -96,6 +96,8 @@ namespace NCsvLib
           return (int)val1 == (int)val2;
         case SchemaFieldBoolIoType.String:
           return (string.Compare(val1.ToString(), val2.ToString()) == 0);
+				case SchemaFieldBoolIoType.Bool:
+					return (bool)val1 == (bool)val2;
         default:
           throw new NCsvLibSchemaException("Bool types mismatch");
       }
@@ -114,6 +116,7 @@ namespace NCsvLib
   public enum SchemaFieldBoolIoType
   {
     Int = 1,
-    String = 2
+    String = 2,
+		Bool = 3
   }
 }

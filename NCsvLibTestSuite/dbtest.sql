@@ -34,21 +34,21 @@ BEGIN
   );
 
   INSERT INTO csvtest2 (intr2, intr2left, strr2, bool2)
-  VALUES (1, 11, "r2_1", "T");
+  VALUES (1, 11, 'r2_1', 'T');
   INSERT INTO csvtest2 (intr2, intr2left, strr2, bool2)
-  VALUES (2, 22, "r2_2", "F");
+  VALUES (2, 22, 'r2_2', 'F');
   INSERT INTO csvtest2 (intr2, intr2left, strr2, bool2)
-  VALUES (3, 33, "r2_3", "T");
+  VALUES (3, 33, 'r2_3', 'T');
   INSERT INTO csvtest2 (intr2, intr2left, strr2, bool2)
-  VALUES (4, 44, "r2_4", "F");
+  VALUES (4, 44, NULL, 'F');
   INSERT INTO csvtest2 (intr2, intr2left, strr2, bool2)
-  VALUES (5, 55, "r2_5", "T");
+  VALUES (5, 55, 'r2_5', 'T');
   INSERT INTO csvtest2 (intr2, intr2left, strr2, bool2)
-  VALUES (6, 66, "r2_6", "F");
+  VALUES (6, 66, 'r2_6', 'F');
   INSERT INTO csvtest2 (intr2, intr2left, strr2, bool2)
-  VALUES (7, 77, "r2_7", "T");
+  VALUES (7, 77, 'r2_7', 'T');
   INSERT INTO csvtest2 (intr2, intr2left, strr2, bool2)
-  VALUES (8, 88, "r2_8", "F");
+  VALUES (8, 88, 'r2_8', 'F');
 
   DROP TABLE IF EXISTS csvtest3;
   CREATE TABLE csvtest3
@@ -58,21 +58,21 @@ BEGIN
   );
 
   INSERT INTO csvtest3 (intr3, strr3)
-  VALUES (1, "r3_1");
+  VALUES (1, 'r3_1');
   INSERT INTO csvtest3 (intr3, strr3)
-  VALUES (2, "r3_2");
+  VALUES (2, 'r3_2');
   INSERT INTO csvtest3 (intr3, strr3)
-  VALUES (3, "r3_3");
+  VALUES (3, 'r3_3');
   INSERT INTO csvtest3 (intr3, strr3)
-  VALUES (4, "r3_4");
+  VALUES (4, 'r3_4');
   INSERT INTO csvtest3 (intr3, strr3)
-  VALUES (5, "r3_5");
+  VALUES (5, 'r3_5');
   INSERT INTO csvtest3 (intr3, strr3)
-  VALUES (6, "r3_6");
+  VALUES (6, 'r3_6');
   INSERT INTO csvtest3 (intr3, strr3)
-  VALUES (7, "r3_7");
+  VALUES (7, 'r3_7');
   INSERT INTO csvtest3 (intr3, strr3)
-  VALUES (8, "r3_8");
+  VALUES (8, 'r3_8');
 
   DROP TABLE IF EXISTS csvtest4;
   CREATE TABLE csvtest4

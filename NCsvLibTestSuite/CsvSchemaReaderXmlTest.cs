@@ -133,6 +133,7 @@ namespace NCsvLibTestSuite
       Assert.That(rec[3].Name, Is.EqualTo("strr2"));
       Assert.That(rec[3].AddQuotes, Is.True);
       Assert.That(rec[3].FldType, Is.EqualTo(SchemaFieldType.String));
+			Assert.That(rec[3].NullValueWrt, Is.EqualTo("ABCD"));
       //bool2
       Assert.That(rec[4].Name, Is.EqualTo("bool2"));
       Assert.That(rec[4].FldType, Is.EqualTo(SchemaFieldType.Bool));

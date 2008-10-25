@@ -1,8 +1,6 @@
 Schema:
 - record: add possibility to override fieldseparator char that
          is now defined in the <options> section
-- add "nullvalue" attribute to represent the string that should be output if
-  a field has Value = null. Default value: string.Empty        
 - <fixedlen> should be changed to <fixedsize>
 - Add tests for missing arguments (es. limit) and various checks:
   - limit values must be >= 0
@@ -63,4 +61,4 @@ CsvReader:
   - match: reg.expr. pattern to be matched (also in writer for control)
 - Add a Parse() method to filters/formatters with reverse behaviour of 
   output filters
-- DataDestination is like DataSource
+- Allow parsing of simple csv files without schema and just the separator

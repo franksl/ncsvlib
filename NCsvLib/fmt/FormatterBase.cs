@@ -29,38 +29,40 @@ namespace NCsvLib.Formatters
       string s;
       
       //Converts value to string (empty string if value is null
-      if (fld.Value != null)
-      {
-        if (sch.CustFmt != null)
-          sb.Append(sch.CustFmt.Format(fld, sch));
-        else
-        {
-          if (sch.FldType == SchemaFieldType.Decimal)
-            sb.Append(((decimal)fld.Value).ToString(sch.Format));
-          else if (sch.FldType == SchemaFieldType.Double)
-            sb.Append(((double)fld.Value).ToString(sch.Format));
-          else if (sch.FldType == SchemaFieldType.Int)
-            sb.Append(((int)fld.Value).ToString(sch.Format));
-          else if (sch.FldType == SchemaFieldType.String)
-            sb.Append(fld.Value.ToString());
-          else if (sch.FldType == SchemaFieldType.DateTime)
-            sb.Append(((DateTime)fld.Value).ToString(sch.Format));
-          else if (sch.FldType == SchemaFieldType.Bool)
-          {
-            if (sch.BoolSettings == null)
-              throw new NCsvLibOutputException("Settings for bool field not found");
-            if (sch.BoolSettings.CompareIoValue(fld.Value))
-              return sch.BoolSettings.TrueValue;
-            else
-              return sch.BoolSettings.FalseValue;
-          }
-          else
-            throw new NCsvLibOutputException("Schema data type not supported");
-        }
-        s = sb.ToString();
-      }
-      else
-        s = string.Empty;
+			if (fld.Value != null)
+			{
+				if (sch.CustFmt != null)
+					sb.Append(sch.CustFmt.Format(fld, sch));
+				else
+				{
+					if (sch.FldType == SchemaFieldType.Decimal)
+						sb.Append(((decimal)fld.Value).ToString(sch.Format));
+					else if (sch.FldType == SchemaFieldType.Double)
+						sb.Append(((double)fld.Value).ToString(sch.Format));
+					else if (sch.FldType == SchemaFieldType.Int)
+						sb.Append(((int)fld.Value).ToString(sch.Format));
+					else if (sch.FldType == SchemaFieldType.String)
+						sb.Append(fld.Value.ToString());
+					else if (sch.FldType == SchemaFieldType.DateTime)
+						sb.Append(((DateTime)fld.Value).ToString(sch.Format));
+					else if (sch.FldType == SchemaFieldType.Bool)
+					{
+						if (sch.BoolSettings == null)
+							throw new NCsvLibOutputException("Settings for bool field not found");
+						if (sch.BoolSettings.CompareIoValue(fld.Value))
+							sb.Append(sch.BoolSettings.TrueValue);
+						else
+							sb.Append(sch.BoolSettings.FalseValue);
+					}
+					else
+						throw new NCsvLibOutputException("Schema data type not supported");
+				}
+				s = sb.ToString();
+			}
+			else
+			{
+				s = sch.NullValueWrt;
+			}
       return Fill(s, sch);
     }
 

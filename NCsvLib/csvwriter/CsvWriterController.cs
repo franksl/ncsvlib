@@ -137,10 +137,18 @@ namespace NCsvLib
         else
           infld = rdr.GetField(r[i].Name);
         //Uses base formatter if no custom formatter is specified
-        if (r[i].CustFmt != null)
-          s = r[i].CustFmt.Format(infld, r[i]);
-        else
-          s = _Fmt.Format(infld, r[i]);
+				try
+				{
+					if (r[i].CustFmt != null)
+						s = r[i].CustFmt.Format(infld, r[i]);
+					else
+						s = _Fmt.Format(infld, r[i]);
+				}
+				catch (Exception ex)
+				{
+					throw new NCsvLibControllerException("Format error for field "
+						+ infld.Name + ": " + ex.Message);
+				}
         _OutWriter.WriteFieldValue(s);
         _OutWriter.WriteSeparator(_Sch.Options.FieldSeparator);
       }
