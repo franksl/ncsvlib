@@ -51,7 +51,7 @@ These parameters are:
 - format
 - custfmt
 - alignment
-- fixedlen
+- fixedsize
 - size
 - filled
 - fillchar

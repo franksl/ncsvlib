@@ -311,18 +311,18 @@ namespace NCsvLib
           fld.Alignment = SchemaValueAlignment.Right;
           break;
       }
-      //FixedLen
-      s = _Rdr.GetAttribute("fixedlen");
+      //FixedSize
+      s = _Rdr.GetAttribute("fixedsize");
       if (s != null)
         s = s.ToLower();
       switch (s)
       {
         case "true":
-          fld.FixedLen = true;
+          fld.FixedSize = true;
           break;
         case "false":
         case null:
-          fld.FixedLen = false;
+          fld.FixedSize = false;
           break;
       }
       //Size

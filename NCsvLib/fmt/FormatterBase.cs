@@ -73,7 +73,7 @@ namespace NCsvLib.Formatters
       //TODO To be improved
       if (sch.AddQuotes)
         sz = 2;
-      if (sch.FixedLen)
+      if (sch.FixedSize)
         sz += sch.Size;
       else
         sz += s.Length;

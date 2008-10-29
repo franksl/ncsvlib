@@ -8,34 +8,34 @@
   </options>
   <schema>
     <record id="R1" limit="0" colheaders="true">
-      <field name="intfld" type="int" format="0" alignment="right" fixedlen="true" size="5" filled="true" fillchar="0" addquotes="false" comment="Comment for intfld" colhdr="int1" />
-      <field name="strfld" type="string" format="" alignment="left" fixedlen="true" size="20" addquotes="true" colhdr="str1" />
-      <field name="doublefld" type="double" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="false" colhdr="dbl1" />
-      <field name="decimalfld" type="decimal" custfmt="NCsvLib.Formatters.NumberDigitsFormatter" alignment="right" fixedlen="true" size="14" addquotes="true" colhdr="dec1" />
-      <field name="dtfld" type="datetime" format="dd\/MM\/yyyy HH\:mm\:ss" alignment="left" fixedlen="true" size="19" addquotes="false" colhdr="dt1" />
+      <field name="intfld" type="int" format="0" alignment="right" fixedsize="true" size="5" filled="true" fillchar="0" addquotes="false" comment="Comment for intfld" colhdr="int1" />
+      <field name="strfld" type="string" format="" alignment="left" fixedsize="true" size="20" addquotes="true" colhdr="str1" />
+      <field name="doublefld" type="double" format="###,###,###.00" alignment="right" fixedsize="true" size="14" addquotes="false" colhdr="dbl1" />
+      <field name="decimalfld" type="decimal" custfmt="NCsvLib.Formatters.NumberDigitsFormatter" alignment="right" fixedsize="true" size="14" addquotes="true" colhdr="dec1" />
+      <field name="dtfld" type="datetime" format="dd\/MM\/yyyy HH\:mm\:ss" alignment="left" fixedsize="true" size="19" addquotes="false" colhdr="dt1" />
       <field name="fixedfld" hasfixedvalue="true" fixedvalue="AAA" colhdr="fix1" />
-      <field name="strfld2" type="string" fixedlen="true" size="5" custfmt="NCsvLibTestSuite.dll|NCsvLibTestSuite.DummyFormatter" colhdr="str1_2" />
+      <field name="strfld2" type="string" fixedsize="true" size="5" custfmt="NCsvLibTestSuite.dll|NCsvLibTestSuite.DummyFormatter" colhdr="str1_2" />
       <field name="boolfld" type="bool" addquotes="false" comment="Comment for boolfld" colhdr="bool1" />
     </record>
     <recordgroup id="RG1" limit="2">
       <record id="R2" limit="4">
         <field name="fixedr2" hasfixedvalue="true" fixedvalue="FLDR2" />
-        <field name="intr2" type="int" format="0" alignment="right" fixedlen="true" size="3" filled="true" fillchar="0" />
-        <field name="intr2left" type="int" format="0" alignment="left" fixedlen="true" size="5"  filled="true" fillchar="0" />
-        <field name="strr2" type="string" format="" alignment="right" fixedlen="true" size="20" addquotes="true" nullvaluewrt="ABCD" />
+        <field name="intr2" type="int" format="0" alignment="right" fixedsize="true" size="3" filled="true" fillchar="0" />
+        <field name="intr2left" type="int" format="0" alignment="left" fixedsize="true" size="5"  filled="true" fillchar="0" />
+        <field name="strr2" type="string" format="" alignment="right" fixedsize="true" size="20" addquotes="true" nullvaluewrt="ABCD" />
         <field name="bool2" type="bool" addquotes="false" truevalue="TTT" falsevalue="FFF" trueiovalue="T" falseiovalue="F" booliotype="string" />
       </record>
       <record id="R3" limit="4">
         <field name="fixedr3" hasfixedvalue="true" fixedvalue="FLDR3" />
-        <field name="intr3" type="int" format="0" alignment="right" fixedlen="false" addquotes="true" quotes="'" />
-        <field name="strr3" type="string" format="" alignment="right" fixedlen="true" size="20" addquotes="true" />
+        <field name="intr3" type="int" format="0" alignment="right" fixedsize="false" addquotes="true" quotes="'" />
+        <field name="strr3" type="string" format="" alignment="right" fixedsize="true" size="20" addquotes="true" />
       </record>
     </recordgroup>
     <record id="R4" limit="3,5">
       <field name="fixedr4" hasfixedvalue="true" fixedvalue="FLDR4" />
-      <field name="intr4" type="int" format="0" alignment="right" fixedlen="true" size="5" />
-      <field name="doubler4" type="double" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="false" />
-      <field name="decimalr4" type="decimal" format="###,###,###.00" alignment="right" fixedlen="true" size="14" addquotes="false" />      
+      <field name="intr4" type="int" format="0" alignment="right" fixedsize="true" size="5" />
+      <field name="doubler4" type="double" format="###,###,###.00" alignment="right" fixedsize="true" size="14" addquotes="false" />
+      <field name="decimalr4" type="decimal" format="###,###,###.00" alignment="right" fixedsize="true" size="14" addquotes="false" />      
     </record>
   </schema>
 </ncsvlib>

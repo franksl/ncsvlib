@@ -1,7 +1,6 @@
 Schema:
 - record: add possibility to override fieldseparator char that
          is now defined in the <options> section
-- <fixedlen> should be changed to <fixedsize>
 - Add tests for missing arguments (es. limit) and various checks:
   - limit values must be >= 0
   - fields inside a single record must have unique names

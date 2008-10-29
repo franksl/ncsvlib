@@ -68,14 +68,14 @@ namespace NCsvLib
       set { _Alignment = value; }
     }
 
-    private bool _FixedLen;
+    private bool _FixedSize;
     /// <summary>
     /// True if the field has fixed length
     /// </summary>
-    public bool FixedLen
+    public bool FixedSize
     {
-      get { return _FixedLen; }
-      set { _FixedLen = value; }
+      get { return _FixedSize; }
+      set { _FixedSize = value; }
     }
 
     private int _Size;
@@ -91,7 +91,7 @@ namespace NCsvLib
     private bool _Filled;
     /// <summary>
     /// True if empty space for the field must be filled with FillChar.
-    /// Valid only if FixedLen is true.
+    /// Valid only if FixedSize is true.
     /// </summary>
     public bool Filled
     {
@@ -102,7 +102,7 @@ namespace NCsvLib
     private char _FillChar;
     /// <summary>
     /// Character used to fill empty spaces for the field.
-    /// Valid only if FixedLen and Filled are true.
+    /// Valid only if FixedSize and Filled are true.
     /// </summary>
     public char FillChar
     {
@@ -224,7 +224,7 @@ namespace NCsvLib
       Format = string.Empty;
       CustFmt = null;
       Alignment = SchemaValueAlignment.Left;
-      FixedLen = false;
+      FixedSize = false;
       Size = 0;
       Filled = false;
       FillChar = char.MinValue;
