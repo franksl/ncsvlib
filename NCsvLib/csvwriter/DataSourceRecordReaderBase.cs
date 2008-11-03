@@ -25,5 +25,7 @@ namespace NCsvLib
     public abstract bool Read();
 
 		public abstract DataSourceField GetField(string name);
+
+		public abstract bool Eof();
 	}
 }

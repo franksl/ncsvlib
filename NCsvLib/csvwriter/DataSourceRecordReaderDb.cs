@@ -22,6 +22,9 @@ namespace NCsvLib
 
     protected DbDataReader _Rdr;
 
+		private long _RowCount;
+		private long _Idx;
+
     private DataSourceRecordReaderDb()
     {
     }
@@ -32,6 +35,9 @@ namespace NCsvLib
       _Conn = refConn;
       _Cmd = _Conn.CreateCommand();
       _Cmd.CommandText = commandText;
+			//-2 = closed, -1 Open
+			_Idx = -2;
+			_RowCount = -1;
     }
 
     public override void Open()
@@ -40,6 +46,16 @@ namespace NCsvLib
       _Cmd.Connection.Open();
       try
       {
+				//Gets record number using COUNT(*)
+				string cmdtmp = _Cmd.CommandText;
+				_Cmd.CommandText = "SELECT COUNT(*) FROM (" + cmdtmp + ")"
+				 + " AS NCSVLIBTBLALIAS";
+				object res = _Cmd.ExecuteScalar();
+				if (res == null || res == DBNull.Value)
+					_RowCount = 0;
+				else
+					_RowCount = (long)res;
+				_Cmd.CommandText = cmdtmp;
         _Rdr = _Cmd.ExecuteReader();
       }
       catch
@@ -47,6 +63,7 @@ namespace NCsvLib
         _Cmd.Connection.Close();
         throw;
       }
+			_Idx = -1;
     }
 
 		public override void Close()
@@ -57,16 +74,25 @@ namespace NCsvLib
         _Rdr.Close();
       if (_Cmd.Connection.State == System.Data.ConnectionState.Open)
         _Cmd.Connection.Close();
+			_Idx = -2;
+			_RowCount = -1;
     }
 
 		public override bool Read()
     {
       if (_Rdr == null)
         throw new NCsvLibDataSourceException("DbDataReader closed");
-      if (!_Rdr.IsClosed)
-        return _Rdr.Read();
-      else
-        throw new NCsvLibDataSourceException("DataSource Record Reader closed");
+			if (!_Rdr.IsClosed)
+			{
+				bool b = _Rdr.Read();
+				if (_Idx == -1)
+					_Idx = 0;
+				else
+					_Idx++;
+				return b;
+			}
+			else
+				throw new NCsvLibDataSourceException("DataSource Record Reader closed");
     }
 
 		public override DataSourceField GetField(string name)
@@ -92,6 +118,15 @@ namespace NCsvLib
       else
         fld.Value = _Rdr.GetValue(idx);
       return fld;
-    }    
+    }
+
+		public override bool Eof()
+		{
+			if (_Rdr == null)
+				throw new NCsvLibDataSourceException("DbDataReader not defined");
+			if (_Rdr.IsClosed)
+				throw new NCsvLibDataSourceException("DataSource Record Reader closed");
+			return (_Idx >= _RowCount);
+		}
   }
 }

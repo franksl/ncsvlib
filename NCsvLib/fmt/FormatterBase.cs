@@ -40,7 +40,7 @@ namespace NCsvLib.Formatters
 					else if (sch.FldType == SchemaFieldType.Double)
 						sb.Append(((double)fld.Value).ToString(sch.Format));
 					else if (sch.FldType == SchemaFieldType.Int)
-						sb.Append(((int)fld.Value).ToString(sch.Format));
+						sb.Append((Convert.ToInt64(fld.Value)).ToString(sch.Format));
 					else if (sch.FldType == SchemaFieldType.String)
 						sb.Append(fld.Value.ToString());
 					else if (sch.FldType == SchemaFieldType.DateTime)

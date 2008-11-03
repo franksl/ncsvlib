@@ -34,5 +34,11 @@ namespace NCsvLib
     /// <param name="name">Name of the requested field</param>
     /// <returns></returns>
     DataSourceField GetField(string name);
+
+		/// <summary>
+		/// Checks if the reader is past the last record. Throws an exception if reader is closed
+		/// </summary>
+		/// <returns>True if there are no more records to read</returns>
+		bool Eof();
   }
 }

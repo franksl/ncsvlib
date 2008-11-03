@@ -35,7 +35,7 @@ namespace NCsvLibTestSuite
 			SchemaRecord rec;
 			SchemaRecordComposite comp;
 
-      Assert.That(sch.Count, Is.EqualTo(3));
+      Assert.That(sch.Count, Is.EqualTo(4));
 
       //options
       Assert.That(sch.Options.FieldSeparator, Is.EqualTo("|"));
@@ -184,6 +184,45 @@ namespace NCsvLibTestSuite
       //decimalfld
       Assert.That(rec[3].Name, Is.EqualTo("decimalr4"));
       Assert.That(rec[3].FldType, Is.EqualTo(SchemaFieldType.Decimal));
+
+			//*** Second group (group RG2)
+			Assert.That(sch[3], Is.TypeOf(typeof(SchemaRecordComposite)));
+			comp = (SchemaRecordComposite)sch[3];
+			Assert.That(comp.Count, Is.EqualTo(2));
+			Assert.That(comp.Limit.Offset, Is.EqualTo(0));
+			Assert.That(comp.Limit.Max, Is.EqualTo(0));
+			Assert.That(comp[0], Is.TypeOf(typeof(SchemaRecord)));
+			//record R5
+			rec = (SchemaRecord)comp[0];
+			Assert.That(rec.Count, Is.EqualTo(2));
+			Assert.That(rec.Limit.Offset, Is.EqualTo(0));
+			Assert.That(rec.Limit.Max, Is.EqualTo(2));
+			Assert.That(rec.ColHeaders, Is.False);
+			//intr5
+			Assert.That(rec[0].Name, Is.EqualTo("intr5"));
+			Assert.That(rec[0].AddQuotes, Is.False);
+			Assert.That(rec[0].FldType, Is.EqualTo(SchemaFieldType.Int));
+			Assert.That(rec[0].Filled, Is.False);
+			//strr5
+			Assert.That(rec[1].Name, Is.EqualTo("strr5"));
+			Assert.That(rec[1].AddQuotes, Is.False);
+			Assert.That(rec[1].FldType, Is.EqualTo(SchemaFieldType.String));
+
+			//record R6
+			rec = (SchemaRecord)comp[1];
+			Assert.That(rec.Count, Is.EqualTo(2));
+			Assert.That(rec.Limit.Offset, Is.EqualTo(0));
+			Assert.That(rec.Limit.Max, Is.EqualTo(2));
+			Assert.That(rec.ColHeaders, Is.False);
+			//intr6
+			Assert.That(rec[0].Name, Is.EqualTo("intr6"));
+			Assert.That(rec[0].AddQuotes, Is.False);
+			Assert.That(rec[0].FldType, Is.EqualTo(SchemaFieldType.Int));
+			Assert.That(rec[0].Filled, Is.False);
+			//strr6
+			Assert.That(rec[1].Name, Is.EqualTo("strr6"));
+			Assert.That(rec[1].AddQuotes, Is.False);
+			Assert.That(rec[1].FldType, Is.EqualTo(SchemaFieldType.String));
     }
   }
 }

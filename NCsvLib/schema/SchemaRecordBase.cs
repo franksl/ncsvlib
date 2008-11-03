@@ -44,12 +44,20 @@ namespace NCsvLib
 
     }
 
-    public delegate void ExecuteMethodDelegate(SchemaRecordBase rec);
+    public delegate ExecuteMethodResult ExecuteMethodDelegate(SchemaRecordBase rec);
 
-    public virtual void Execute(ExecuteMethodDelegate em)
+		public virtual ExecuteMethodResult Execute(ExecuteMethodDelegate em)
     {
-
+			return new ExecuteMethodResult();
     }
+
+		public class ExecuteMethodResult
+		{
+			/// <summary>
+			/// Number of records considered for output
+			/// </summary>
+			public int RecNumber;
+		}
   }
 
   /// <summary>

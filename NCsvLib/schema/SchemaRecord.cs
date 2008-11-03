@@ -69,9 +69,9 @@ namespace NCsvLib
       throw new NCsvLibSchemaException("Cannot remove from SchemaRecord");
     }
 
-    public override void Execute(ExecuteMethodDelegate em)
+		public override ExecuteMethodResult Execute(ExecuteMethodDelegate em)
     {
-      em(this);
+      return em(this);
     }
 
     public void AddField(SchemaField fld)

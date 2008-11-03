@@ -33,13 +33,21 @@ namespace NCsvLibTestSuite
       CsvWriterController ctrl = new CsvWriterController();      
       ctrl.SchemaRdr = new SchemaReaderXml(Helpers.SchFileName);
       DataSourceReaderBase rdr = new DataSourceReaderBase();
-      rdr.Add(Helpers.R1, new DataSourceRecordReaderDb(Helpers.R1, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry1));
-      rdr.Add(Helpers.R2, new DataSourceRecordReaderDb(Helpers.R2, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry2));
-      rdr.Add(Helpers.R3, new DataSourceRecordReaderDb(Helpers.R3, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry3));
-      rdr.Add(Helpers.R4, new DataSourceRecordReaderDb(Helpers.R4, Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry4));
+      rdr.Add(Helpers.R1, new DataSourceRecordReaderDb(Helpers.R1, 
+				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry1));
+      rdr.Add(Helpers.R2, new DataSourceRecordReaderDb(Helpers.R2, 
+				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry2));
+      rdr.Add(Helpers.R3, new DataSourceRecordReaderDb(Helpers.R3, 
+				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry3));
+      rdr.Add(Helpers.R4, new DataSourceRecordReaderDb(Helpers.R4, 
+				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry4));
+			rdr.Add(Helpers.R5, new DataSourceRecordReaderDb(Helpers.R5,
+				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry5));
+			rdr.Add(Helpers.R6, new DataSourceRecordReaderDb(Helpers.R6,
+				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry6));
 
       ctrl.InputRdr = rdr; 
-      Assert.That(rdr.Count, Is.EqualTo(4));
+      Assert.That(rdr.Count, Is.EqualTo(6));
       ctrl.OutWriter = new CsvOutputWriterFile(Helpers.OutFileName);
       ctrl.Execute();
       
@@ -49,7 +57,7 @@ namespace NCsvLibTestSuite
       //File tests
       List<string> ln = Helpers.GetFileLines(Helpers.OutFileName, Helpers.Enc);
       i = 0;
-      Assert.That(ln.Count, Is.EqualTo(26));
+      Assert.That(ln.Count, Is.EqualTo(42));
       //R1 (contains headers)
       Assert.That(ln[i++], Is.EqualTo("int1|str1|dbl1|dec1|dt1|fix1|str1_2|bool1|"));
       Assert.That(ln[i++], Is.EqualTo("00001|\"aaa                 \"|        100,10|\"        100011\"|11/01/2001 10:11:12|AAA|DUMMY|true|"));
@@ -79,6 +87,23 @@ namespace NCsvLibTestSuite
       Assert.That(ln[i++], Is.EqualTo("FLDR4|    6|         66,60|        666,66|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR4|    7|         77,70|        777,77|"));
       Assert.That(ln[i++], Is.EqualTo("FLDR4|    8|         88,80|        888,88|"));
+			//Record group with limit=0
+			Assert.That(ln[i++], Is.EqualTo("    1|AA   |"));
+			Assert.That(ln[i++], Is.EqualTo("    2|BB   |"));
+			Assert.That(ln[i++], Is.EqualTo("   11|AAA  |"));
+			Assert.That(ln[i++], Is.EqualTo("   22|BBB  |"));
+			Assert.That(ln[i++], Is.EqualTo("    3|CC   |"));
+			Assert.That(ln[i++], Is.EqualTo("    4|DD   |"));
+			Assert.That(ln[i++], Is.EqualTo("   33|CCC  |"));
+			Assert.That(ln[i++], Is.EqualTo("   44|DDD  |"));
+			Assert.That(ln[i++], Is.EqualTo("    5|EE   |"));
+			Assert.That(ln[i++], Is.EqualTo("    6|FF   |"));
+			Assert.That(ln[i++], Is.EqualTo("   55|EEE  |"));
+			Assert.That(ln[i++], Is.EqualTo("   66|FFF  |"));
+			Assert.That(ln[i++], Is.EqualTo("    7|GG   |"));
+			Assert.That(ln[i++], Is.EqualTo("    8|HH   |"));
+			Assert.That(ln[i++], Is.EqualTo("   77|GGG  |"));
+			Assert.That(ln[i++], Is.EqualTo("   88|HHH  |"));
     }
   }
 }

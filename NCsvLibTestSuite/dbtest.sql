@@ -49,6 +49,12 @@ BEGIN
   VALUES (7, 77, 'r2_7', 'T');
   INSERT INTO csvtest2 (intr2, intr2left, strr2, bool2)
   VALUES (8, 88, 'r2_8', 'F');
+  INSERT INTO csvtest2 (intr2, intr2left, strr2, bool2)
+  VALUES (9, 99, 'r2_9', 'F');
+  INSERT INTO csvtest2 (intr2, intr2left, strr2, bool2)
+  VALUES (10, 100, 'r2_10', 'F');
+  INSERT INTO csvtest2 (intr2, intr2left, strr2, bool2)
+  VALUES (11, 110, 'r2_11', 'F');
 
   DROP TABLE IF EXISTS csvtest3;
   CREATE TABLE csvtest3
@@ -73,6 +79,14 @@ BEGIN
   VALUES (7, 'r3_7');
   INSERT INTO csvtest3 (intr3, strr3)
   VALUES (8, 'r3_8');
+  INSERT INTO csvtest3 (intr3, strr3)
+  VALUES (9, 'r3_9');
+  INSERT INTO csvtest3 (intr3, strr3)
+  VALUES (10, 'r3_10');
+  INSERT INTO csvtest3 (intr3, strr3)
+  VALUES (11, 'r3_11');
+  INSERT INTO csvtest3 (intr3, strr3)
+  VALUES (12, 'r3_12');
 
   DROP TABLE IF EXISTS csvtest4;
   CREATE TABLE csvtest4
@@ -100,6 +114,54 @@ BEGIN
   VALUES (8, 88.8, 888.88);
   INSERT INTO csvtest4 (intr4, doubler4, decimalr4)
   VALUES (9, 99.9, 999.99);
+  
+  DROP TABLE IF EXISTS csvtest5;
+  CREATE TABLE csvtest5
+  (
+    intr5 INT PRIMARY KEY,
+    strr5 VARCHAR(10)
+  );
+  
+  INSERT INTO csvtest5 (intr5, strr5)
+  VALUES (1, 'AA');
+  INSERT INTO csvtest5 (intr5, strr5)
+  VALUES (2, 'BB');
+  INSERT INTO csvtest5 (intr5, strr5)
+  VALUES (3, 'CC');
+  INSERT INTO csvtest5 (intr5, strr5)
+  VALUES (4, 'DD');
+  INSERT INTO csvtest5 (intr5, strr5)
+  VALUES (5, 'EE');
+  INSERT INTO csvtest5 (intr5, strr5)
+  VALUES (6, 'FF');
+  INSERT INTO csvtest5 (intr5, strr5)
+  VALUES (7, 'GG');
+  INSERT INTO csvtest5 (intr5, strr5)
+  VALUES (8, 'HH');
+  
+  DROP TABLE IF EXISTS csvtest6;
+  CREATE TABLE csvtest6
+  (
+    intr6 INT PRIMARY KEY,
+    strr6 VARCHAR(10)
+  );
+  
+  INSERT INTO csvtest6 (intr6, strr6)
+  VALUES (11, 'AAA');
+  INSERT INTO csvtest6 (intr6, strr6)
+  VALUES (22, 'BBB');
+  INSERT INTO csvtest6 (intr6, strr6)
+  VALUES (33, 'CCC');
+  INSERT INTO csvtest6 (intr6, strr6)
+  VALUES (44, 'DDD');
+  INSERT INTO csvtest6 (intr6, strr6)
+  VALUES (55, 'EEE');
+  INSERT INTO csvtest6 (intr6, strr6)
+  VALUES (66, 'FFF');
+  INSERT INTO csvtest6 (intr6, strr6)
+  VALUES (77, 'GGG');
+  INSERT INTO csvtest6 (intr6, strr6)
+  VALUES (88, 'HHH');
   
 END//
 DELIMITER ;

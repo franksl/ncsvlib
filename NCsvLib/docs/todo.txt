@@ -1,3 +1,11 @@
+General:
+- int type should be treated with Int64 (gives errors i.e. when values come
+  from a SELECT COUNT(*))
+- To execute a record group all the contained records should be writable. For
+  example if record R5 has more records than R6 there will be rows from R5 and
+  not from R6 at the end of the group. Add a method to check that all records
+  inside a record group are readable (delegate similar to ExecuteRecordMethod?)
+
 Schema:
 - record: add possibility to override fieldseparator char that
          is now defined in the <options> section

@@ -41,12 +41,22 @@ namespace NCsvLib
       _Records.Remove(rec);
     }
 
-    public override void Execute(ExecuteMethodDelegate em)
+		public override ExecuteMethodResult Execute(ExecuteMethodDelegate em)
     {
+			ExecuteMethodResult res = null;
+			ExecuteMethodResult restot = new ExecuteMethodResult();
+			restot.RecNumber = 0;
+
       if (this.Limit.Max == 0)
       {
-        foreach (SchemaRecordBase rec in _Records)
-          rec.Execute(em);
+				while (res == null || res.RecNumber > 0)
+				{
+					foreach (SchemaRecordBase rec in _Records)
+					{
+						res = rec.Execute(em);
+						restot.RecNumber += res.RecNumber;
+					}
+				}
       }
       else
       {
@@ -54,10 +64,14 @@ namespace NCsvLib
         {
           if (i < Limit.Offset)
             continue;
-          foreach (SchemaRecordBase rec in _Records)
-            rec.Execute(em);
+					foreach (SchemaRecordBase rec in _Records)
+					{
+						res = rec.Execute(em);
+						restot.RecNumber += res.RecNumber;
+					}
         }
       }
+			return restot;
     }
   }
 }

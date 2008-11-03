@@ -85,26 +85,29 @@ namespace NCsvLib
       }
     }
 
-    public void ExecuteRecordMethod(SchemaRecordBase rec)
+    public SchemaRecordBase.ExecuteMethodResult ExecuteRecordMethod(SchemaRecordBase rec)
     {
+			SchemaRecordBase.ExecuteMethodResult res = new SchemaRecordBase.ExecuteMethodResult();
+			res.RecNumber = 0;
       if (!(rec is SchemaRecord))
-        return;
+        return res;
       SchemaRecord r = (SchemaRecord)rec;
       IDataSourceRecordReader rdr;
       if (!_InputRdr.TryGetValue(r.Id, out rdr))
         throw new NCsvLibControllerException("DataSource Reader not found for id = " + r.Id);
-      //rdr.Open();
+			if (rdr.Eof())
+				return res;
       try
       {
-        //Outputs column headers, if requested
-        if (r.ColHeaders)
-          _OutWriter.WriteColHeaders(r, _Sch.Options.FieldSeparator, _Sch.Options.Eol);
-
         if (rec.Limit.Max == 0)
-        {
+        {					
+					//Outputs column headers, if requested
+					if (r.ColHeaders)
+						_OutWriter.WriteColHeaders(r, _Sch.Options.FieldSeparator, _Sch.Options.Eol);
           while (rdr.Read())
           {
             WriteRecord(r, rdr);
+						res.RecNumber++;
           }
         }
         else
@@ -115,14 +118,18 @@ namespace NCsvLib
               break;
             if (i < rec.Limit.Offset)
               continue;
+						//Outputs column headers, if requested
+						if (r.ColHeaders && i == rec.Limit.Offset)
+							_OutWriter.WriteColHeaders(r, _Sch.Options.FieldSeparator, _Sch.Options.Eol);
             WriteRecord(r, rdr);
+						res.RecNumber++;
           }
         }
       }
       finally
       {
-        //rdr.Close();
       }
+			return res;
     }
 
     private void WriteRecord(SchemaRecord r, IDataSourceRecordReader rdr)

@@ -42,7 +42,7 @@ namespace NCsvLib
 		public override bool Read()
     {
       if (_Idx == -2)
-        throw new NCsvLibDataSourceException("DbDataReader closed");
+				throw new NCsvLibDataSourceException("DataSource Record Reader closed");
 			if (_Idx == -1)
 				_Idx = 0;
 			else
@@ -71,6 +71,13 @@ namespace NCsvLib
 			else
 				fld.Value = val;
       return fld;
-    }    
+    }
+
+		public override bool Eof()
+		{
+			if (_Idx == -2)
+				throw new NCsvLibDataSourceException("DataSource Record Reader closed");
+			return (_Idx >= _Table.Rows.Count);
+		}
   }
 }

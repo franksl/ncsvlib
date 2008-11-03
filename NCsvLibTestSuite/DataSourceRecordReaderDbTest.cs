@@ -18,7 +18,7 @@ namespace NCsvLibTestSuite
     public void SetUp()
     {
       Helpers.CreateEnvironment();
-      Conn = new DbConnection[4];
+      Conn = new DbConnection[6];
       for (int i=0; i<Conn.Length; i++)
         Conn[i] = Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName);
     }
@@ -40,6 +40,7 @@ namespace NCsvLibTestSuite
       DataSourceRecordReaderDb rec = new DataSourceRecordReaderDb(Helpers.R1, Conn[0], Helpers.Qry1);
       rdr.Add(Helpers.R1, rec);
       rec.Open();
+			Assert.That(rdr[Helpers.R1].Eof(), Is.False);
       rec.Close();
     }
 
@@ -51,14 +52,26 @@ namespace NCsvLibTestSuite
       rdr.Add(Helpers.R2, new DataSourceRecordReaderDb(Helpers.R2, Conn[1], Helpers.Qry2));
       rdr.Add(Helpers.R3, new DataSourceRecordReaderDb(Helpers.R3, Conn[2], Helpers.Qry3));
       rdr.Add(Helpers.R4, new DataSourceRecordReaderDb(Helpers.R4, Conn[3], Helpers.Qry4));
+			rdr.Add(Helpers.R5, new DataSourceRecordReaderDb(Helpers.R5, Conn[4], Helpers.Qry5));
+			rdr.Add(Helpers.R6, new DataSourceRecordReaderDb(Helpers.R6, Conn[5], Helpers.Qry6));
       rdr[Helpers.R1].Open();
+			Assert.That(rdr[Helpers.R1].Eof(), Is.False);
       rdr[Helpers.R1].Close();
       rdr[Helpers.R2].Open();
+			Assert.That(rdr[Helpers.R2].Eof(), Is.False);
       rdr[Helpers.R2].Close();
       rdr[Helpers.R3].Open();
+			Assert.That(rdr[Helpers.R3].Eof(), Is.False);
       rdr[Helpers.R3].Close();
       rdr[Helpers.R4].Open();
+			Assert.That(rdr[Helpers.R4].Eof(), Is.False);
       rdr[Helpers.R4].Close();
+			rdr[Helpers.R5].Open();
+			Assert.That(rdr[Helpers.R5].Eof(), Is.False);
+			rdr[Helpers.R5].Close();
+			rdr[Helpers.R6].Open();
+			Assert.That(rdr[Helpers.R6].Eof(), Is.False);
+			rdr[Helpers.R6].Close();
     }
 
     [Test]
@@ -90,16 +103,22 @@ namespace NCsvLibTestSuite
       rdr.Add(Helpers.R2, new DataSourceRecordReaderDb(Helpers.R2, Conn[1], Helpers.Qry2));
       rdr.Add(Helpers.R3, new DataSourceRecordReaderDb(Helpers.R3, Conn[2], Helpers.Qry3));
       rdr.Add(Helpers.R4, new DataSourceRecordReaderDb(Helpers.R4, Conn[3], Helpers.Qry4));
+			rdr.Add(Helpers.R5, new DataSourceRecordReaderDb(Helpers.R5, Conn[4], Helpers.Qry5));
+			rdr.Add(Helpers.R6, new DataSourceRecordReaderDb(Helpers.R6, Conn[5], Helpers.Qry6));
       rdr[Helpers.R1].Open();
       rdr[Helpers.R2].Open();
       rdr[Helpers.R3].Open();
       rdr[Helpers.R4].Open();
+			rdr[Helpers.R5].Open();
+			rdr[Helpers.R6].Open();
       for (int i = 0; i < 4; i++)
       {
         Assert.That(rdr[Helpers.R1].Read(), Is.True);
         Assert.That(rdr[Helpers.R2].Read(), Is.True);
         Assert.That(rdr[Helpers.R3].Read(), Is.True);
         Assert.That(rdr[Helpers.R4].Read(), Is.True);
+				Assert.That(rdr[Helpers.R5].Read(), Is.True);
+				Assert.That(rdr[Helpers.R6].Read(), Is.True);
       }
       Assert.That(rdr[Helpers.R1].Read(), Is.False);
       //Records 2 and 3 have 8 records in db
@@ -109,10 +128,20 @@ namespace NCsvLibTestSuite
       for (int i = 0; i < 5; i++)
         Assert.That(rdr[Helpers.R4].Read(), Is.True);
       Assert.That(rdr[Helpers.R4].Read(), Is.False);
+			//Record 5 has 8 records in db
+			for (int i = 0; i < 4; i++)
+				Assert.That(rdr[Helpers.R5].Read(), Is.True);
+			Assert.That(rdr[Helpers.R5].Read(), Is.False);
+			//Record 6 has 8 records in db
+			for (int i = 0; i < 4; i++)
+				Assert.That(rdr[Helpers.R6].Read(), Is.True);
+			Assert.That(rdr[Helpers.R6].Read(), Is.False);
       rdr[Helpers.R1].Close();
       rdr[Helpers.R2].Close();
       rdr[Helpers.R3].Close();
       rdr[Helpers.R4].Close();
+			rdr[Helpers.R5].Close();
+			rdr[Helpers.R6].Close();
     }
 
     [Test]
@@ -166,10 +195,14 @@ namespace NCsvLibTestSuite
       rdr.Add(Helpers.R2, new DataSourceRecordReaderDb(Helpers.R2, Conn[1], Helpers.Qry2));
       rdr.Add(Helpers.R3, new DataSourceRecordReaderDb(Helpers.R3, Conn[2], Helpers.Qry3));
       rdr.Add(Helpers.R4, new DataSourceRecordReaderDb(Helpers.R4, Conn[3], Helpers.Qry4));
+			rdr.Add(Helpers.R5, new DataSourceRecordReaderDb(Helpers.R4, Conn[4], Helpers.Qry5));
+			rdr.Add(Helpers.R6, new DataSourceRecordReaderDb(Helpers.R4, Conn[5], Helpers.Qry6));
       rdr[Helpers.R1].Open();
       rdr[Helpers.R2].Open();
       rdr[Helpers.R3].Open();
       rdr[Helpers.R4].Open();
+			rdr[Helpers.R5].Open();
+			rdr[Helpers.R6].Open();
 
       rdr[Helpers.R2].Read();
       fld = rdr[Helpers.R2].GetField("intr2");
@@ -223,6 +256,39 @@ namespace NCsvLibTestSuite
       Assert.That((double)fld.Value, Is.EqualTo(33.3));
       fld = rdr[Helpers.R4].GetField("decimalr4");
       Assert.That((decimal)fld.Value, Is.EqualTo((decimal)333.33));
+
+			rdr[Helpers.R5].Read();
+			fld = rdr[Helpers.R5].GetField("intr5");
+			Assert.That(fld.Name, Is.EqualTo("intr5"));
+			Assert.That((int)fld.Value, Is.EqualTo(1));
+			fld = rdr[Helpers.R5].GetField("strr5");
+			Assert.That(fld.Name, Is.EqualTo("strr5"));
+			Assert.That(fld.Value, Is.EqualTo("AA"));
+			rdr[Helpers.R5].Read();
+			rdr[Helpers.R5].Read();
+			rdr[Helpers.R5].Read();
+			fld = rdr[Helpers.R5].GetField("intr5");
+			Assert.That(fld.Name, Is.EqualTo("intr5"));
+			Assert.That((int)fld.Value, Is.EqualTo(4));
+			fld = rdr[Helpers.R5].GetField("strr5");
+			Assert.That(fld.Name, Is.EqualTo("strr5"));
+			Assert.That(fld.Value, Is.EqualTo("DD"));
+
+			rdr[Helpers.R6].Read();
+			fld = rdr[Helpers.R6].GetField("intr6");
+			Assert.That(fld.Name, Is.EqualTo("intr6"));
+			Assert.That((int)fld.Value, Is.EqualTo(11));
+			fld = rdr[Helpers.R6].GetField("strr6");
+			Assert.That(fld.Name, Is.EqualTo("strr6"));
+			Assert.That(fld.Value, Is.EqualTo("AAA"));
+			rdr[Helpers.R6].Read();
+			rdr[Helpers.R6].Read();
+			fld = rdr[Helpers.R6].GetField("intr6");
+			Assert.That(fld.Name, Is.EqualTo("intr6"));
+			Assert.That((int)fld.Value, Is.EqualTo(33));
+			fld = rdr[Helpers.R6].GetField("strr6");
+			Assert.That(fld.Name, Is.EqualTo("strr6"));
+			Assert.That(fld.Value, Is.EqualTo("CCC"));
     }
   }
 }

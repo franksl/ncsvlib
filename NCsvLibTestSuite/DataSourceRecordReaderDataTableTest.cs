@@ -19,7 +19,7 @@ namespace NCsvLibTestSuite
     public void SetUp()
     {
       Helpers.CreateEnvironment();
-      Conn = new DbConnection[4];
+      Conn = new DbConnection[6];
       for (int i=0; i<Conn.Length; i++)
         Conn[i] = Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName);
     }
@@ -38,11 +38,12 @@ namespace NCsvLibTestSuite
     public void OpenCloseSingle()
     {
       DataSourceReaderBase rdr = new DataSourceReaderBase();
-			DataTable tbl = new DataTable();
-      DataSourceRecordReaderDataTable rec = 
+			DataTable tbl = GetDataTable(Conn[0], Helpers.Qry1);
+      DataSourceRecordReaderDataTable rec =
 				new DataSourceRecordReaderDataTable(Helpers.R1, tbl);
       rdr.Add(Helpers.R1, rec);
       rec.Open();
+			Assert.That(rdr[Helpers.R1].Eof(), Is.False);
       rec.Close();
     }
 
@@ -58,14 +59,28 @@ namespace NCsvLibTestSuite
 				Helpers.R3, GetDataTable(Conn[2], Helpers.Qry3)));
       rdr.Add(Helpers.R4, new DataSourceRecordReaderDataTable(
 				Helpers.R4, GetDataTable(Conn[3], Helpers.Qry4)));
+			rdr.Add(Helpers.R5, new DataSourceRecordReaderDataTable(
+				Helpers.R5, GetDataTable(Conn[4], Helpers.Qry5)));
+			rdr.Add(Helpers.R6, new DataSourceRecordReaderDataTable(
+				Helpers.R6, GetDataTable(Conn[5], Helpers.Qry6)));
       rdr[Helpers.R1].Open();
+			Assert.That(rdr[Helpers.R1].Eof(), Is.False);
       rdr[Helpers.R1].Close();
       rdr[Helpers.R2].Open();
+			Assert.That(rdr[Helpers.R2].Eof(), Is.False);
       rdr[Helpers.R2].Close();
       rdr[Helpers.R3].Open();
+			Assert.That(rdr[Helpers.R3].Eof(), Is.False);
       rdr[Helpers.R3].Close();
       rdr[Helpers.R4].Open();
+			Assert.That(rdr[Helpers.R4].Eof(), Is.False);
       rdr[Helpers.R4].Close();
+			rdr[Helpers.R5].Open();
+			Assert.That(rdr[Helpers.R5].Eof(), Is.False);
+			rdr[Helpers.R5].Close();
+			rdr[Helpers.R6].Open();
+			Assert.That(rdr[Helpers.R6].Eof(), Is.False);
+			rdr[Helpers.R6].Close();
     }
 
     [Test]
@@ -102,16 +117,24 @@ namespace NCsvLibTestSuite
 				Helpers.R3, GetDataTable(Conn[2], Helpers.Qry3)));
 			rdr.Add(Helpers.R4, new DataSourceRecordReaderDataTable(
 				Helpers.R4, GetDataTable(Conn[3], Helpers.Qry4)));
+			rdr.Add(Helpers.R5, new DataSourceRecordReaderDataTable(
+				Helpers.R5, GetDataTable(Conn[4], Helpers.Qry5)));
+			rdr.Add(Helpers.R6, new DataSourceRecordReaderDataTable(
+				Helpers.R6, GetDataTable(Conn[5], Helpers.Qry6)));
       rdr[Helpers.R1].Open();
       rdr[Helpers.R2].Open();
       rdr[Helpers.R3].Open();
       rdr[Helpers.R4].Open();
+			rdr[Helpers.R5].Open();
+			rdr[Helpers.R6].Open();
       for (int i = 0; i < 4; i++)
       {
         Assert.That(rdr[Helpers.R1].Read(), Is.True);
         Assert.That(rdr[Helpers.R2].Read(), Is.True);
         Assert.That(rdr[Helpers.R3].Read(), Is.True);
         Assert.That(rdr[Helpers.R4].Read(), Is.True);
+				Assert.That(rdr[Helpers.R5].Read(), Is.True);
+				Assert.That(rdr[Helpers.R6].Read(), Is.True);
       }
       Assert.That(rdr[Helpers.R1].Read(), Is.False);
       //Records 2 and 3 have 8 records in db
@@ -121,10 +144,20 @@ namespace NCsvLibTestSuite
       for (int i = 0; i < 5; i++)
         Assert.That(rdr[Helpers.R4].Read(), Is.True);
       Assert.That(rdr[Helpers.R4].Read(), Is.False);
+			//Record 5 has 8 records in db
+			for (int i = 0; i < 4; i++)
+				Assert.That(rdr[Helpers.R5].Read(), Is.True);
+			Assert.That(rdr[Helpers.R5].Read(), Is.False);
+			//Record 6 has 8 records in db
+			for (int i = 0; i < 4; i++)
+				Assert.That(rdr[Helpers.R6].Read(), Is.True);
+			Assert.That(rdr[Helpers.R6].Read(), Is.False);
       rdr[Helpers.R1].Close();
       rdr[Helpers.R2].Close();
       rdr[Helpers.R3].Close();
       rdr[Helpers.R4].Close();
+			rdr[Helpers.R5].Close();
+			rdr[Helpers.R6].Close();
     }
 
     [Test]
@@ -183,10 +216,16 @@ namespace NCsvLibTestSuite
 				Helpers.R3, GetDataTable(Conn[2], Helpers.Qry3)));
 			rdr.Add(Helpers.R4, new DataSourceRecordReaderDataTable(
 				Helpers.R4, GetDataTable(Conn[3], Helpers.Qry4)));
+			rdr.Add(Helpers.R5, new DataSourceRecordReaderDataTable(
+				Helpers.R5, GetDataTable(Conn[4], Helpers.Qry5)));
+			rdr.Add(Helpers.R6, new DataSourceRecordReaderDataTable(
+				Helpers.R6, GetDataTable(Conn[5], Helpers.Qry6)));
       rdr[Helpers.R1].Open();
       rdr[Helpers.R2].Open();
       rdr[Helpers.R3].Open();
       rdr[Helpers.R4].Open();
+			rdr[Helpers.R5].Open();
+			rdr[Helpers.R6].Open();
 
       rdr[Helpers.R2].Read();
       fld = rdr[Helpers.R2].GetField("intr2");
@@ -243,6 +282,43 @@ namespace NCsvLibTestSuite
       Assert.That((double)fld.Value, Is.EqualTo(33.3));
       fld = rdr[Helpers.R4].GetField("decimalr4");
       Assert.That((decimal)fld.Value, Is.EqualTo((decimal)333.33));
+
+			rdr[Helpers.R5].Read();
+			fld = rdr[Helpers.R5].GetField("intr5");
+			Assert.That(fld.Name, Is.EqualTo("intr5"));
+			Assert.That((int)fld.Value, Is.EqualTo(1));
+			fld = rdr[Helpers.R5].GetField("strr5");
+			Assert.That(fld.Name, Is.EqualTo("strr5"));
+			Assert.That((string)fld.Value, Is.EqualTo("AA"));
+			rdr[Helpers.R5].Read();
+			rdr[Helpers.R5].Read();
+			rdr[Helpers.R5].Read();
+			rdr[Helpers.R5].Read();
+			fld = rdr[Helpers.R5].GetField("intr5");
+			Assert.That(fld.Name, Is.EqualTo("intr5"));
+			Assert.That((int)fld.Value, Is.EqualTo(5));
+			fld = rdr[Helpers.R5].GetField("strr5");
+			Assert.That(fld.Name, Is.EqualTo("strr5"));
+			Assert.That((string)fld.Value, Is.EqualTo("EE"));
+
+			rdr[Helpers.R6].Read();
+			fld = rdr[Helpers.R6].GetField("intr6");
+			Assert.That(fld.Name, Is.EqualTo("intr6"));
+			Assert.That((int)fld.Value, Is.EqualTo(11));
+			fld = rdr[Helpers.R6].GetField("strr6");
+			Assert.That(fld.Name, Is.EqualTo("strr6"));
+			Assert.That((string)fld.Value, Is.EqualTo("AAA"));
+			rdr[Helpers.R6].Read();
+			rdr[Helpers.R6].Read();
+			rdr[Helpers.R6].Read();
+			rdr[Helpers.R6].Read();
+			rdr[Helpers.R6].Read();
+			fld = rdr[Helpers.R6].GetField("intr6");
+			Assert.That(fld.Name, Is.EqualTo("intr6"));
+			Assert.That((int)fld.Value, Is.EqualTo(66));
+			fld = rdr[Helpers.R6].GetField("strr6");
+			Assert.That(fld.Name, Is.EqualTo("strr6"));
+			Assert.That((string)fld.Value, Is.EqualTo("FFF"));
     }
 
 		private DataTable GetDataTable(DbConnection cn, string sql)
