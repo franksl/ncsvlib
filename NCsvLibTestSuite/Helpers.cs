@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Data.Common;
+using System.Data;
 using MySql.Data.MySqlClient;
 using System.IO;
 
@@ -26,7 +26,7 @@ namespace NCsvLibTestSuite
 		public static readonly string R6 = "R6";
     public static readonly Encoding Enc = Encoding.UTF8;
 
-    public static DbConnection GetDbConnectionFromFile(string sFileName)
+    public static IDbConnection GetDbConnectionFromFile(string sFileName)
     {
       string s = string.Empty;
       using (StreamReader sr = new StreamReader(sFileName))
@@ -51,9 +51,9 @@ namespace NCsvLibTestSuite
 
     public static void CreateEnvironment()
     {
-      using (DbConnection cn = GetDbConnectionFromFile(Helpers.ConnStrFileName))
+      using (IDbConnection cn = GetDbConnectionFromFile(Helpers.ConnStrFileName))
       {
-        DbCommand cmd = cn.CreateCommand();
+        IDbCommand cmd = cn.CreateCommand();
         cn.Open();
         cmd.CommandText = "CALL CreateTestDb()";
         cmd.ExecuteNonQuery();

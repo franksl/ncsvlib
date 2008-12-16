@@ -1,26 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Data.Common;
+using System.Data;
 
 namespace NCsvLib
 {
   public class DataSourceRecordReaderDb : DataSourceRecordReaderBase
   {
-    protected DbConnection _Conn;
-    public DbConnection Connection
+    protected IDbConnection _Conn;
+    public IDbConnection Connection
     {
       get { return _Conn; }
       set { _Conn = value; }
     }
 
-    protected DbCommand _Cmd;
-    public DbCommand Command
+    protected IDbCommand _Cmd;
+    public IDbCommand Command
     {
       get { return _Cmd; }
     }
 
-    protected DbDataReader _Rdr;
+    protected IDataReader _Rdr;
 
 		private long _RowCount;
 		private long _Idx;
@@ -29,7 +29,7 @@ namespace NCsvLib
     {
     }
 
-    public DataSourceRecordReaderDb(string id, DbConnection refConn, string commandText)
+    public DataSourceRecordReaderDb(string id, IDbConnection refConn, string commandText)
     {
       _Id = id;
       _Conn = refConn;

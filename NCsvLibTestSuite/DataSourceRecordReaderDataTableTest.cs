@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
-using System.Data.Common;
 using NCsvLib;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
@@ -13,13 +12,13 @@ namespace NCsvLibTestSuite
   [TestFixture]
   public class DataSourceRecordReaderDataTableTest
   {
-    DbConnection[] Conn;
+    IDbConnection[] Conn;
     
     [SetUp]
     public void SetUp()
     {
       Helpers.CreateEnvironment();
-      Conn = new DbConnection[6];
+      Conn = new IDbConnection[6];
       for (int i=0; i<Conn.Length; i++)
         Conn[i] = Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName);
     }
@@ -321,10 +320,10 @@ namespace NCsvLibTestSuite
 			Assert.That((string)fld.Value, Is.EqualTo("FFF"));
     }
 
-		private DataTable GetDataTable(DbConnection cn, string sql)
+		private DataTable GetDataTable(IDbConnection cn, string sql)
 		{
 			DataTable tbl = new DataTable();
-			DbCommand cmd = cn.CreateCommand();
+			IDbCommand cmd = cn.CreateCommand();
 			cmd.CommandText = sql;
 			cn.Open();
 			try

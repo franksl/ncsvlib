@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Data.Common;
+using System.Data;
 using NCsvLib;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
@@ -12,13 +12,13 @@ namespace NCsvLibTestSuite
   [TestFixture]
   public class DataSourceRecordReaderDbTest
   {
-    DbConnection[] Conn;
+    IDbConnection[] Conn;
     
     [SetUp]
     public void SetUp()
     {
       Helpers.CreateEnvironment();
-      Conn = new DbConnection[6];
+      Conn = new IDbConnection[6];
       for (int i=0; i<Conn.Length; i++)
         Conn[i] = Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName);
     }
