@@ -137,6 +137,15 @@ namespace NCsvLib
 					s = _Rdr.GetAttribute("value");
 					if (s != null)
 						_Sch.Options.Enc = Encoding.GetEncoding(s);
+					//if nobom is true tries to recognize the encoding and excludes
+					//bom output for common multibyte encodings (utf8, etc)
+					s = _Rdr.GetAttribute("nobom");
+					if (s != null)
+					{
+						bool nob = false;
+						if (bool.TryParse(s, out nob))
+							_Sch.Options.SetNoBomEncoding(nob);
+					}
 				}
 			}
 		}

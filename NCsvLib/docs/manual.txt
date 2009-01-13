@@ -24,6 +24,13 @@
 
 1.3. Options
 
+- Encoding
+This specifies the encoding that will be used while reading/writing the csv
+stream.
+The SchemaOptions class contains a SetNoBomEncoding method that is useful to
+remove the output of Byte Order Mark at the beginning of the output stream
+if multibyte encoding is used.
+
 - Limit
 This can be used to constrain the number of rows read by the DataSourceReader
 that will be output to the csv file/stream.

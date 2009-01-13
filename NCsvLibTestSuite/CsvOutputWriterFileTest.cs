@@ -30,27 +30,8 @@ namespace NCsvLibTestSuite
     public void WriteFileMulti()
     {
       int i;
-      CsvWriterController ctrl = new CsvWriterController();      
-      ctrl.SchemaRdr = new SchemaReaderXml(Helpers.SchFileName);
-      DataSourceReaderBase rdr = new DataSourceReaderBase();
-      rdr.Add(Helpers.R1, new DataSourceRecordReaderDb(Helpers.R1, 
-				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry1));
-      rdr.Add(Helpers.R2, new DataSourceRecordReaderDb(Helpers.R2, 
-				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry2));
-      rdr.Add(Helpers.R3, new DataSourceRecordReaderDb(Helpers.R3, 
-				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry3));
-      rdr.Add(Helpers.R4, new DataSourceRecordReaderDb(Helpers.R4, 
-				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry4));
-			rdr.Add(Helpers.R5, new DataSourceRecordReaderDb(Helpers.R5,
-				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry5));
-			rdr.Add(Helpers.R6, new DataSourceRecordReaderDb(Helpers.R6,
-				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry6));
 
-      ctrl.InputRdr = rdr; 
-      Assert.That(rdr.Count, Is.EqualTo(6));
-      ctrl.OutWriter = new CsvOutputWriterFile(Helpers.OutFileName);
-      ctrl.Execute();
-      
+			ExecuteWrite(false);      
       //Opens the eventual file and reads values
       Assert.That(File.Exists(Helpers.OutFileName), Is.True);
       
@@ -105,5 +86,70 @@ namespace NCsvLibTestSuite
 			Assert.That(ln[i++], Is.EqualTo("   77|GGG  |"));
 			Assert.That(ln[i++], Is.EqualTo("   88|HHH  |"));
     }
+
+		[Test]
+		public void CheckBom()
+		{
+			ExecuteWrite(false);
+			
+			//Checks that the first three bytes are the Byte Order Mark for UTF-8
+			//(EF BB BF) but the beginning of the first row
+			Assert.That(File.Exists(Helpers.OutFileName), Is.True);
+			using (FileStream fs = new FileStream(Helpers.OutFileName, FileMode.Open))
+			{
+				int bt;
+				bt = fs.ReadByte();
+				Assert.That(bt, Is.EqualTo(0xEF));
+				bt = fs.ReadByte();
+				Assert.That(bt, Is.EqualTo(0xBB));
+				bt = fs.ReadByte();
+				Assert.That(bt, Is.EqualTo(0xBF));
+			}
+		}
+
+		[Test]
+		public void CheckNoBom()
+		{
+			ExecuteWrite(true);
+
+			//Checks that the first three bytes are NOT the Byte Order Mark for UTF-8
+			//(EF BB BF)
+			Assert.That(File.Exists(Helpers.OutFileName), Is.True);
+			using (FileStream fs = new FileStream(Helpers.OutFileName, FileMode.Open))
+			{
+				int bt;
+				bt = fs.ReadByte();
+				Assert.That(Convert.ToChar(bt), Is.EqualTo('i'));
+				bt = fs.ReadByte();
+				Assert.That(Convert.ToChar(bt), Is.EqualTo('n'));
+				bt = fs.ReadByte();
+				Assert.That(Convert.ToChar(bt), Is.EqualTo('t'));
+			}
+		}
+
+		private void ExecuteWrite(bool noBom)
+		{
+			CsvWriterController ctrl = new CsvWriterController();
+			ctrl.SchemaRdr = new SchemaReaderXml(Helpers.SchFileName);
+			if (noBom)
+				ctrl.SchemaRdr.Sch.Options.SetNoBomEncoding(true);
+			DataSourceReaderBase rdr = new DataSourceReaderBase();
+			rdr.Add(Helpers.R1, new DataSourceRecordReaderDb(Helpers.R1,
+				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry1));
+			rdr.Add(Helpers.R2, new DataSourceRecordReaderDb(Helpers.R2,
+				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry2));
+			rdr.Add(Helpers.R3, new DataSourceRecordReaderDb(Helpers.R3,
+				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry3));
+			rdr.Add(Helpers.R4, new DataSourceRecordReaderDb(Helpers.R4,
+				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry4));
+			rdr.Add(Helpers.R5, new DataSourceRecordReaderDb(Helpers.R5,
+				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry5));
+			rdr.Add(Helpers.R6, new DataSourceRecordReaderDb(Helpers.R6,
+				Helpers.GetDbConnectionFromFile(Helpers.ConnStrFileName), Helpers.Qry6));
+
+			ctrl.InputRdr = rdr;
+			ctrl.OutWriter = new CsvOutputWriterFile(Helpers.OutFileName);
+			ctrl.Execute();
+		}
   }
 }
