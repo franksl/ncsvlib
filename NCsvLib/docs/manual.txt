@@ -31,6 +31,19 @@ The SchemaOptions class contains a SetNoBomEncoding method that is useful to
 remove the output of Byte Order Mark at the beginning of the output stream
 if multibyte encoding is used.
 
+- Eol
+String to be used as end of line character, default is Environment.NewLine
+(the system's default newline, crlf for Windows systems, etc)
+Special values can be used:
+- "cr" -> ascii CR (0D)
+- "lf" -> ascii LF (0A)
+- "crlf" -> ascii CR + LF (0D0A)
+
+- FieldSeparator
+String to be used as field separator in the output stream, for example it can
+be a comma for a simple csv file.
+Default value is empty string.
+
 - Limit
 This can be used to constrain the number of rows read by the DataSourceReader
 that will be output to the csv file/stream.
@@ -45,6 +58,8 @@ Examples:
                                      the 51th.
 <record id="recid" limit="0" /> ignored (no limits)
 
+- Quotes
+Default string to be used for quoted values, default is ".
 
 1.6. Field
 

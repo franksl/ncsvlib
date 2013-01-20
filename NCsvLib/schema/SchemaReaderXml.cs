@@ -104,33 +104,21 @@ namespace NCsvLib
 			{
 				if (_Rdr.IsStartElement("fieldseparator"))
 				{
-					s = _Rdr.GetAttribute("usedefault");
-					if (s != null && s.ToLower().Trim() == "false")
-					{
-						s = _Rdr.GetAttribute("value");
-						if (s != null)
-							_Sch.Options.FieldSeparator = s;
-					}
+					s = _Rdr.GetAttribute("value");
+					if (s != null)
+						_Sch.Options.FieldSeparator = s;
 				}
 				else if (_Rdr.IsStartElement("eol"))
 				{
-					s = _Rdr.GetAttribute("usedefault");
-					if (s != null && s.ToLower().Trim() == "false")
-					{
-						s = _Rdr.GetAttribute("value");
-						if (s != null)
-							_Sch.Options.Eol = s;
-					}
+					s = _Rdr.GetAttribute("value");
+					if (s != null)
+						_Sch.Options.Eol = s;
 				}
 				else if (_Rdr.IsStartElement("quotes"))
 				{
-					s = _Rdr.GetAttribute("usedefault");
-					if (s != null && s.ToLower().Trim() == "false")
-					{
-						s = _Rdr.GetAttribute("value");
-						if (s != null)
-							_Sch.Options.Quotes = s;
-					}
+					s = _Rdr.GetAttribute("value");
+					if (s != null)
+						_Sch.Options.Quotes = s;
 				}
 				else if (_Rdr.IsStartElement("encoding"))
 				{

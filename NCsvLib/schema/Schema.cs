@@ -14,7 +14,7 @@ namespace NCsvLib
       Options = new SchemaOptions();
       //Default values for options
       Options.Eol = Environment.NewLine;
-      Options.FieldSeparator = "|";
+      Options.FieldSeparator = string.Empty;
       Options.Quotes = "\"";
       Options.Enc = Encoding.Default;
 			//Sets limit max to 1 to execute the whole schema only one time
@@ -25,7 +25,23 @@ namespace NCsvLib
   public class SchemaOptions
   {
     public string FieldSeparator;
-    public string Eol;
+    private string _Eol;
+    public string Eol
+    {
+        get { return _Eol; }
+        set 
+        {
+            string v = value.ToLower();
+            if (v == "cr")
+                _Eol = Encoding.ASCII.GetString(new byte[] { 13 });
+            else if (v == "lf")
+                _Eol = Encoding.ASCII.GetString(new byte[] { 10 });
+            else if (v == "crlf")
+                _Eol = Encoding.ASCII.GetString(new byte[] { 13, 10 });
+            else
+                _Eol = value;
+        }
+    }
     public string Quotes;
     public Encoding Enc;
 		
