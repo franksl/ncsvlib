@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Data;
 
 namespace NCsvLib
@@ -42,19 +43,23 @@ namespace NCsvLib
 
     public override void Open()
     {
+        Regex re;
+        string cmdnoord;
       //Opens a db connection and creates a datareader
       _Cmd.Connection.Open();
       try
       {
 				//Gets record number using COUNT(*)
 				string cmdtmp = _Cmd.CommandText;
-				_Cmd.CommandText = "SELECT COUNT(*) FROM (" + cmdtmp + ")"
+                re = new Regex(@"order by [^\s,]*(,[\s]*[^\s])*", RegexOptions.IgnoreCase);
+                cmdnoord = re.Replace(cmdtmp, string.Empty);
+				_Cmd.CommandText = "SELECT COUNT(*) FROM (" + cmdnoord + ")"
 				 + " AS NCSVLIBTBLALIAS";
 				object res = _Cmd.ExecuteScalar();
 				if (res == null || res == DBNull.Value)
 					_RowCount = 0;
 				else
-					_RowCount = (long)res;
+					_RowCount = Convert.ToInt64(res);
 				_Cmd.CommandText = cmdtmp;
         _Rdr = _Cmd.ExecuteReader();
       }
