@@ -72,12 +72,12 @@ namespace NCsvLib.Formatters
       //Creates a stringbuilder with correct size
       //TODO To be improved
       if (sch.AddQuotes)
-        sz = 2;
+        sz = 1;
       if (sch.FixedSize)
         sz += sch.Size;
       else
         sz += s.Length;
-      StringBuilder sb = new StringBuilder(sz);
+      StringBuilder sb = new StringBuilder();
       //Verifies if quotes are specified, otherwise use a space
       char qt;
       //if (_Sch != null && _Sch.Options.Quotes.Length > 0)
@@ -100,18 +100,18 @@ namespace NCsvLib.Formatters
         {
           if (j < s.Length)
             sb.Append(s[j++]);
-          else if (i == (sz - 1) && sch.AddQuotes)
-            sb.Append(qt);
           else if (sch.Filled)
             sb.Append(sch.FillChar);
           else
             sb.Append(' ');
         }
+        if (sch.AddQuotes)
+            sb.Append(qt);
       }
       else if (sch.Alignment == SchemaValueAlignment.Right)
       {
         int i = 0, j = 0;
-        int txtlen = sch.AddQuotes ? s.Length + 1 : s.Length;
+        int txtlen = s.Length;
         if (sch.AddQuotes)
         {
           sb.Append(qt);
@@ -128,9 +128,9 @@ namespace NCsvLib.Formatters
           }
           else if (j < s.Length)
             sb.Append(s[j++]);
-          else
-            sb.Append(qt);
         }
+        if (sch.AddQuotes)
+            sb.Append(qt);
       }
       return sb.ToString();
     }

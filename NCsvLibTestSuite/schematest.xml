@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ncsvlib>
   <options>
-    <fieldseparator usedefault="false" value="|" />
-    <eol usedefault="true" />
-    <quotes usedefault="false" value="&quot;" />
+    <fieldseparator value="|" />
+    <eol value="crlf" />
+    <quotes value="&quot;" />
     <encoding value="utf-8" />
   </options>
   <schema>
