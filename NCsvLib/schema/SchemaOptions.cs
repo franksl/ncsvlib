@@ -7,6 +7,7 @@ namespace NCsvLib
     public class SchemaOptions
     {
         public string FieldSeparator;
+        public bool LastFieldSeparator;
         private string _Eol;
         public string Eol
         {
@@ -26,6 +27,16 @@ namespace NCsvLib
         }
         public string Quotes;
         public Encoding Enc;
+
+        public SchemaOptions()
+        {
+            //Default values for options
+            Eol = Environment.NewLine;
+            FieldSeparator = string.Empty;
+            LastFieldSeparator = true;
+            Quotes = "\"";
+            Enc = Encoding.Default;
+        }
 
         /// <summary>
         /// If Enc is one of the common encodings (ie utf8) sets the encoding so

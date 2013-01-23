@@ -108,6 +108,16 @@ namespace NCsvLib
 					if (s != null)
 						_Sch.Options.FieldSeparator = s;
 				}
+                else if (_Rdr.IsStartElement("lastfieldseparator"))
+                {
+                    s = _Rdr.GetAttribute("value");
+                    if (s != null)
+                    {
+                        bool lfb = false;
+                        if (bool.TryParse(s, out lfb))
+                            _Sch.Options.LastFieldSeparator = lfb;
+                    }
+                }
 				else if (_Rdr.IsStartElement("eol"))
 				{
 					s = _Rdr.GetAttribute("value");

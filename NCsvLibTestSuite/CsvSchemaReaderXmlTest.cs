@@ -39,6 +39,7 @@ namespace NCsvLibTestSuite
 
       //options
       Assert.That(sch.Options.FieldSeparator, Is.EqualTo("|"));
+      Assert.That(sch.Options.LastFieldSeparator, Is.False);
       Assert.That(sch.Options.Eol, Is.EqualTo(Environment.NewLine));
       Assert.That(sch.Options.Quotes, Is.EqualTo("\""));
       Assert.That(sch.Options.Enc.EncodingName, Text.Matches("UTF-8"));

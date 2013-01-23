@@ -12,11 +12,6 @@ namespace NCsvLib
             : base()
         {
             Options = new SchemaOptions();
-            //Default values for options
-            Options.Eol = Environment.NewLine;
-            Options.FieldSeparator = string.Empty;
-            Options.Quotes = "\"";
-            Options.Enc = Encoding.Default;
             //Sets limit max to 1 to execute the whole schema only one time
             _Limit = new SchemaRecordLimit(0, 1);
         }

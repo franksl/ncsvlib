@@ -44,9 +44,9 @@ namespace NCsvLib
         _Sw.Write(sEol);
     }
 
-    public override void WriteColHeaders(SchemaRecord rec, string sep, string eol)
+    public override void WriteColHeaders(SchemaRecord rec, SchemaOptions opt)
     {
-      string s = PrepareColHeaders(rec, sep, eol);
+      string s = PrepareColHeaders(rec, opt);
       if (s != string.Empty)
         _Sw.Write(s);
     }

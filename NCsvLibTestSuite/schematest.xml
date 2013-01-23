@@ -2,6 +2,7 @@
 <ncsvlib>
   <options>
     <fieldseparator value="|" />
+    <lastfieldseparator value="false" />
     <eol value="crlf" />
     <quotes value="&quot;" />
     <encoding value="utf-8" />

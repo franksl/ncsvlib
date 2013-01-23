@@ -44,6 +44,10 @@ String to be used as field separator in the output stream, for example it can
 be a comma for a simple csv file.
 Default value is empty string.
 
+- LastFieldSeparator
+If true outputs the field separator (if any) at the end of the last field,
+otherwise it's omitted
+
 - Limit
 This can be used to constrain the number of rows read by the DataSourceReader
 that will be output to the csv file/stream.
