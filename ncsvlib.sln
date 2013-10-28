@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCsvLibTestSuite", "NCsvLibTestSuite\NCsvLibTestSuite.csproj", "{6364575F-2FF0-4FBC-9441-FD8F42B36012}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCsvLib", "NCsvLib\NCsvLib.csproj", "{2C224745-17AF-4D29-96C8-7E0050BDF8F9}"
