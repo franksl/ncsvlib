@@ -150,7 +150,9 @@ namespace NCsvLib
 
     private string _FixedValue;
     /// <summary>
-    ///Fixed value, only considered if HasFixedValue is true
+    ///Fixed value, only considered if HasFixedValue is true.
+    ///If FixedSize is specified this value must have the same length as
+    ///FixedSize, otherwise it must have the Filled property set to true
     /// </summary>
     public string FixedValue
     {

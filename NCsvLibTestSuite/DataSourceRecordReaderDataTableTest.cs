@@ -4,7 +4,6 @@ using System.Text;
 using System.Data;
 using NCsvLib;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 using System.IO;
 
 namespace NCsvLibTestSuite

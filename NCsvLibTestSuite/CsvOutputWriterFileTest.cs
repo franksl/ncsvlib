@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using NCsvLib;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 using System.IO;
 
 namespace NCsvLibTestSuite

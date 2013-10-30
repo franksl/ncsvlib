@@ -21,12 +21,49 @@ namespace NCsvLib.Formatters
 
     public virtual string Format(DataSourceField fld, SchemaField sch)
     {
-      //If field has fixed value returns the fixed value immediately
-      if (sch.HasFixedValue)
-        return sch.FixedValue;
+        string s;
+      //If field has fixed value returns the fixed value but checks for
+      //eventual fixed length
+        if (sch.HasFixedValue)
+        {
+            s = sch.FixedValue;
+            if (sch.FixedSize)
+            {
+                if (s.Length > sch.Size)
+                {
+                    throw new NCsvLibOutputException(
+                        "Field length for field " + sch.Name 
+                        + " exceeds its fixed size"
+                    );
+                }
+                else if (s.Length < sch.Size)
+                {
+                    //Filled must be active
+                    if (!sch.Filled)
+                    {
+                        throw new NCsvLibOutputException(
+                            "Field length for field " + sch.Name 
+                            + " is less than its fixed size and"
+                            + " field is not filled");
+                    }
+                    s = Fill(s, sch);
+                    if (s.Length != sch.Size)
+                    {
+                        throw new NCsvLibOutputException(
+                            "Field length for field " + sch.Name
+                            + " is wrong");
+                    }
+                    return s;
+                }
+                else
+                    return s;
+            }
+            else
+                return s;
+        }
 
       StringBuilder sb = new StringBuilder();
-      string s;
+      
       
       //Converts value to string (empty string if value is null
 			if (fld.Value != null)
