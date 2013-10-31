@@ -232,7 +232,7 @@ namespace NCsvLibTestSuite
       fld = rdr[Helpers.R2].GetField("strr2");
       Assert.That((string)fld.Value, Is.EqualTo("r2_1"));
       fld = rdr[Helpers.R2].GetField("bool2");
-      Assert.That((string)fld.Value, Text.Matches("T"));
+      Assert.That((string)fld.Value, Is.StringMatching("T"));
       rdr[Helpers.R2].Read();
       rdr[Helpers.R2].Read();
       fld = rdr[Helpers.R2].GetField("intr2");
@@ -244,7 +244,7 @@ namespace NCsvLibTestSuite
       fld = rdr[Helpers.R2].GetField("strr2");
       Assert.That((string)fld.Value, Is.EqualTo("r2_3"));
       fld = rdr[Helpers.R2].GetField("bool2");
-      Assert.That((string)fld.Value, Text.Matches("T"));
+      Assert.That((string)fld.Value, Is.StringMatching("T"));
 			rdr[Helpers.R2].Read();
 			fld = rdr[Helpers.R2].GetField("strr2");
 			Assert.That(fld.Value, Is.Null);

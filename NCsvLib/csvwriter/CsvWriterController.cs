@@ -74,7 +74,7 @@ namespace NCsvLib
             }
             catch (Exception Ex)
             {
-                throw new NCsvLibControllerException(Ex.Message);
+                throw new NCsvLibControllerException(Ex.Message, Ex);
             }
             finally
             {

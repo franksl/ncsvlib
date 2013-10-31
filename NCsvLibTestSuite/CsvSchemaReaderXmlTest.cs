@@ -41,7 +41,7 @@ namespace NCsvLibTestSuite
       Assert.That(sch.Options.LastFieldSeparator, Is.False);
       Assert.That(sch.Options.Eol, Is.EqualTo(Environment.NewLine));
       Assert.That(sch.Options.Quotes, Is.EqualTo("\""));
-      Assert.That(sch.Options.Enc.EncodingName, Text.Matches("UTF-8"));
+      Assert.That(sch.Options.Enc.EncodingName, Is.StringMatching("UTF-8"));
       
       //*** First record
       Assert.That(sch[0], Is.TypeOf(typeof(SchemaRecord)));
@@ -58,45 +58,45 @@ namespace NCsvLibTestSuite
       Assert.That(rec[0].Filled, Is.EqualTo(true));
       Assert.That(rec[0].FillChar, Is.EqualTo('0'));
       Assert.That(rec[0].Comment, Is.EqualTo("Comment for intfld"));
-      Assert.That(rec[0].ColHdr, Text.Matches("int1"));
+      Assert.That(rec[0].ColHdr, Is.StringMatching("int1"));
       //strfld
       Assert.That(rec[1].Name, Is.EqualTo("strfld"));
       Assert.That(rec[1].AddQuotes, Is.True);
       Assert.That(rec[1].FldType, Is.EqualTo(SchemaFieldType.String));
       Assert.That(rec[1].Comment, Is.EqualTo(string.Empty));
-      Assert.That(rec[1].ColHdr, Text.Matches("str1"));
+      Assert.That(rec[1].ColHdr, Is.StringMatching("str1"));
       //doublefld
       Assert.That(rec[2].Name, Is.EqualTo("doublefld"));
       Assert.That(rec[2].FldType, Is.EqualTo(SchemaFieldType.Double));
-      Assert.That(rec[2].ColHdr, Text.Matches("dbl1"));
+      Assert.That(rec[2].ColHdr, Is.StringMatching("dbl1"));
       //decimalfld
       Assert.That(rec[3].Name, Is.EqualTo("decimalfld"));
       Assert.That(rec[3].FldType, Is.EqualTo(SchemaFieldType.Decimal));
       Assert.That(rec[3].CustFmt, Is.TypeOf(typeof(NCsvLib.Formatters.NumberDigitsFormatter)));
-      Assert.That(rec[3].ColHdr, Text.Matches("dec1"));
+      Assert.That(rec[3].ColHdr, Is.StringMatching("dec1"));
       //dtfld
       Assert.That(rec[4].Name, Is.EqualTo("dtfld"));
       Assert.That(rec[4].FldType, Is.EqualTo(SchemaFieldType.DateTime));
-      Assert.That(rec[4].ColHdr, Text.Matches("dt1"));
+      Assert.That(rec[4].ColHdr, Is.StringMatching("dt1"));
       //fixedfld
       Assert.That(rec[5].Name, Is.EqualTo("fixedfld"));
       Assert.That(rec[5].HasFixedValue, Is.True);
       Assert.That(rec[5].FixedValue, Is.EqualTo("AAA"));
-      Assert.That(rec[5].ColHdr, Text.Matches("fix1"));
+      Assert.That(rec[5].ColHdr, Is.StringMatching("fix1"));
       //strfld2
       Assert.That(rec[6].Name, Is.EqualTo("strfld2"));
       Assert.That(rec[6].FldType, Is.EqualTo(SchemaFieldType.String));
-      Assert.That(rec[6].CustFmt.GetType().Name, Text.Matches("DummyFormatter"));
-      Assert.That(rec[6].ColHdr, Text.Matches("str1_2"));
+      Assert.That(rec[6].CustFmt.GetType().Name, Is.StringMatching("DummyFormatter"));
+      Assert.That(rec[6].ColHdr, Is.StringMatching("str1_2"));
       //boolfld
       Assert.That(rec[7].Name, Is.EqualTo("boolfld"));
       Assert.That(rec[7].FldType, Is.EqualTo(SchemaFieldType.Bool));
-      Assert.That(rec[7].BoolSettings.TrueValue, Text.Matches("true"));
-      Assert.That(rec[7].BoolSettings.FalseValue, Text.Matches("false"));
+      Assert.That(rec[7].BoolSettings.TrueValue, Is.StringMatching("true"));
+      Assert.That(rec[7].BoolSettings.FalseValue, Is.StringMatching("false"));
       Assert.That(rec[7].BoolSettings.TrueIoValue, Is.EqualTo((int)1));
       Assert.That(rec[7].BoolSettings.FalseIoValue, Is.EqualTo((int)0));
       Assert.That(rec[7].BoolSettings.BoolIoType, Is.EqualTo(SchemaFieldBoolIoType.Int));
-      Assert.That(rec[7].ColHdr, Text.Matches("bool1"));
+      Assert.That(rec[7].ColHdr, Is.StringMatching("bool1"));
       
       //*** Second record (group RG1)
       Assert.That(sch[1], Is.TypeOf(typeof(SchemaRecordComposite)));
@@ -115,7 +115,7 @@ namespace NCsvLibTestSuite
       Assert.That(rec[0].Name, Is.EqualTo("fixedr2"));
       Assert.That(rec[0].HasFixedValue, Is.True);
       Assert.That(rec[0].FixedValue, Is.EqualTo("FLDR2"));
-      Assert.That(rec[0].ColHdr, Text.Matches(string.Empty));
+      Assert.That(rec[0].ColHdr, Is.StringMatching(string.Empty));
       //intr2
       Assert.That(rec[1].Name, Is.EqualTo("intr2"));
       Assert.That(rec[1].AddQuotes, Is.False);
@@ -137,10 +137,10 @@ namespace NCsvLibTestSuite
       //bool2
       Assert.That(rec[4].Name, Is.EqualTo("bool2"));
       Assert.That(rec[4].FldType, Is.EqualTo(SchemaFieldType.Bool));
-      Assert.That(rec[4].BoolSettings.TrueValue, Text.Matches("TTT"));
-      Assert.That(rec[4].BoolSettings.FalseValue, Text.Matches("FFF"));
-      Assert.That(rec[4].BoolSettings.TrueIoValue, Text.Matches("T"));
-      Assert.That(rec[4].BoolSettings.FalseIoValue, Text.Matches("F"));
+      Assert.That(rec[4].BoolSettings.TrueValue, Is.StringMatching("TTT"));
+      Assert.That(rec[4].BoolSettings.FalseValue, Is.StringMatching("FFF"));
+      Assert.That(rec[4].BoolSettings.TrueIoValue, Is.StringMatching("T"));
+      Assert.That(rec[4].BoolSettings.FalseIoValue, Is.StringMatching("F"));
       Assert.That(rec[4].BoolSettings.BoolIoType, Is.EqualTo(SchemaFieldBoolIoType.String));
       
       //record R3
@@ -156,7 +156,7 @@ namespace NCsvLibTestSuite
       //intr3
       Assert.That(rec[1].Name, Is.EqualTo("intr3"));
       Assert.That(rec[1].AddQuotes, Is.True);
-      Assert.That(rec[1].Quotes, Text.Matches("'"));
+      Assert.That(rec[1].Quotes, Is.StringMatching("'"));
       Assert.That(rec[1].FldType, Is.EqualTo(SchemaFieldType.Int));
       //strr3
       Assert.That(rec[2].Name, Is.EqualTo("strr3"));

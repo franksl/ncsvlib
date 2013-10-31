@@ -10,12 +10,22 @@ namespace NCsvLib
       : base(message)
     {
     }
+
+    public NCsvLibException(string message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
   }
 
   public class NCsvLibSchemaException : NCsvLibException
   {
     public NCsvLibSchemaException(string message)
       : base(message)
+    {
+    }
+
+      public NCsvLibSchemaException(string message, Exception innerException)
+        : base(message, innerException)
     {
     }
   }
@@ -26,6 +36,11 @@ namespace NCsvLib
       : base(message)
     {
     }
+
+      public NCsvLibDataSourceException(string message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
   }
 
   public class NCsvLibOutputException : NCsvLibException
@@ -34,12 +49,22 @@ namespace NCsvLib
       : base(message)
     {
     }
+
+      public NCsvLibOutputException(string message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
   }
 
   public class NCsvLibControllerException : NCsvLibException
   {
     public NCsvLibControllerException(string message)
       : base(message)
+    {
+    }
+
+      public NCsvLibControllerException(string message, Exception innerException)
+        : base(message, innerException)
     {
     }
   }
