@@ -85,6 +85,18 @@ namespace NCsvLibTestSuite
     public void OpenCloseAll()
     {
       DataSourceReaderBase rdr = new DataSourceReaderBase();
+      rdr.Add(Helpers.R1, new DataSourceRecordReaderDataTable(
+              Helpers.R1, GetDataTable(Conn[0], Helpers.Qry1)));
+      rdr.Add(Helpers.R2, new DataSourceRecordReaderDataTable(
+                Helpers.R2, GetDataTable(Conn[1], Helpers.Qry2)));
+      rdr.Add(Helpers.R3, new DataSourceRecordReaderDataTable(
+                Helpers.R3, GetDataTable(Conn[2], Helpers.Qry3)));
+      rdr.Add(Helpers.R4, new DataSourceRecordReaderDataTable(
+                Helpers.R4, GetDataTable(Conn[3], Helpers.Qry4)));
+      rdr.Add(Helpers.R5, new DataSourceRecordReaderDataTable(
+          Helpers.R5, GetDataTable(Conn[4], Helpers.Qry5)));
+      rdr.Add(Helpers.R6, new DataSourceRecordReaderDataTable(
+          Helpers.R6, GetDataTable(Conn[5], Helpers.Qry6)));
       rdr.OpenAll();
       rdr.CloseAll();
     }

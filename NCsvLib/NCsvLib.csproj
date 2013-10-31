@@ -45,6 +45,7 @@
     <Compile Include="csvreader\DataDestinationField.cs" />
     <Compile Include="csvreader\IDataDestinationRecordWriter.cs" />
     <Compile Include="csvreader\IDataDestinationWriter.cs" />
+    <Compile Include="csvwriter\DataSourceRecordReaderEnumerable.cs" />
     <Compile Include="csvwriter\DataSourceRecordReaderBase.cs" />
     <Compile Include="csvwriter\DataSourceRecordReaderDataTable.cs" />
     <Compile Include="csvwriter\CsvOutputWriterHttp.cs" />

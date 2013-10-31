@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSourceRecordReaderEnumerableTest.cs" />
     <Compile Include="FormatterBaseTest.cs" />
     <Compile Include="DataSourceRecordReaderDbTest.cs" />
     <Compile Include="CsvOutputWriterFileTest.cs" />
