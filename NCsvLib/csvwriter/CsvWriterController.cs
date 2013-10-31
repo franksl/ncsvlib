@@ -156,7 +156,7 @@ namespace NCsvLib
                 catch (Exception ex)
                 {
                     throw new NCsvLibControllerException("Format error for field "
-                        + infld.Name + ": " + ex.Message);
+                        + r[i].Name + ": " + ex.Message);
                 }
                 _OutWriter.WriteFieldValue(s);
             }
