@@ -12,8 +12,11 @@ Its architecture makes possible to use various methods for
 storing data (ie. on database) and define file schema (default is XML 
 file).
 
-
 ## Installation
+
+You can download the latest compiled version from:
+
+http://sourceforge.net/projects/ncsvlib/
 
 Simply copy NCsvLib.dll in the same directory of your project executables.
 The file LICENSE should be deployed with NCsvLib.dll.
